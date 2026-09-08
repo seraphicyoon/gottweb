@@ -164,7 +164,7 @@ const EVENTS = [
   },
   {
     id: 6,
-    title: "DOT Annual Conference",
+    title: "GETS Annual Conference",
     date: "August 15–17, 2025",
     time: "All Day",
     location: "Main Campus",
@@ -180,19 +180,19 @@ const TESTIMONIALS = [
     name: "Abena Owusu",
     role: "Community Member",
     avatar: "photo-1494790108377-be9c29b29330",
-    text: "DOT transformed my faith. I came as a stranger and found a family. The teaching is deep, the community is real, and I have grown more in the past year than in the previous ten.",
+    text: "GETS transformed my faith. I came as a stranger and found a family. The teaching is deep, the community is real, and I have grown more in the past year than in the previous ten.",
   },
   {
     name: "Michael Darko",
     role: "Small Group Leader",
     avatar: "photo-1507003211169-0a1dd7228f2d",
-    text: "The discipleship journey here is intentional and life-changing. I lead a small group now because someone here first invested in me. That is the DOT way.",
+    text: "The discipleship journey here is intentional and life-changing. I lead a small group now because someone here first invested in me. That is the GETS way.",
   },
   {
     name: "Grace Amponsah",
     role: "Youth Fellowship Member",
     avatar: "photo-1438761681033-6461ffad8d80",
-    text: "As a student, I needed a place where my faith was taken seriously. DOT gave me deep biblical grounding and friendships that will last a lifetime.",
+    text: "As a student, I needed a place where my faith was taken seriously. GETS gave me deep biblical grounding and friendships that will last a lifetime.",
   },
 ];
 
@@ -348,7 +348,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
     { label: "Inicio", page: "home" },
     { label: "Nosotros", page: "about" },
     { label: "Actividades", page: "events" },
-    { label: "Enseñanzas", page: "sermons" },
+    { label: "Enseñanzas e Historia", page: "sermons" },
     { label: "Galería", page: "gallery" },
     { label: "Contacto", page: "contact" },
   ];
@@ -515,7 +515,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
               <div className="rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src={image_teresa2_1}
-                  alt="DOT community fellowship"
+                  alt="GETS community fellowship"
                   className="w-full h-[380px] object-cover"
                 />
               </div>
@@ -567,8 +567,6 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
           </div>
         </div>
       </section>
-
-      {/* Featured Sermon */}
 
       {/* Upcoming Events */}
       <section className="py-12 md:py-20 bg-[#F5EFE8]">
@@ -632,7 +630,6 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
         </div>
       </section>
 
-      {/* Testimonials */}
       {/* Prayer CTA */}
       <section className="py-10 md:py-16 bg-[#F5EFE8]">
         <div className="max-w-4xl mx-auto px-4 text-center">
@@ -736,7 +733,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
       <section className="relative h-64 md:h-80 flex items-center bg-[#8B4513] overflow-hidden">
         <img
           src={IMG("photo-1519406596751-0a3ccc4937fe", 1600, 600)}
-          alt="DOT community"
+          alt="GETS community"
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -762,7 +759,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
 
                 Lo que comenzó como una pequeña reunión para hacer oración, se ha convertido en una vocación de servicio. Hoy llevamos este mensaje a cualquier lugar donde nos abran las puertas —ya sean parroquias, salones o casas— a través de talleres, pláticas y acompañamiento espiritual, siempre unidos por nuestro amor a Jesús.
               </p>
-                            <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 {[
                   { label: "Año de inicio", value: "2018" },
                   { label: "Miembros", value: "2,400+" },
@@ -949,7 +946,7 @@ function EventsPage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-[#8B4513] to-[#2d4db8] rounded-3xl overflow-hidden grid lg:grid-cols-2 gap-0">
             <div className="p-10 md:p-14 flex flex-col justify-center">
-              <Badge label="Taller Actual" color="gold" />
+              <Badge label="Taller Activo" color="gold" />
               <h2 className="text-3xl font-bold text-white mt-5 mb-3 leading-tight" style={serif}>
                 {featured.title}
               </h2>
@@ -1019,40 +1016,126 @@ function EventsPage({ nav }: { nav: (p: Page) => void }) {
   );
 }
 
-// ===================== SERMONS PAGE =====================
+// ===================== SERMONS PAGE (ENSEÑANZAS E HISTORIA) =====================
 
 function SermonsPage() {
-  const [search, setSearch] = useState("");
-  const [topic, setTopic] = useState("All");
-  const featured = SERMONS[0];
-  const rest = SERMONS.slice(1);
-
   return (
     <div>
       <section className="relative h-64 flex items-center bg-[#8B4513] overflow-hidden">
         <img
           src={IMG("photo-1465692836717-6e408d9fd7a2", 1600, 500)}
-          alt="Sermons"
+          alt="Enseñanzas e Historia"
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>ESPIRITUALIDAD Y FORMACIÓN</SectionLabel>
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Biblioteca de Enseñanzas</h1>
-          <p className="text-white/60 mt-2">Escucha, lee y profundiza en el camino de la oración interior.</p>
+          <SectionLabel>ESPIRITUALIDAD Y TRAYECTORIA</SectionLabel>
+          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Enseñanzas e Historia de GETS</h1>
+          <p className="text-white/60 mt-2">Nuestros orígenes, pilares, desafíos y la historia de nuestra misión en Tampico y Madero.</p>
         </div>
       </section>
 
-      {/* Coming Soon Notice */}
-      <section className="py-10 md:py-16 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-[#F5EFE8] rounded-3xl p-12">
-            <div className="w-14 h-14 bg-[#D4C4B7] rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <BookOpen size={24} className="text-[#8B4513]" />
-            </div>
-            <p className="text-[#5C4033] text-lg leading-relaxed" style={serif}>
-              Próximamente compartiremos las grabaciones y reflexiones de nuestros talleres presenciales.
+      {/* Contenido Completo de la Historia de GETS solicitado */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          
+          {/* Introducción */}
+          <div className="bg-[#F5EFE8] rounded-3xl p-8 md:p-10 border border-[#8B4513]/10">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#5C4033] mb-4" style={serif}>
+              Historia de GETS (Grupo Educativo Teresiano Sanjuanista)
+            </h2>
+            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+              Les invito a conocernos en cinco líneas dinámicas que van entretejidas en nuestros orígenes, historia y dinamismo misionero, nacidos de la fuente contemplativo-apostólica Teresiana. Esta última nace de la Iglesia y para la Iglesia desde la familia, doctrina y misión de los doctores místicos de la Iglesia, Santa Teresa de Jesús y Juan de la Cruz, fundadores del carmelo Teresiano. Del principio al presente, el ritmo y los pasos, en el compartir las enseñanzas de dos de los grandes místicos van acompañados y cobran vida desde la Palabra de Dios que se conjuga en el carmelo en una mística centrada en la humanidad de Jesucristo, viviendo en una relación de amistad creciente con Jesucristo.
             </p>
           </div>
+
+          {/* Visión */}
+          <div>
+            <h3 className="text-xl font-bold text-[#5C4033] mb-4" style={serif}>Nuestra Visión y Valores</h3>
+            <p className="text-gray-500 mb-4 text-sm">Pretendemos hacer vida nuestra visión al formar comunidades, verdaderas familias en la Iglesia:</p>
+            <div className="grid gap-3">
+              <div className="bg-[#F5EFE8]/50 p-4 rounded-xl border-l-4 border-[#8B4513] text-sm text-gray-600">
+                <strong>En la escucha atenta:</strong> Verdadera, acogedora y profunda.
+              </div>
+              <div className="bg-[#F5EFE8]/50 p-4 rounded-xl border-l-4 border-[#8B4513] text-sm text-gray-600">
+                <strong>En el diálogo:</strong> Dirigido a la comprensión sin intentar cambiar al otro a nuestra forma de pensar o de ser.
+              </div>
+              <div className="bg-[#F5EFE8]/50 p-4 rounded-xl border-l-4 border-[#8B4513] text-sm text-gray-600">
+                <strong>En la oración:</strong> Nacida del encuentro con la mirada de Jesús.
+              </div>
+            </div>
+          </div>
+
+          {/* Lema y Proyección */}
+          <div className="bg-[#8B4513] text-white rounded-3xl p-8 text-center relative overflow-hidden">
+            <div className="text-[#D4AF37] text-4xl font-serif mb-2">"</div>
+            <p className="text-xl md:text-2xl font-medium italic mb-4" style={serif}>
+              “Es tiempo de caminar” vamos descalzos, y libres, en comunidad, “Juntos andemos Señor” Con los místicos como fuente y camino hacia la unión con Dios.
+            </p>
+            <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold">Lema y Proyección GETS</span>
+          </div>
+
+          {/* Desafíos, Pautas y Herramientas */}
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-[#F5EFE8] p-6 rounded-2xl">
+              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}>Nuestros Desafíos</h4>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Encender la chispa que arda no tanto en qué hacer en la Iglesia, como en ser mejores, auténticos “hombres nuevos” para transformar en vida y verdad el Evangelio de Jesucristo y reavivar la esperanza en un mundo incierto de cambios vertiginosos.
+              </p>
+            </div>
+            <div className="bg-[#F5EFE8] p-6 rounded-2xl">
+              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}>Nuestras Pautas</h4>
+              <ul className="text-xs text-gray-600 space-y-2">
+                <li>• Conocimiento de sí (Primera Morada).</li>
+                <li>• Silencio e interioridad.</li>
+              </ul>
+            </div>
+            <div className="bg-[#F5EFE8] p-6 rounded-2xl">
+              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}>Nuestras Herramientas</h4>
+              <ul className="text-xs text-gray-600 space-y-2">
+                <li>• <strong>La Fe:</strong> Guía irremplazable.</li>
+                <li>• <strong>La Esperanza:</strong> “La Esperanza tanto alcanza cuanto espera”.</li>
+                <li>• <strong>El Amor:</strong> Única fuerza capaz de movernos y hacernos avanzar hacia el encuentro con Dios.</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Historia y Misión / Trayectoria */}
+          <div className="space-y-6 pt-4 border-t border-gray-200">
+            <h3 className="text-2xl font-bold text-[#5C4033]" style={serif}>Historia y Misión: Promoción de Talleres y Retiros</h3>
+            
+            <div className="space-y-4">
+              <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                <h4 className="font-bold text-[#8B4513] text-sm mb-2">1. Promoción de talleres y retiros del Carmelo Teresiano</h4>
+                <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
+                  <li><strong>Jornadas de Contemplación con las Moradas de Santa Teresa de Jesús</strong> (Cuatro años). Creador y dirigente, Rev Padre Rafael Checa ocd. Lugar: Centro Manresa, Tampico.</li>
+                  <li><strong>Talleres de Formación Espiritual y humana.</strong> Conferencista Luis Jorge González ocd, Seminario de Tampico.</li>
+                  <li><strong>Conferencias sobre psico-neurología y espiritualidad.</strong> Expositor: Luis Jorge Gonzales.</li>
+                  <li><strong>Seguimiento retiros y clases a grupos y personas.</strong> Centro de Espiritualidad Teresiano-Sanjuanista Edith Stein de Tampico (20 años).</li>
+                </ul>
+              </div>
+
+              <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                <h4 className="font-bold text-[#8B4513] text-sm mb-2">2. Espiritualidad y Formación Integral</h4>
+                <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
+                  <li><strong>Semana de Espiritualidad Teresiano-Sanjuanista</strong> Casa de Ana Maria Rabaté, Expositor y dirigente: Maximiliano Herraiz García ocd.</li>
+                  <li><strong>Conferencias sobre Santa Teresa de Jesús y San Juan de la Cruz:</strong> Seminario de Tampico (tres años). Ponente: Maximiliano Herraiz García ocd.</li>
+                  <li><strong>Talleres de Formación espiritual aplicada a las misiones</strong> en seminarios carmelitas en Nairobi, Kenia y en Morogoro, Tanzania. Coordinadores: Luis Jorge González ocd y Maria Luisa Rodríguez Assemat oscd.</li>
+                  <li><strong>Talleres de formación en desarrollo humano y fe para agentes de Pastoral</strong> (seis años). Conferencista y coordinadora: Maria Luisa Rodriguez Assemat. Ciudad Madero, Tamaulipas.</li>
+                  <li><strong>Clases Teresiano-Sanjuanistas:</strong> Instituto Cultural Tampico (Diez Años). María Luisa Rodriguez Assemat.</li>
+                </ul>
+              </div>
+
+              <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                <h4 className="font-bold text-[#8B4513] text-sm mb-2">3. Congresos y Simposios</h4>
+                <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
+                  <li>Simposio de Psicología y Espiritualidad en Roma 2003.</li>
+                  <li>Participación en el Congreso internacional de Mística en Munsterschwartz, Alemania. José Ignacio Rodriguez Assemat y Maria Luisa Rodriguez Assemat.</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
@@ -1115,15 +1198,15 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-10 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-6 md:gap-10">
-            {/* Contact Info */}
+            {/* Contact Info con los datos de Sor Juana */}
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-[#5C4033] mb-6" style={serif}>Información de Contacto</h3>
                 <div className="space-y-4">
                   {[
                     { icon: MapPin, label: "Dirección", val: "Parroquia San Pedro y San Pablo, Casa Parroquial, Col. Sierra Morena, Tampico, Tamps." },
-                    { icon: Phone, label: "Teléfono", val: "Por definir" },
-                    { icon: Mail, label: "Correo", val: "gott.tampico@gmail.com" },
+                    { icon: Phone, label: "Teléfono (Atiende Sor Juana)", val: "Tu cel" },
+                    { icon: Mail, label: "Correo", val: "gets.tampico@gmail.com" },
                     { icon: Clock, label: "Horario", val: "Lunes 10:00–12:00 | 17:00–18:30" },
                   ].map((c) => (
                     <div key={c.label} className="flex gap-3">
@@ -1164,7 +1247,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
               </div>
             </div>
 
-            {/* Forms */}
+            {/* Forms con el select de las 3 áreas de interés */}
             <div className="lg:col-span-2">
               <div className="flex gap-1 bg-[#F5EFE8] rounded-xl p-1 mb-6 md:mb-8 w-full md:w-fit overflow-x-auto">
                 {(["membership", "sponsor", "prayer"] as const).map((t) => (
@@ -1201,8 +1284,9 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
                         <input type={f.t} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20" placeholder={f.p} />
                       </div>
                     ))}
+                    {/* Select con las opciones pedidas en la nota */}
                     <div className="mb-4">
-                      <label className="block text-xs font-semibold text-gray-500 mb-1.5">¿Área que más te interesa?</label>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1.5">Área que más te interesa</label>
                       <select className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 text-[#5C4033]">
                         <option value="">Selecciona una opción</option>
                         <option value="sdc">S.d.C.</option>
@@ -1293,7 +1377,7 @@ function LoginPage({ nav }: { nav: (p: Page) => void }) {
               <span className="text-white font-bold text-xs" style={serif}>GETS</span>
             </div>
             <span className="text-white font-bold text-lg" style={serif}>
-              Grupo de Oración Teresiano de Tampico
+              Grupo Educativo Teresiano Sanjuanista
             </span>
           </button>
         </div>
@@ -1415,10 +1499,10 @@ function AdminPage({ nav }: { nav: (p: Page) => void }) {
         <div className="p-5 border-b border-white/10">
           <button onClick={() => nav("home")} className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
-              <span className="text-white font-bold text-xs" style={serif}>DOT</span>
+              <span className="text-white font-bold text-xs" style={serif}>GETS</span>
             </div>
             <div>
-              <div className="text-white font-bold text-sm" style={serif}>DOT Admin</div>
+              <div className="text-white font-bold text-sm" style={serif}>GETS Admin</div>
               <div className="text-white/40 text-[10px]">Management Portal</div>
             </div>
           </button>
@@ -1484,7 +1568,6 @@ function AdminPage({ nav }: { nav: (p: Page) => void }) {
         </header>
 
         <main className="flex-1 p-6 overflow-auto">
-          {/* Dashboard */}
           {section === "dashboard" && (
             <div className="space-y-6">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1518,7 +1601,6 @@ function AdminPage({ nav }: { nav: (p: Page) => void }) {
               </div>
 
               <div className="grid lg:grid-cols-2 gap-6">
-                {/* Recent Members */}
                 <div className="bg-white rounded-2xl p-5 shadow-sm">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-bold text-[#5C4033] text-sm" style={serif}>Recent Members</h3>
@@ -1546,7 +1628,6 @@ function AdminPage({ nav }: { nav: (p: Page) => void }) {
                   </div>
                 </div>
 
-                {/* Quick Actions */}
                 <div className="bg-white rounded-2xl p-5 shadow-sm">
                   <h3 className="font-bold text-[#5C4033] text-sm mb-4" style={serif}>Quick Actions</h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -1571,7 +1652,6 @@ function AdminPage({ nav }: { nav: (p: Page) => void }) {
             </div>
           )}
 
-          {/* Members Table */}
           {section === "members" && (
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
               <div className="p-5 border-b border-gray-100 flex items-center justify-between">
@@ -1632,7 +1712,6 @@ function AdminPage({ nav }: { nav: (p: Page) => void }) {
             </div>
           )}
 
-          {/* Sponsors Table */}
           {section === "sponsors" && (
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
               <div className="p-5 border-b border-gray-100 flex items-center justify-between">
@@ -1682,7 +1761,6 @@ function AdminPage({ nav }: { nav: (p: Page) => void }) {
             </div>
           )}
 
-          {/* Gallery Management */}
           {section === "gallery" && (
             <div className="space-y-6">
               <div className="bg-white rounded-2xl p-6 shadow-sm">
@@ -1699,81 +1777,11 @@ function AdminPage({ nav }: { nav: (p: Page) => void }) {
                     Browse Files
                   </button>
                 </div>
-                <div className="flex gap-3 mt-4">
-                  <div className="flex-1">
-                    <label className="block text-xs font-semibold text-gray-400 mb-1">Album</label>
-                    <select className="w-full px-3 py-2 border border-gray-200 rounded-xl text-xs bg-[#F5EFE8] focus:outline-none">
-                      {ALBUMS.filter(a => a !== "All").map(a => <option key={a}>{a}</option>)}
-                    </select>
-                  </div>
-                  <div className="flex-1">
-                    <label className="block text-xs font-semibold text-gray-400 mb-1">Caption (optional)</label>
-                    <input className="w-full px-3 py-2 border border-gray-200 rounded-xl text-xs bg-[#F5EFE8] focus:outline-none" placeholder="Add a caption..." />
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-sm">
-                <h3 className="font-bold text-[#5C4033] text-sm mb-4" style={serif}>Manage Photos</h3>
-                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                  {GALLERY_ITEMS.map((g) => (
-                    <div key={g.id} className="relative group rounded-xl overflow-hidden bg-[#F5EFE8] aspect-square">
-                      <img
-                        src={IMG(g.img, 200, 200)}
-                        alt={g.album}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                        <button className="w-7 h-7 bg-white rounded-full flex items-center justify-center">
-                          <Eye size={11} className="text-[#8B4513]" />
-                        </button>
-                        <button
-                          onClick={() => setDeleteId(g.id)}
-                          className="w-7 h-7 bg-white rounded-full flex items-center justify-center"
-                        >
-                          <Trash2 size={11} className="text-red-400" />
-                        </button>
-                      </div>
-                      <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-[9px] py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {g.album}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           )}
         </main>
       </div>
-
-      {/* Delete Confirmation Dialog */}
-      {deleteId !== null && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl p-7 max-w-sm w-full shadow-2xl">
-            <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Trash2 size={20} className="text-red-400" />
-            </div>
-            <h3 className="font-bold text-[#5C4033] text-center mb-2" style={serif}>Confirm Delete</h3>
-            <p className="text-gray-400 text-sm text-center mb-6">
-              Are you sure you want to delete this record? This action cannot be undone.
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setDeleteId(null)}
-                className="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setDeleteId(null)}
-                className="flex-1 py-2.5 bg-red-500 text-white rounded-xl text-sm font-medium hover:bg-red-600 transition-colors"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -1795,13 +1803,6 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
             <p className="text-white/50 text-xs leading-relaxed mb-4">
               Comunidad espiritual en Tampico, inspirada en Santa Teresa de Jesús y San Juan de la Cruz.
             </p>
-            <div className="flex gap-2">
-              {["FB", "IG"].map((s) => (
-                <button key={s} className="w-8 h-8 bg-white/10 rounded-lg text-white/60 text-xs font-bold hover:bg-[#D4AF37] hover:text-white transition-colors">
-                  {s}
-                </button>
-              ))}
-            </div>
           </div>
 
           {[
@@ -1811,7 +1812,7 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
                 { l: "Inicio", p: "home" as Page },
                 { l: "Nosotros", p: "about" as Page },
                 { l: "Actividades", p: "events" as Page },
-                { l: "Enseñanzas", p: "sermons" as Page },
+                { l: "Enseñanzas e Historia", p: "sermons" as Page },
                 { l: "Contacto", p: "contact" as Page },
               ],
             },
@@ -1828,8 +1829,8 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
               links: [],
               info: [
                 "Tampico, Tamps. (Sedes itinerantes)",
-                "(833) 000-0000",
-                "contacto@gott.org",
+                "Tu cel (Sor Juana)",
+                "gets.tampico@gmail.com",
                 "Lunes y eventos programados",
               ],
             },
@@ -1854,11 +1855,6 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
 
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-white/30 text-xs">© 2026 GETS. Todos los derechos reservados.</p>
-          <div className="flex gap-4">
-            {["Política de privacidad", "Términos de uso"].map((l) => (
-              <button key={l} className="text-xs text-white/30 hover:text-white/60 transition-colors">{l}</button>
-            ))}
-          </div>
         </div>
       </div>
     </footer>
