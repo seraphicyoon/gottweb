@@ -1198,14 +1198,12 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-10 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-6 md:gap-10">
-            {/* Contact Info con los datos de Sor Juana */}
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-[#5C4033] mb-6" style={serif}>Información de Contacto</h3>
                 <div className="space-y-4">
                   {[
-                    { icon: MapPin, label: "Dirección", val: "Parroquia San Pedro y San Pablo, Casa Parroquial, Col. Sierra Morena, Tampico, Tamps." },
-                    { icon: Phone, label: "Teléfono (Atiende Sor Juana)", val: "Tu cel" },
+                    { icon: Phone, label: "Teléfono", val: "+52 1 833 323 7636" },
                     { icon: Mail, label: "Correo", val: "gets.tampico@gmail.com" },
                     { icon: Clock, label: "Horario", val: "Lunes 10:00–12:00 | 17:00–18:30" },
                   ].map((c) => (
@@ -1219,15 +1217,6 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
                       </div>
                     </div>
                   ))}
-                </div>
-              </div>
-
-              {/* Map placeholder */}
-              <div className="h-40 rounded-2xl bg-gradient-to-br from-[#F5EFE8] to-[#DBEAFE] flex items-center justify-center border border-[#8B4513]/10">
-                <div className="text-center">
-                  <MapPin size={28} className="text-[#8B4513] mx-auto mb-2" />
-                  <p className="text-xs text-[#8B4513] font-medium">Parroquia San Pedro y San Pablo</p>
-                  <p className="text-xs text-gray-400">Tampico, Tamps. · Ver en Google Maps</p>
                 </div>
               </div>
 
@@ -1284,7 +1273,6 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
                         <input type={f.t} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20" placeholder={f.p} />
                       </div>
                     ))}
-                    {/* Select con las opciones pedidas en la nota */}
                     <div className="mb-4">
                       <label className="block text-xs font-semibold text-gray-500 mb-1.5">Área que más te interesa</label>
                       <select className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 text-[#5C4033]">
@@ -1829,7 +1817,7 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
               links: [],
               info: [
                 "Tampico, Tamps. (Sedes itinerantes)",
-                "Tu cel (Sor Juana)",
+                "+52 1 833 323 7636",
                 "gets.tampico@gmail.com",
                 "Lunes y eventos programados",
               ],
