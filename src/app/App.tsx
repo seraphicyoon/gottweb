@@ -1034,7 +1034,7 @@ function SermonsPage() {
         </div>
       </section>
 
-      {/* Contenido Completo de la Historia de GETS solicitado */}
+      {/* Contenido Completo de la Historia de GETS */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
@@ -1107,29 +1107,29 @@ function SermonsPage() {
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2">1. Promoción de talleres y retiros del Carmelo Teresiano</h4>
                 <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
-                  <li><strong>Jornadas de Contemplación con las Moradas de Santa Teresa de Jesús</strong> (Cuatro años). Creador y dirigente, Rev Padre Rafael Checa ocd. Lugar: Centro Manresa, Tampico.</li>
-                  <li><strong>Talleres de Formación Espiritual y humana.</strong> Conferencista Luis Jorge González ocd, Seminario de Tampico.</li>
-                  <li><strong>Conferencias sobre psico-neurología y espiritualidad.</strong> Expositor: Luis Jorge Gonzales.</li>
-                  <li><strong>Seguimiento retiros y clases a grupos y personas.</strong> Centro de Espiritualidad Teresiano-Sanjuanista Edith Stein de Tampico (20 años).</li>
+                  <li><strong>Jornadas de Contemplación con las Moradas de Santa Teresa de Jesús:</strong> Creador y dirigente: Rev. Padre Rafael Checa ocd. Lugar: Centro Manresa, Tampico (Duración: Cuatro años).</li>
+                  <li><strong>Talleres de Formación Espiritual y Humana:</strong> Conferencista: Luis Jorge González ocd. Lugar: Seminario de Tampico.</li>
+                  <li><strong>Programación neurolingüística y espiritualidad (Año 2000):</strong> Coordinadores y expositores: Luis Jorge González; colaboradora: María Luisa Rodríguez Assemat.</li>
+                  <li><strong>SETS (Seguimiento, retiros y clases a grupos y personas):</strong> Lugar: Residencia particular (Duración: 20 años).</li>
                 </ul>
               </div>
 
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2">2. Espiritualidad y Formación Integral</h4>
                 <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
-                  <li><strong>Semana de Espiritualidad Teresiano-Sanjuanista</strong> Casa de Ana Maria Rabaté, Expositor y dirigente: Maximiliano Herraiz García ocd.</li>
-                  <li><strong>Conferencias sobre Santa Teresa de Jesús y San Juan de la Cruz:</strong> Seminario de Tampico (tres años). Ponente: Maximiliano Herraiz García ocd.</li>
-                  <li><strong>Talleres de Formación espiritual aplicada a las misiones</strong> en seminarios carmelitas en Nairobi, Kenia y en Morogoro, Tanzania. Coordinadores: Luis Jorge González ocd y Maria Luisa Rodríguez Assemat oscd.</li>
-                  <li><strong>Talleres de formación en desarrollo humano y fe para agentes de Pastoral</strong> (seis años). Conferencista y coordinadora: Maria Luisa Rodriguez Assemat. Ciudad Madero, Tamaulipas.</li>
-                  <li><strong>Clases Teresiano-Sanjuanistas:</strong> Instituto Cultural Tampico (Diez Años). María Luisa Rodriguez Assemat.</li>
+                  <li><strong>Semana de Espiritualidad Teresiano-Sanjuanista (Año aprox. 2005):</strong> Expositores y dirigentes: Maximiliano Herraiz García ocd y Luis Jorge González. Lugar: Casa de Ana María Rabaté.</li>
+                  <li><strong>Conferencias sobre Santa Teresa de Jesús y San Juan de la Cruz:</strong> Ponente: Maximiliano Herraiz García ocd. Lugar: Seminario de Tampico (Duración: Tres años).</li>
+                  <li><strong>Talleres de Formación espiritual aplicada a las misiones:</strong> Coordinadores: Luis Jorge González ocd y María Luisa Rodríguez Assemat oscd. Lugar: Seminarios carmelitas en Nairobi, Kenia y en Morogoro, Tanzania.</li>
+                  <li><strong>Talleres de formación en desarrollo humano y fe para agentes de Pastoral:</strong> Conferencista y coordinadora: María Luisa Rodríguez Assemat. Lugar: Ciudad Madero, Tamaulipas (Duración: Seis años).</li>
+                  <li><strong>Clases Teresiano-Sanjuanistas:</strong> María Luisa Rodríguez Assemat. Lugar: Instituto Cultural Tampico (Duración: Diez años).</li>
                 </ul>
               </div>
 
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2">3. Congresos y Simposios</h4>
                 <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
-                  <li>Simposio de Psicología y Espiritualidad en Roma 2003.</li>
-                  <li>Participación en el Congreso internacional de Mística en Munsterschwartz, Alemania. José Ignacio Rodriguez Assemat y Maria Luisa Rodriguez Assemat.</li>
+                  <li><strong>Simposio de Psicología y Espiritualidad en Roma (2003):</strong> Participación en Roma de María Luisa Rodríguez Assemat con el Grupo de Psicología y Espiritualidad.</li>
+                  <li><strong>Congreso Internacional de Mística en Münsterschwarzach, Alemania:</strong> Participación de José Ignacio Rodríguez Assemat y María Luisa Rodríguez Assemat.</li>
                 </ul>
               </div>
             </div>
