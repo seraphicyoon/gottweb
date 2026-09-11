@@ -19,7 +19,7 @@ import {
   ChevronRight, LayoutDashboard, UserCheck, Building2, LogOut,
   TrendingUp, MessageSquare, CheckCircle, Eye, Trash2, Upload,
   Heart, Filter, Headphones, Bell, Star, Globe, Handshake,
-  Video, Leaf
+  Video, Leaf, ScrollText
 } from "lucide-react";
 
 type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin";
@@ -865,7 +865,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
               { icon: BookOpen, title: "Grupos de Estudio", desc: "Reflexión de la Palabra y de los textos de Santa Teresa." },
               { icon: Music, title: "Alabanza", desc: "Acompañando nuestros momentos de encuentro y oración con cantos." },
               { icon: Globe, title: "Talleres y Pláticas", desc: "Llevando la formación espiritual a diferentes espacios e iglesias." },
-              { icon: Handshake, title: "Servicio Comunitario", desc: "Viviendo el amor de Dios a través del apoyo práctico a los demás." },
+              { icon: Handshake, title: "Servicio Comunitario", desc: "Viviendo el amor de Dios a través del apoyo practical a los demás." },
             ].map((m) => (
               <div key={m.title} className="bg-white rounded-2xl p-6 hover:shadow-md transition-shadow group">
                 <div className="w-11 h-11 rounded-xl bg-[#F5EFE8] flex items-center justify-center mb-4 group-hover:bg-[#8B4513] transition-colors">
@@ -1050,8 +1050,39 @@ function SermonsPage() {
 
           {/* Visión */}
           <div>
-            <h3 className="text-xl font-bold text-[#5C4033] mb-4" style={serif}>Nuestra Visión y Valores</h3>
-            <p className="text-gray-500 mb-4 text-sm">Pretendemos hacer vida nuestra visión. Nuestras comunidades y apostolado responden a la doctrina del Vaticano (Christifideles laici):</p>
+            <h3 className="text-xl font-bold text-[#5C4033] mb-3" style={serif}>Nuestra Visión y Valores</h3>
+            <p className="text-gray-500 mb-5 text-sm leading-relaxed">
+              Pretendemos hacer vida nuestra visión. Nuestras comunidades y apostolado responden y tienen como fundamento los documentos del Magisterio de la Iglesia:
+            </p>
+
+            {/* Tarjeta de Fundamentos Doctrinales de la Nota */}
+            <div className="bg-[#F5EFE8] rounded-2xl p-6 md:p-7 border border-[#8B4513]/15 mb-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <ScrollText size={18} className="text-[#8B4513]" />
+                <h4 className="font-bold text-[#5C4033] text-sm uppercase tracking-wider">Fundamentos del Laicado</h4>
+              </div>
+              
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-[#8B4513]/20 mb-4 text-xs text-[#8B4513] font-semibold">
+                <BookOpen size={14} />
+                <span>La Biblia: tienen como fundamento</span>
+              </div>
+
+              <div className="space-y-2 text-xs md:text-sm text-gray-700">
+                <div className="flex items-start gap-2">
+                  <span className="text-[#D4AF37] font-bold">•</span>
+                  <span><strong>Decreto:</strong> <em>Apostolicam Actuositatem</em> (Decreto conciliar sobre el apostolado de los laicos).</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-[#D4AF37] font-bold">•</span>
+                  <span><strong>Constitución Dogmática:</strong> <em>Lumen Gentium</em> (Especialmente el <strong>Capítulo IV</strong>, Laicos).</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-[#D4AF37] font-bold">•</span>
+                  <span><strong>Exhortación Apostólica (Post-sinodal):</strong> <em>Christifideles Laici</em> (sobre la vocación y misión de los fieles laicos).</span>
+                </div>
+              </div>
+            </div>
+
             <div className="grid gap-3">
               <div className="bg-[#F5EFE8]/50 p-4 rounded-xl border-l-4 border-[#8B4513] text-sm text-gray-600">
                 <strong>En la escucha atenta:</strong> Verdadera, acogedora y profunda.
