@@ -1044,14 +1044,14 @@ function SermonsPage() {
               Historia de GETS (Grupo Educativo Teresiano Sanjuanista)
             </h2>
             <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-              Les invito a conocernos en cinco líneas dinámicas que van entretejidas en nuestros orígenes, historia y dinamismo misionero, nacidos de la fuente contemplativo-apostólica Teresiana. Esta última nace de la Iglesia y para la Iglesia desde la familia, doctrina y misión de los doctores místicos de la Iglesia, Santa Teresa de Jesús y Juan de la Cruz, fundadores del carmelo Teresiano. Del principio al presente, el ritmo y los pasos, en el compartir las enseñanzas de dos de los grandes místicos van acompañados y cobran vida desde la Palabra de Dios que se conjuga en el carmelo en una mística centrada en la humanidad de Jesucristo, viviendo en una relación de amistad creciente con Jesucristo.
+              Les invito a conocernos en cinco líneas dinámicas que van entretejidas en nuestros orígenes, historia y dinamismo misionero, nacidos de la fuente contemplativo-apostólica Teresiana. Esta última nace de la Iglesia y para la Iglesia desde la familia, doctrina y misión de los doctores místicos de la Iglesia, Santa Teresa de Jesús y Juan de la Cruz, fundadores del carmelo Teresiano. Del principio al presente, el ritmo y los pasos, en el compartir las enseñanzas de dos de los grandes místicos van acompañados y cobran vida desde la Palabra de Dios que se conjuga en el carmelo en una mística centrada en la humanidad de Jesucristo y hecha vida.
             </p>
           </div>
 
           {/* Visión */}
           <div>
             <h3 className="text-xl font-bold text-[#5C4033] mb-4" style={serif}>Nuestra Visión y Valores</h3>
-            <p className="text-gray-500 mb-4 text-sm">Pretendemos hacer vida nuestra visión al formar comunidades, verdaderas familias en la Iglesia:</p>
+            <p className="text-gray-500 mb-4 text-sm">Pretendemos hacer vida nuestra visión. Nuestras comunidades y apostolado responden a la doctrina del Vaticano (Christifideles laici):</p>
             <div className="grid gap-3">
               <div className="bg-[#F5EFE8]/50 p-4 rounded-xl border-l-4 border-[#8B4513] text-sm text-gray-600">
                 <strong>En la escucha atenta:</strong> Verdadera, acogedora y profunda.
