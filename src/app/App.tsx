@@ -10,7 +10,6 @@ import image_teresa from '@/imports/teresa.png'
 import image_c45ac056fc6d1b61140c12d5f25b495a from '@/imports/c45ac056fc6d1b61140c12d5f25b495a.jpg'
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM_1 from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM-1.jpeg'
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM.jpeg'
-import image_a6581ea87ef7420b4834deabc17656a8_1 from '@/imports/a6581ea87ef7420b4834deabc17656a8-1.jpg'
 import image_a6581ea87ef7420b4834deabc17656a8 from '@/imports/a6581ea87ef7420b4834deabc17656a8.jpg'
 import convivioFoto from '@/imports/convivio-15-septiembre-2026.webp'
 import { useState } from "react";
@@ -194,27 +193,6 @@ const TESTIMONIALS = [
     role: "Youth Fellowship Member",
     avatar: "photo-1438761681033-6461ffad8d80",
     text: "As a student, I needed a place where my faith was taken seriously. GETS gave me deep biblical grounding and friendships that will last a lifetime.",
-  },
-];
-
-const TEAM = [
-  {
-    name: "Pastor Emmanuel Kwame",
-    role: "Senior Pastor & Founder",
-    avatar: "photo-1560250097-0b93528c311a",
-    bio: "Passionate about raising disciples who know Christ deeply and impact their world.",
-  },
-  {
-    name: "Elder Sarah Mensah",
-    role: "Associate Pastor",
-    avatar: "photo-1573496359142-b8d87734a5a2",
-    bio: "Leading prayer ministry and women's discipleship with prophetic insight and pastoral care.",
-  },
-  {
-    name: "Deacon Kofi Asante",
-    role: "Outreach Director",
-    avatar: "photo-1472099645785-5658abf4ff4e",
-    bio: "Equipping believers to serve communities and share the Gospel with love and action.",
   },
 ];
 
@@ -825,24 +803,11 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
             <SectionLabel>QUIÉN NOS GUÍA</SectionLabel>
             <SectionHeading>Coordinación GETS</SectionHeading>
           </div>
-          <div className="flex justify-center">
-            {TEAM.slice(0, 1).map((member) => (
-              <div key={member.name} className="text-center group">
-                <div className="relative inline-block mb-5">
-                  <img
-                    src={image_a6581ea87ef7420b4834deabc17656a8_1}
-                    alt={member.name}
-                    className="w-28 h-28 rounded-2xl object-cover mx-auto ring-4 ring-[#F5EFE8] group-hover:ring-[#8B4513]/20 transition-all"
-                  />
-                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#D4AF37] rounded-lg flex items-center justify-center">
-                    <Star size={12} className="text-white" fill="white" />
-                  </div>
-                </div>
-                <h4 className="font-bold text-[#5C4033]" style={serif}>Nombre</h4>
-                <p className="text-[#8B4513] text-xs font-semibold mt-1 mb-3">Cargo</p>
-                <p className="text-gray-400 text-sm">Descripción corta</p>
-              </div>
-            ))}
+          <div className="max-w-xl mx-auto rounded-3xl border border-[#E7D9C8] bg-[#F9F5EE] px-6 py-10 text-center shadow-[0_15px_45px_rgba(74,32,16,.06)]">
+            <div className="w-10 h-0.5 bg-[#D4AF37] mx-auto mb-6" aria-hidden="true" />
+            <h3 className="text-2xl md:text-3xl font-bold text-[#5C4033]" style={serif}>
+              Lic. Ma. Luisa Rodríguez Assemat
+            </h3>
           </div>
         </div>
       </section>
