@@ -12,6 +12,7 @@ import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM_1 from '@/imports/WhatsApp
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM.jpeg'
 import image_a6581ea87ef7420b4834deabc17656a8_1 from '@/imports/a6581ea87ef7420b4834deabc17656a8-1.jpg'
 import image_a6581ea87ef7420b4834deabc17656a8 from '@/imports/a6581ea87ef7420b4834deabc17656a8.jpg'
+import convivioFoto from '@/imports/convivio-15-septiembre-2026.webp'
 import { useState } from "react";
 import {
   Menu, X, Search, Play, Users, BookOpen, MapPin, Phone,
@@ -356,11 +357,12 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
   if (isAdmin) return null;
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-black/5 shadow-sm">
+    <header className="site-header sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-black/5 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <button onClick={() => nav("home")} className="flex items-center gap-2.5">
+          <button onClick={() => nav("home")} className="flex items-center gap-3 text-left" aria-label="GETS, ir al inicio">
+            <span className="brand-mark" aria-hidden="true">✦</span>
             <div>
               <div className="font-bold text-[#8B4513] text-base leading-none" style={serif}>GETS</div>
               <div className="text-[10px] text-gray-400 font-medium tracking-wide hidden sm:block">
@@ -402,6 +404,8 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
           {/* Mobile toggle */}
           <button
             className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={mobileOpen}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -446,14 +450,14 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-[#5C2D0E]">
+      <section className="home-hero relative min-h-[78vh] flex items-center overflow-hidden bg-[#5C2D0E]">
         <img
           src={IMG("photo-1529070538774-1843cb3265df", 1920, 1080)}
           alt="Community worship gathering"
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#5C2D0E]/90 via-[#8B4513]/70 to-transparent" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#3B2118]/95 via-[#5C2D0E]/90 to-[#5C2D0E]/55" />
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid lg:grid-cols-[1.15fr_.85fr] gap-10 lg:gap-20 items-center">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-4 md:mb-6">
               <div className="w-10 h-0.5 bg-[#D4AF37]" />
@@ -462,7 +466,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
             <h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4 md:mb-6"
               style={serif}
-            >¿Qué es GETS?<br /></h1>
+            >Un espacio para encontrarnos <span className="text-[#EACD87] italic">con Dios y en comunidad.</span></h1>
             <p className="text-base md:text-lg text-white/80 mb-7 md:mb-10 leading-relaxed max-w-xl">GETS (Grupo Educativo Teresiano Sanjuanista) es una comunidad espiritual que promueve el encuentro íntimo con Dios a través de la oración, el estudio y la vivencia diaria de la espiritualidad de Santa Teresa de Jesús y San Juan de la Cruz.</p>
             <div className="flex flex-wrap gap-3">
               <PrimaryBtn onClick={() => nav("contact")} size="lg">
@@ -472,20 +476,12 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
                 Leer más <ChevronRight size={16} />
               </OutlineBtn>
             </div>
-            {/* Stats row */}
-            <div className="flex gap-6 md:gap-8 mt-8 md:mt-14 pt-6 md:pt-10 border-t border-white/10">
-              {[
-                { n: "2,400+", l: "Miembros" },
-                { n: "12", l: "Espacios visitados" },
-                { n: "7 años", l: "De trayectoria" },
-              ].map((s) => (
-                <div key={s.l}>
-                  <div className="text-2xl font-bold text-white" style={serif}>{s.n}</div>
-                  <div className="text-white/50 text-xs mt-0.5">{s.l}</div>
-                </div>
-              ))}
-            </div>
+            <p className="mt-10 pt-6 border-t border-white/20 text-sm text-white/75 tracking-wide">Oración · Formación · Fraternidad</p>
           </div>
+          <button onClick={() => nav("gallery")} className="hero-photo group relative hidden lg:block text-left" aria-label="Ver la galería de la comunidad">
+            <img src={convivioFoto} alt="Integrantes de GETS reunidas durante el convivio del 15 de septiembre" className="w-full h-full object-cover object-[center_40%] transition-transform duration-500 group-hover:scale-[1.03]" />
+            <span className="hero-photo-caption"><span>EN COMUNIDAD · 21 SEP 2026</span><strong>Momentos que nos unen <ArrowRight size={18} /></strong></span>
+          </button>
         </div>
       </section>
 
@@ -1179,27 +1175,37 @@ function SermonsPage() {
 function GalleryPage() {
   return (
     <div>
-      <section className="relative h-64 flex items-center bg-[#8B4513] overflow-hidden">
+      <section className="relative min-h-64 py-16 flex items-center bg-[#5C2D0E] overflow-hidden">
         <img
           src={IMG("photo-1531206715517-5c0ba140b2b8", 1600, 500)}
           alt="Galería"
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          className="absolute inset-0 w-full h-full object-cover opacity-15"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>MOMENTOS GETS</SectionLabel>
           <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Galería de la Comunidad</h1>
-          <p className="text-white/60 mt-2">Espacios de oración, reflexión y encuentro fraterno.</p>
+          <p className="text-white/80 mt-3 max-w-xl">Nuestra vida en comunidad, contada a través de momentos compartidos.</p>
         </div>
       </section>
 
-      <section className="py-14 md:py-24 bg-[#F5EFE8]">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
-            <Heart size={26} className="text-[#D4AF37]" />
+      <section className="py-14 md:py-20 bg-[#F9F5EE]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8 md:mb-10">
+            <SectionLabel>RECUERDOS COMPARTIDOS</SectionLabel>
+            <SectionHeading>La comunidad en imágenes</SectionHeading>
+            <p className="text-[#755E51] max-w-2xl">Un recuerdo de los encuentros que nos acercan y fortalecen nuestros lazos.</p>
           </div>
-          <p className="text-[#5C4033] text-xl leading-relaxed" style={serif}>
-            Próximamente compartiremos los momentos y vivencias de nuestros talleres presenciales.
-          </p>
+          <article className="gallery-feature grid md:grid-cols-[1fr_.8fr] overflow-hidden bg-white rounded-[1.75rem] border border-[#E7D9C8] shadow-[0_20px_65px_rgba(74,32,16,.08)]">
+            <div className="gallery-feature-image bg-[#EAE2D8]">
+              <img src={convivioFoto} alt="Participantes de GETS posan alrededor de la mesa durante su convivio del 15 de septiembre" className="w-full h-full object-cover object-center" loading="lazy" />
+            </div>
+            <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-14">
+              <span className="inline-flex self-start items-center gap-2 rounded-full bg-[#F5EFE8] px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#8B4513]"><Calendar size={14} /> 21 de septiembre de 2026</span>
+              <h2 className="mt-6 text-3xl lg:text-4xl font-bold leading-tight text-[#5C4033]" style={serif}>Convivio del 15 de septiembre</h2>
+              <p className="mt-5 text-[#755E51] leading-relaxed">Compartimos una jornada de convivencia, alegría y fraternidad en GETS. Gracias a quienes hicieron posible este encuentro.</p>
+              <p className="mt-8 pt-6 border-t border-[#E7D9C8] text-sm font-semibold text-[#8B4513]">Grupo Educativo Teresiano Sanjuanista</p>
+            </div>
+          </article>
         </div>
       </section>
     </div>
