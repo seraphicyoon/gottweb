@@ -1389,12 +1389,13 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
 
 // ===================== LOGIN PAGE =====================
 
-function LoginPage({ nav, session, isAdmin }: { nav: (p: Page) => void; session: Session | null; isAdmin: boolean }) {
+function LoginPage({ nav, session, isAdmin, forceRecovery, onRecoveryComplete }: { nav: (p: Page) => void; session: Session | null; isAdmin: boolean; forceRecovery: boolean; onRecoveryComplete: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
-  const [recovery, setRecovery] = useState(false);
+  const [recovery, setRecovery] = useState(forceRecovery);
+  useEffect(() => { if (forceRecovery) setRecovery(true); }, [forceRecovery]);
   useEffect(() => {
     if (!supabase) return;
     const { data } = supabase.auth.onAuthStateChange(event => {
@@ -1406,7 +1407,7 @@ function LoginPage({ nav, session, isAdmin }: { nav: (p: Page) => void; session:
     event.preventDefault();
     const { error } = await supabase!.auth.updateUser({ password });
     if (error) setMessage('No se pudo actualizar la contraseña.');
-    else { setRecovery(false); setPassword(''); setMessage('Contraseña actualizada. Ya puedes continuar.'); }
+    else { onRecoveryComplete(); setRecovery(false); setPassword(''); setMessage('Contraseña actualizada. Ya puedes continuar.'); }
   }
   async function login(event: React.FormEvent) {
     event.preventDefault();
@@ -1425,8 +1426,9 @@ function LoginPage({ nav, session, isAdmin }: { nav: (p: Page) => void; session:
   return <div className="min-h-[75vh] bg-[#F9F5EE] flex items-center justify-center px-4 py-16">
     <div className="bg-white border border-[#E7D9C8] shadow-sm rounded-3xl p-7 sm:p-10 w-full max-w-md">
       <h1 className="text-3xl font-bold text-[#5C4033] mb-2" style={serif}>Acceso a GETS</h1>
-      <p className="text-[#755E51] mb-7">Ingresa con el correo y la contraseña que te proporcionaron.</p>
+      <p className="text-[#755E51] mb-7">Usa tu correo de GETS. Si llegaste por invitación, crea tu contraseña aquí.</p>
       {recovery ? <form onSubmit={updatePassword} className="space-y-4"><label className="block text-sm font-semibold text-[#5C4033]">Nueva contraseña<input type="password" minLength={8} required autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label><button className="rounded-xl bg-[#8B4513] px-5 py-3 text-white">Guardar contraseña</button></form> : session ? <div className="space-y-4"><p className="text-[#5C4033]">Sesión iniciada: {session.user.email}</p>
+        <button onClick={() => setRecovery(true)} className="block text-[#8B4513] underline">Crear o cambiar contraseña</button>
         <button onClick={() => nav(isAdmin ? 'admin' : 'gallery')} className="rounded-xl bg-[#8B4513] text-white px-5 py-3">{isAdmin ? 'Ir a moderación' : 'Ir a la galería'}</button>
         <button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="block text-[#8B4513] underline">Cerrar sesión</button></div> :
         <form onSubmit={login} className="space-y-4">
@@ -1557,6 +1559,7 @@ export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [authReady, setAuthReady] = useState(false);
+  const [recoveryRequested, setRecoveryRequested] = useState(false);
   useEffect(() => {
     if (!supabase) { setAuthReady(true); return; }
     let active = true;
@@ -1570,7 +1573,10 @@ export default function App() {
       if (active) setAuthReady(true);
     };
     supabase.auth.getSession().then(({ data }) => sync(data.session));
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, next) => { setTimeout(() => { void sync(next); }, 0); });
+    const { data: listener } = supabase.auth.onAuthStateChange((event, next) => {
+      if (event === 'PASSWORD_RECOVERY') { setRecoveryRequested(true); setPage('login'); }
+      setTimeout(() => { void sync(next); }, 0);
+    });
     return () => { active = false; listener.subscription.unsubscribe(); };
   }, []);
 
@@ -1589,8 +1595,8 @@ export default function App() {
       {page === "sermons" && <SermonsPage />}
       {page === "gallery" && <GalleryPage nav={nav} session={session} />}
       {page === "contact" && <ContactPage nav={nav} />}
-      {page === "login" && <LoginPage nav={nav} session={session} isAdmin={isAdmin} />}
-      {page === "admin" && (authReady && session && isAdmin ? <AdminPage nav={nav} session={session} /> : <LoginPage nav={nav} session={session} isAdmin={isAdmin} />)}
+      {page === "login" && <LoginPage nav={nav} session={session} isAdmin={isAdmin} forceRecovery={recoveryRequested} onRecoveryComplete={() => setRecoveryRequested(false)} />}
+      {page === "admin" && (authReady && session && isAdmin ? <AdminPage nav={nav} session={session} /> : <LoginPage nav={nav} session={session} isAdmin={isAdmin} forceRecovery={recoveryRequested} onRecoveryComplete={() => setRecoveryRequested(false)} />)}
       {page !== "login" && page !== "admin" && <Footer nav={nav} />}
     </div>
   );
