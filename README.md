@@ -21,4 +21,4 @@ El componente de comentarios usa `content_type` y un `content_id` estable para m
 
 ## Panel de moderación
 
-La cuenta administradora ve pendientes, aprobados y rechazados; puede aprobar, rechazar u ocultar comentarios. También puede restringir o rehabilitar cuentas que ya han comentado. La restricción bloquea nuevos comentarios y oculta los aprobados mientras esté activa; no elimina la cuenta de Supabase ni impide iniciar sesión. El bloqueo se aplica mediante RLS y se registra el motivo y la cuenta administradora.
+La cuenta administradora ve pendientes, aprobados y rechazados; puede aprobar, rechazar u ocultar comentarios. También puede restringir o rehabilitar cuentas que ya han comentado, y solicitar un correo de recuperación de contraseña para una alumna. La restricción bloquea nuevos comentarios y oculta los aprobados mientras esté activa; no elimina la cuenta de Supabase ni impide iniciar sesión. El bloqueo se aplica mediante RLS y se registra el motivo y la cuenta administradora.
