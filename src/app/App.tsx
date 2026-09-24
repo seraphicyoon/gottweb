@@ -981,7 +981,7 @@ function EventsPage({ nav }: { nav: (p: Page) => void }) {
 
 // ===================== SERMONS PAGE (ENSEÑANZAS E HISTORIA) =====================
 
-function SermonsPage() {
+function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
   return (
     <div>
       <section className="relative h-64 flex items-center bg-[#8B4513] overflow-hidden">
@@ -1129,7 +1129,7 @@ function SermonsPage() {
             </div>
 
           </div>
-
+          <CommentsSection nav={nav} session={session} contentType="article" contentId="historia-de-gets" />
         </div>
       </section>
 
@@ -1139,17 +1139,17 @@ function SermonsPage() {
 
 // ===================== GALLERY PAGE =====================
 
-function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
+function CommentsSection({ nav, session, contentType, contentId }: { nav: (p: Page) => void; session: Session | null; contentType: 'photo' | 'article'; contentId: string }) {
   const [comments, setComments] = useState<GalleryComment[]>([]);
   const [body, setBody] = useState("");
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
   useEffect(() => {
     if (!supabase) return;
-    supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at')
-      .eq('status', 'approved').order('created_at', { ascending: false }).limit(50)
+    supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at,content_type,content_id')
+      .eq('content_type', contentType).eq('content_id', contentId).eq('status', 'approved').order('created_at', { ascending: false }).limit(50)
       .then(({ data, error }) => { if (error) setMessage('No se pudieron cargar los comentarios.'); else setComments(data || []); });
-  }, []);
+  }, [contentType, contentId]);
   async function submitComment(event: React.FormEvent) {
     event.preventDefault();
     if (!supabase || !session || !body.trim() || saving) return;
@@ -1158,11 +1158,36 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
       author_id: session.user.id,
       author_name: String(session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'Alumna').slice(0, 80),
       body: body.trim(),
+      content_type: contentType,
+      content_id: contentId,
     });
     setSaving(false);
     if (error) setMessage('No se pudo enviar el comentario. Inténtalo de nuevo.');
     else { setBody(''); setMessage('Comentario enviado. Aparecerá cuando sea aprobado.'); }
   }
+  return (
+    <div className="mt-12 max-w-3xl mx-auto" id={`comentarios-${contentType}-${contentId}`}>
+            <SectionHeading>Comentarios</SectionHeading>
+            <p className="text-[#755E51] mb-6">Comparte tu opinión. Revisamos cada comentario antes de publicarlo.</p>
+            {comments.length ? <div className="space-y-3 mb-8">{comments.map(c => (
+              <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
+                <div className="flex justify-between gap-3 text-sm text-[#8B4513] font-semibold"><span>{c.author_name}</span><time className="text-gray-400 font-normal" dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString('es-MX')}</time></div>
+                <p className="text-[#5C4033] mt-2 whitespace-pre-wrap break-words">{c.body}</p>
+              </article>
+            ))}</div> : <p className="text-[#755E51] mb-8">Sé la primera en dejar un comentario.</p>}
+            {!supabase ? <p className="text-[#8B4513]">Los comentarios estarán disponibles al configurar Supabase.</p> : session ? (
+              <form onSubmit={submitComment} className="rounded-2xl bg-white border border-[#E7D9C8] p-5 space-y-3">
+                <label htmlFor={`comment-${contentType}-${contentId}`} className="block font-semibold text-[#5C4033]">Escribe tu comentario</label>
+                <textarea id={`comment-${contentType}-${contentId}`} value={body} onChange={e => setBody(e.target.value)} required maxLength={1000} rows={4} className="w-full rounded-xl border border-[#E7D9C8] p-3 focus:outline-none focus:ring-2 focus:ring-[#8B4513]" placeholder="¿Qué te gustaría compartir?" />
+                <button disabled={saving || !body.trim()} className="rounded-xl bg-[#8B4513] px-5 py-2.5 text-white disabled:opacity-50">{saving ? 'Enviando…' : 'Enviar comentario'}</button>
+              </form>
+            ) : <button onClick={() => nav('login')} className="rounded-xl bg-[#8B4513] px-5 py-2.5 text-white">Inicia sesión para comentar</button>}
+            {message && <p role="status" className="mt-3 text-sm text-[#8B4513]">{message}</p>}
+          </div>
+  );
+}
+
+function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
   return (
     <div>
       <section className="relative min-h-64 py-16 flex items-center bg-[#5C2D0E] overflow-hidden">
@@ -1196,24 +1221,7 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
               <p className="mt-8 pt-6 border-t border-[#E7D9C8] text-sm font-semibold text-[#8B4513]">Grupo Educativo Teresiano Sanjuanista</p>
             </div>
           </article>
-          <div className="mt-12 max-w-3xl mx-auto" id="comentarios">
-            <SectionHeading>Comentarios</SectionHeading>
-            <p className="text-[#755E51] mb-6">Comparte un recuerdo de esta convivencia. Revisamos cada comentario antes de publicarlo.</p>
-            {comments.length ? <div className="space-y-3 mb-8">{comments.map(c => (
-              <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
-                <div className="flex justify-between gap-3 text-sm text-[#8B4513] font-semibold"><span>{c.author_name}</span><time className="text-gray-400 font-normal" dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString('es-MX')}</time></div>
-                <p className="text-[#5C4033] mt-2 whitespace-pre-wrap break-words">{c.body}</p>
-              </article>
-            ))}</div> : <p className="text-[#755E51] mb-8">Sé la primera en dejar un comentario.</p>}
-            {!supabase ? <p className="text-[#8B4513]">Los comentarios estarán disponibles al configurar Supabase.</p> : session ? (
-              <form onSubmit={submitComment} className="rounded-2xl bg-white border border-[#E7D9C8] p-5 space-y-3">
-                <label htmlFor="gallery-comment" className="block font-semibold text-[#5C4033]">Escribe tu comentario</label>
-                <textarea id="gallery-comment" value={body} onChange={e => setBody(e.target.value)} required maxLength={1000} rows={4} className="w-full rounded-xl border border-[#E7D9C8] p-3 focus:outline-none focus:ring-2 focus:ring-[#8B4513]" placeholder="¿Qué te gustaría compartir?" />
-                <button disabled={saving || !body.trim()} className="rounded-xl bg-[#8B4513] px-5 py-2.5 text-white disabled:opacity-50">{saving ? 'Enviando…' : 'Enviar comentario'}</button>
-              </form>
-            ) : <button onClick={() => nav('login')} className="rounded-xl bg-[#8B4513] px-5 py-2.5 text-white">Inicia sesión para comentar</button>}
-            {message && <p role="status" className="mt-3 text-sm text-[#8B4513]">{message}</p>}
-          </div>
+          <CommentsSection nav={nav} session={session} contentType="photo" contentId="convivio-15-septiembre-2026" />
         </div>
       </section>
     </div>
@@ -1392,6 +1400,8 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
 function LoginPage({ nav, session, isAdmin, forceRecovery, onRecoveryComplete }: { nav: (p: Page) => void; session: Session | null; isAdmin: boolean; forceRecovery: boolean; onRecoveryComplete: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
   const [recovery, setRecovery] = useState(forceRecovery);
@@ -1418,6 +1428,19 @@ function LoginPage({ nav, session, isAdmin, forceRecovery, onRecoveryComplete }:
     if (error) setMessage('No se pudo iniciar sesión. Verifica tu correo y contraseña.');
     else nav('home');
   }
+  async function register(event: React.FormEvent) {
+    event.preventDefault();
+    if (!supabase) return;
+    setBusy(true); setMessage('');
+    const { data, error } = await supabase.auth.signUp({
+      email: email.trim(), password,
+      options: { data: { full_name: name.trim() }, emailRedirectTo: window.location.origin },
+    });
+    setBusy(false);
+    if (error) setMessage('No se pudo crear la cuenta. Revisa los datos e inténtalo de nuevo.');
+    else if (data.session) { setMessage('Cuenta creada. Ya puedes comentar.'); setMode('login'); }
+    else setMessage('Revisa tu correo para confirmar la cuenta. Después podrás iniciar sesión.');
+  }
   async function resetPassword() {
     if (!supabase || !email.trim()) { setMessage('Escribe tu correo para restablecer la contraseña.'); return; }
     const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: window.location.origin });
@@ -1426,17 +1449,25 @@ function LoginPage({ nav, session, isAdmin, forceRecovery, onRecoveryComplete }:
   return <div className="min-h-[75vh] bg-[#F9F5EE] flex items-center justify-center px-4 py-16">
     <div className="bg-white border border-[#E7D9C8] shadow-sm rounded-3xl p-7 sm:p-10 w-full max-w-md">
       <h1 className="text-3xl font-bold text-[#5C4033] mb-2" style={serif}>Acceso a GETS</h1>
-      <p className="text-[#755E51] mb-7">Usa tu correo de GETS. Si llegaste por invitación, crea tu contraseña aquí.</p>
+      <p className="text-[#755E51] mb-7">Ingresa o crea tu cuenta para participar en GETS.</p>
       {recovery ? <form onSubmit={updatePassword} className="space-y-4"><label className="block text-sm font-semibold text-[#5C4033]">Nueva contraseña<input type="password" minLength={8} required autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label><button className="rounded-xl bg-[#8B4513] px-5 py-3 text-white">Guardar contraseña</button></form> : session ? <div className="space-y-4"><p className="text-[#5C4033]">Sesión iniciada: {session.user.email}</p>
         <button onClick={() => setRecovery(true)} className="block text-[#8B4513] underline">Crear o cambiar contraseña</button>
         <button onClick={() => nav(isAdmin ? 'admin' : 'gallery')} className="rounded-xl bg-[#8B4513] text-white px-5 py-3">{isAdmin ? 'Ir a moderación' : 'Ir a la galería'}</button>
         <button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="block text-[#8B4513] underline">Cerrar sesión</button></div> :
-        <form onSubmit={login} className="space-y-4">
+        <div>
+          <div className="flex gap-1 rounded-xl bg-[#F5EFE8] p-1 mb-6">
+            <button type="button" onClick={() => { setMode('login'); setMessage(''); }} className={`flex-1 rounded-lg py-2 text-sm ${mode === 'login' ? 'bg-white text-[#8B4513] shadow-sm' : 'text-[#755E51]'}`}>Ingresar</button>
+            <button type="button" onClick={() => { setMode('signup'); setMessage(''); }} className={`flex-1 rounded-lg py-2 text-sm ${mode === 'signup' ? 'bg-white text-[#8B4513] shadow-sm' : 'text-[#755E51]'}`}>Crear cuenta</button>
+          </div>
+          <form onSubmit={mode === 'login' ? login : register} className="space-y-4">
+          {mode === 'signup' && <label className="block text-sm font-semibold text-[#5C4033]">Tu nombre<input type="text" required maxLength={80} autoComplete="name" value={name} onChange={e => setName(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label>}
           <label className="block text-sm font-semibold text-[#5C4033]">Correo electrónico<input type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label>
-          <label className="block text-sm font-semibold text-[#5C4033]">Contraseña<input type="password" required autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label>
-          <button type="submit" disabled={busy || !supabase} className="w-full rounded-xl bg-[#8B4513] py-3 text-white disabled:opacity-50">{busy ? 'Ingresando…' : 'Iniciar sesión'}</button>
-          <button type="button" onClick={resetPassword} className="text-sm text-[#8B4513] underline">¿Olvidaste tu contraseña?</button>
-        </form>}
+          <label className="block text-sm font-semibold text-[#5C4033]">Contraseña<input type="password" required minLength={mode === 'signup' ? 8 : undefined} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} value={password} onChange={e => setPassword(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label>
+          <button type="submit" disabled={busy || !supabase} className="w-full rounded-xl bg-[#8B4513] py-3 text-white disabled:opacity-50">{busy ? 'Espera…' : mode === 'signup' ? 'Crear cuenta' : 'Iniciar sesión'}</button>
+          {mode === 'login' && <button type="button" onClick={resetPassword} className="text-sm text-[#8B4513] underline">¿Olvidaste tu contraseña?</button>}
+        </form>
+        <p className="mt-5 text-center text-sm text-[#755E51]">¿Aún no eres parte? <button onClick={() => { setMode('signup'); setMessage(''); }} className="font-semibold text-[#8B4513] underline">Únete aquí</button></p>
+        </div>}
       {!supabase && <p className="mt-4 text-sm text-[#8B4513]">Falta configurar la conexión a Supabase.</p>}
       {message && <p role="status" className="mt-4 text-sm text-[#8B4513]">{message}</p>}
     </div>
@@ -1449,7 +1480,7 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
   const [busyId, setBusyId] = useState<string | null>(null);
   async function refresh() {
     if (!supabase) return;
-    const { data, error } = await supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at')
+    const { data, error } = await supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at,content_type,content_id')
       .eq('status', 'pending').order('created_at', { ascending: true }).limit(100);
     if (error) setMessage('No se pudo cargar la lista de comentarios.');
     else { setComments(data || []); setMessage(''); }
@@ -1469,7 +1500,7 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
       {message && <p role="alert" className="mb-4 text-[#8B4513]">{message}</p>}
       {comments.length === 0 ? <p className="rounded-2xl bg-white p-6 text-[#755E51]">No hay comentarios pendientes.</p> : <div className="space-y-4">{comments.map(c => <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
         <div className="flex justify-between gap-3 text-sm font-semibold text-[#8B4513]"><span>{c.author_name}</span><time dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString('es-MX')}</time></div>
-        <p className="my-4 whitespace-pre-wrap break-words text-[#5C4033]">{c.body}</p>
+        <p className="mt-2 text-xs text-[#755E51]">{c.content_type === 'photo' ? 'Foto' : 'Artículo'}: {c.content_id}</p><p className="my-4 whitespace-pre-wrap break-words text-[#5C4033]">{c.body}</p>
         <div className="flex gap-3"><button disabled={busyId === c.id} onClick={() => moderate(c.id, 'approved')} className="rounded-lg bg-[#8B4513] px-4 py-2 text-white disabled:opacity-50">Aprobar</button><button disabled={busyId === c.id} onClick={() => moderate(c.id, 'rejected')} className="rounded-lg border border-[#8B4513] px-4 py-2 text-[#8B4513] disabled:opacity-50">Rechazar</button></div>
       </article>)}</div>}
     </div>
@@ -1592,7 +1623,7 @@ export default function App() {
       {page === "home" && <HomePage nav={nav} />}
       {page === "about" && <AboutPage nav={nav} />}
       {page === "events" && <EventsPage nav={nav} />}
-      {page === "sermons" && <SermonsPage />}
+      {page === "sermons" && <SermonsPage nav={nav} session={session} />}
       {page === "gallery" && <GalleryPage nav={nav} session={session} />}
       {page === "contact" && <ContactPage nav={nav} />}
       {page === "login" && <LoginPage nav={nav} session={session} isAdmin={isAdmin} forceRecovery={recoveryRequested} onRecoveryComplete={() => setRecoveryRequested(false)} />}
