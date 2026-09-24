@@ -25,6 +25,16 @@ import {
 } from "lucide-react";
 
 type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin";
+const PAGE_PATHS: Record<Page, string> = {
+  home: "/", about: "/nosotros", events: "/actividades",
+  sermons: "/ensenanzas-e-historia", gallery: "/galeria",
+  contact: "/contacto", login: "/ingresar", admin: "/admin",
+};
+function pageFromPath(path: string): Page {
+  const normalized = path.replace(/\/+$/, "") || "/";
+  return (Object.entries(PAGE_PATHS).find(([, value]) => value === normalized)?.[0] as Page | undefined) || "home";
+}
+
 
 const IMG = (id: string, w = 800, h = 600) =>
   `https://images.unsplash.com/${id}?w=${w}&h=${h}&fit=crop&auto=format`;
@@ -1665,12 +1675,21 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
 // ===================== APP =====================
 
 export default function App() {
-  const [page, setPage] = useState<Page>("home");
+  const [page, setPage] = useState<Page>(() => pageFromPath(window.location.pathname));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [authReady, setAuthReady] = useState(false);
   const [recoveryRequested, setRecoveryRequested] = useState(false);
+  useEffect(() => {
+    const onPopState = () => {
+      setPage(pageFromPath(window.location.pathname));
+      setMobileOpen(false);
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
   useEffect(() => {
     if (!supabase) { setAuthReady(true); return; }
     let active = true;
@@ -1680,18 +1699,20 @@ export default function App() {
       if (next) {
         const { data } = await supabase.from('gets_admins').select('user_id').eq('user_id', next.user.id).maybeSingle();
         if (active) setIsAdmin(!!data);
-      } else { setIsAdmin(false); setPage(p => p === 'admin' ? 'home' : p); }
+      } else { setIsAdmin(false); setPage(p => { if (p === 'admin') { window.history.replaceState({}, '', PAGE_PATHS.home); return 'home'; } return p; }); }
       if (active) setAuthReady(true);
     };
     supabase.auth.getSession().then(({ data }) => sync(data.session));
     const { data: listener } = supabase.auth.onAuthStateChange((event, next) => {
-      if (event === 'PASSWORD_RECOVERY') { setRecoveryRequested(true); setPage('login'); }
+      if (event === 'PASSWORD_RECOVERY') { setRecoveryRequested(true); window.history.replaceState({}, '', PAGE_PATHS.login); setPage('login'); }
       setTimeout(() => { void sync(next); }, 0);
     });
     return () => { active = false; listener.subscription.unsubscribe(); };
   }, []);
 
   const nav = (p: Page) => {
+    const path = PAGE_PATHS[p];
+    if (window.location.pathname !== path) window.history.pushState({}, '', path);
     setPage(p);
     setMobileOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
