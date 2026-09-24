@@ -1519,6 +1519,13 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
     setBusyId(null);
     if (error) setMessage('No se pudo guardar la decisión.'); else await refresh();
   }
+  async function deleteComment(id: string) {
+    if (!supabase || !window.confirm('¿Eliminar este comentario definitivamente? Esta acción no se puede deshacer.')) return;
+    setBusyId(id);
+    const { error } = await supabase.from('gets_gallery_comments').delete().eq('id', id);
+    setBusyId(null);
+    if (error) setMessage('No se pudo eliminar el comentario.'); else await refresh();
+  }
   async function banUser(userId: string) {
     if (!supabase || !banReason.trim()) return;
     setBusyId(userId);
@@ -1552,7 +1559,7 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-wrap justify-between items-center gap-4 mb-7"><div><h1 className="text-3xl font-bold text-[#5C4033]" style={serif}>Moderación de GETS</h1><p className="text-[#755E51] text-sm mt-2">Administradora: {session.user.email}</p></div>
       <div className="flex gap-4"><button onClick={() => void refresh()} className="text-[#8B4513] underline">Actualizar</button><button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="text-[#8B4513] underline">Cerrar sesión</button></div></div>
-      <p className="mb-5 rounded-xl border border-[#E7D9C8] bg-white p-4 text-sm text-[#755E51]">Los comentarios nuevos esperan aprobación. Puedes ocultar uno publicado desde la pestaña Publicados. Restringir una cuenta impide nuevos comentarios y oculta los suyos mientras dure la restricción.</p>
+      <p className="mb-5 rounded-xl border border-[#E7D9C8] bg-white p-4 text-sm text-[#755E51]">Los comentarios nuevos esperan aprobación. Puedes ocultar uno publicado desde la pestaña Publicados o eliminar definitivamente cualquier comentario. Restringir una cuenta impide nuevos comentarios y oculta los suyos mientras dure la restricción.</p>
       <div className="flex flex-wrap gap-2 mb-6">{([
         ['pending', 'Pendientes'], ['approved', 'Publicados'], ['rejected', 'Rechazados'],
       ] as const).map(([key, label]) => <button key={key} onClick={() => { setFilter(key); setMessage(''); }} aria-pressed={filter === key} className={`rounded-xl px-4 py-2.5 text-sm font-semibold ${filter === key ? 'bg-[#8B4513] text-white' : 'bg-white text-[#8B4513] border border-[#E7D9C8]'}`}>{label} ({counts[key]})</button>)}</div>
@@ -1569,6 +1576,7 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
         <div className="flex flex-wrap gap-2">
           {c.status !== 'approved' && <button disabled={busyId === c.id} onClick={() => void moderate(c.id, 'approved')} className="rounded-lg bg-[#8B4513] px-4 py-2 text-white disabled:opacity-50">Aprobar</button>}
           {c.status !== 'rejected' && <button disabled={busyId === c.id} onClick={() => void moderate(c.id, 'rejected')} className="rounded-lg border border-[#8B4513] px-4 py-2 text-[#8B4513] disabled:opacity-50">{c.status === 'approved' ? 'Ocultar' : 'Rechazar'}</button>}
+          <button disabled={busyId === c.id} onClick={() => void deleteComment(c.id)} className="rounded-lg border border-red-300 px-4 py-2 text-red-700 disabled:opacity-50">Eliminar</button>
           {isBanned(c.author_id) ? <button disabled={busyId === c.author_id} onClick={() => void unbanUser(c.author_id)} className="rounded-lg border border-green-700 px-4 py-2 text-green-800 disabled:opacity-50">Quitar restricción</button> : <button onClick={() => { setBanCandidate(c.author_id); setBanReason(''); }} className="rounded-lg border border-red-300 px-4 py-2 text-red-700">Restringir cuenta</button>}
         </div>
         {banCandidate === c.author_id && !isBanned(c.author_id) && <div className="mt-4 rounded-xl bg-[#F9F5EE] p-4"><label className="block text-sm text-[#5C4033] font-semibold" htmlFor={`reason-${c.id}`}>Motivo de la restricción</label><input id={`reason-${c.id}`} maxLength={200} value={banReason} onChange={e => setBanReason(e.target.value)} className="mt-2 w-full rounded-lg border border-[#E7D9C8] p-2" placeholder="Por ejemplo: lenguaje ofensivo" /><div className="flex gap-2 mt-3"><button disabled={!banReason.trim() || busyId === c.author_id} onClick={() => void banUser(c.author_id)} className="rounded-lg bg-red-700 px-4 py-2 text-white disabled:opacity-50">Confirmar restricción</button><button onClick={() => setBanCandidate(null)} className="text-[#755E51] underline">Cancelar</button></div></div>}
