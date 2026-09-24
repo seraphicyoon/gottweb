@@ -1144,6 +1144,12 @@ function CommentsSection({ nav, session, contentType, contentId }: { nav: (p: Pa
   const [body, setBody] = useState("");
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
+  const [blocked, setBlocked] = useState(false);
+  useEffect(() => {
+    if (!supabase || !session) { setBlocked(false); return; }
+    supabase.from('gets_banned_users').select('user_id').eq('user_id', session.user.id).maybeSingle()
+      .then(({ data }) => setBlocked(!!data));
+  }, [session?.user.id]);
   useEffect(() => {
     if (!supabase) return;
     supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at,content_type,content_id')
@@ -1152,7 +1158,7 @@ function CommentsSection({ nav, session, contentType, contentId }: { nav: (p: Pa
   }, [contentType, contentId]);
   async function submitComment(event: React.FormEvent) {
     event.preventDefault();
-    if (!supabase || !session || !body.trim() || saving) return;
+    if (!supabase || !session || blocked || !body.trim() || saving) return;
     setSaving(true); setMessage('');
     const { error } = await supabase.from('gets_gallery_comments').insert({
       author_id: session.user.id,
@@ -1175,7 +1181,7 @@ function CommentsSection({ nav, session, contentType, contentId }: { nav: (p: Pa
                 <p className="text-[#5C4033] mt-2 whitespace-pre-wrap break-words">{c.body}</p>
               </article>
             ))}</div> : <p className="text-[#755E51] mb-8">Sé la primera en dejar un comentario.</p>}
-            {!supabase ? <p className="text-[#8B4513]">Los comentarios estarán disponibles al configurar Supabase.</p> : session ? (
+            {!supabase ? <p className="text-[#8B4513]">Los comentarios estarán disponibles al configurar Supabase.</p> : session && blocked ? <p className="rounded-xl bg-white border border-[#E7D9C8] p-4 text-[#8B4513]">Tu cuenta tiene restringida la participación en comentarios.</p> : session ? (
               <form onSubmit={submitComment} className="rounded-2xl bg-white border border-[#E7D9C8] p-5 space-y-3">
                 <label htmlFor={`comment-${contentType}-${contentId}`} className="block font-semibold text-[#5C4033]">Escribe tu comentario</label>
                 <textarea id={`comment-${contentType}-${contentId}`} value={body} onChange={e => setBody(e.target.value)} required maxLength={1000} rows={4} className="w-full rounded-xl border border-[#E7D9C8] p-3 focus:outline-none focus:ring-2 focus:ring-[#8B4513]" placeholder="¿Qué te gustaría compartir?" />
