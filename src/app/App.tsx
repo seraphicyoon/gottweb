@@ -12,7 +12,9 @@ import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM_1 from '@/imports/WhatsApp
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM.jpeg'
 import image_a6581ea87ef7420b4834deabc17656a8 from '@/imports/a6581ea87ef7420b4834deabc17656a8.jpg'
 import convivioFoto from '@/imports/convivio-15-septiembre-2026.webp'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { Session } from "@supabase/supabase-js";
+import { supabase, type GalleryComment } from "./supabase";
 import {
   Menu, X, Search, Play, Users, BookOpen, MapPin, Phone,
   Mail, Clock, ArrowRight, Calendar, Music, ChevronDown,
@@ -331,8 +333,8 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
     { label: "Galería", page: "gallery" },
     { label: "Contacto", page: "contact" },
   ];
-  const isAdmin = page === "admin";
-  if (isAdmin) return null;
+  const adminPage = page === "admin";
+  if (adminPage) return null;
 
   return (
     <header className="site-header sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-black/5 shadow-sm">
@@ -1137,7 +1139,30 @@ function SermonsPage() {
 
 // ===================== GALLERY PAGE =====================
 
-function GalleryPage() {
+function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
+  const [comments, setComments] = useState<GalleryComment[]>([]);
+  const [body, setBody] = useState("");
+  const [message, setMessage] = useState("");
+  const [saving, setSaving] = useState(false);
+  useEffect(() => {
+    if (!supabase) return;
+    supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at')
+      .eq('status', 'approved').order('created_at', { ascending: false }).limit(50)
+      .then(({ data, error }) => { if (error) setMessage('No se pudieron cargar los comentarios.'); else setComments(data || []); });
+  }, []);
+  async function submitComment(event: React.FormEvent) {
+    event.preventDefault();
+    if (!supabase || !session || !body.trim() || saving) return;
+    setSaving(true); setMessage('');
+    const { error } = await supabase.from('gets_gallery_comments').insert({
+      author_id: session.user.id,
+      author_name: String(session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'Alumna').slice(0, 80),
+      body: body.trim(),
+    });
+    setSaving(false);
+    if (error) setMessage('No se pudo enviar el comentario. Inténtalo de nuevo.');
+    else { setBody(''); setMessage('Comentario enviado. Aparecerá cuando sea aprobado.'); }
+  }
   return (
     <div>
       <section className="relative min-h-64 py-16 flex items-center bg-[#5C2D0E] overflow-hidden">
@@ -1171,6 +1196,24 @@ function GalleryPage() {
               <p className="mt-8 pt-6 border-t border-[#E7D9C8] text-sm font-semibold text-[#8B4513]">Grupo Educativo Teresiano Sanjuanista</p>
             </div>
           </article>
+          <div className="mt-12 max-w-3xl mx-auto" id="comentarios">
+            <SectionHeading>Comentarios</SectionHeading>
+            <p className="text-[#755E51] mb-6">Comparte un recuerdo de esta convivencia. Revisamos cada comentario antes de publicarlo.</p>
+            {comments.length ? <div className="space-y-3 mb-8">{comments.map(c => (
+              <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
+                <div className="flex justify-between gap-3 text-sm text-[#8B4513] font-semibold"><span>{c.author_name}</span><time className="text-gray-400 font-normal" dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString('es-MX')}</time></div>
+                <p className="text-[#5C4033] mt-2 whitespace-pre-wrap break-words">{c.body}</p>
+              </article>
+            ))}</div> : <p className="text-[#755E51] mb-8">Sé la primera en dejar un comentario.</p>}
+            {!supabase ? <p className="text-[#8B4513]">Los comentarios estarán disponibles al configurar Supabase.</p> : session ? (
+              <form onSubmit={submitComment} className="rounded-2xl bg-white border border-[#E7D9C8] p-5 space-y-3">
+                <label htmlFor="gallery-comment" className="block font-semibold text-[#5C4033]">Escribe tu comentario</label>
+                <textarea id="gallery-comment" value={body} onChange={e => setBody(e.target.value)} required maxLength={1000} rows={4} className="w-full rounded-xl border border-[#E7D9C8] p-3 focus:outline-none focus:ring-2 focus:ring-[#8B4513]" placeholder="¿Qué te gustaría compartir?" />
+                <button disabled={saving || !body.trim()} className="rounded-xl bg-[#8B4513] px-5 py-2.5 text-white disabled:opacity-50">{saving ? 'Enviando…' : 'Enviar comentario'}</button>
+              </form>
+            ) : <button onClick={() => nav('login')} className="rounded-xl bg-[#8B4513] px-5 py-2.5 text-white">Inicia sesión para comentar</button>}
+            {message && <p role="status" className="mt-3 text-sm text-[#8B4513]">{message}</p>}
+          </div>
         </div>
       </section>
     </div>
@@ -1346,434 +1389,89 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
 
 // ===================== LOGIN PAGE =====================
 
-function LoginPage({ nav }: { nav: (p: Page) => void }) {
-  const [loginType, setLoginType] = useState<"member" | "admin">("member");
-
-  return (
-    <div className="min-h-screen grid lg:grid-cols-2">
-      {/* Left panel */}
-      <div className="hidden lg:flex bg-[#8B4513] flex-col justify-between p-12 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={IMG("photo-1529070538774-1843cb3265df", 800, 1000)}
-            alt="Worship"
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#8B4513]/80 to-[#5C2D0E]/90" />
-        </div>
-        <div className="relative z-10">
-          <button onClick={() => nav("home")} className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
-              <span className="text-white font-bold text-xs" style={serif}>GETS</span>
-            </div>
-            <span className="text-white font-bold text-lg" style={serif}>
-              Grupo Educativo Teresiano Sanjuanista
-            </span>
-          </button>
-        </div>
-        <div className="relative z-10">
-          <div className="text-[#D4AF37] text-4xl mb-4" style={serif}>"</div>
-          <blockquote className="text-2xl text-white font-medium leading-relaxed mb-4" style={serif}>
-            Buscad leyendo y hallaréis meditando.
-          </blockquote>
-          <p className="text-white/60 text-sm">— SANTA TERESA DE JESÚS</p>
-        </div>
-        <div className="relative z-10 text-white/40 text-xs">
-          © 2026 GETS. Todos los derechos reservados.
-        </div>
-      </div>
-
-      {/* Right panel */}
-      <div className="flex items-center justify-center p-5 md:p-8 bg-white">
-        <div className="w-full max-w-sm">
-          <button onClick={() => nav("home")} className="lg:hidden flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 rounded-lg bg-[#8B4513] flex items-center justify-center">
-              <span className="text-white font-bold text-xs" style={serif}>GETS</span>
-            </div>
-          </button>
-
-          <h1 className="text-2xl font-bold text-[#5C4033] mb-1" style={serif}>Bienvenido de nuevo</h1>
-          <p className="text-gray-400 text-sm mb-7">Inicia sesión en tu cuenta de GETS</p>
-
-          {/* Toggle */}
-          <div className="flex gap-1 bg-[#F5EFE8] rounded-xl p-1 mb-7">
-            {(["member", "admin"] as const).map((t) => (
-              <button
-                key={t}
-                onClick={() => setLoginType(t)}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium capitalize transition-colors ${
-                  loginType === t ? "bg-white text-[#8B4513] shadow-sm" : "text-gray-400"
-                }`}
-              >
-                {t === "member" ? "Acceso Miembros" : "Acceso Administrador"}
-              </button>
-            ))}
-          </div>
-
-          <div className="space-y-4 mb-6">
-            <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Correo electrónico</label>
-              <input
-                type="email"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#F5EFE8] text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 focus:border-[#8B4513] focus:bg-white transition-colors"
-                placeholder="tu@correo.com"
-              />
-            </div>
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-semibold text-gray-500">Contraseña</label>
-                <button className="text-xs text-[#8B4513] font-medium hover:underline">¿Olvidaste tu contraseña?</button>
-              </div>
-              <input
-                type="password"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#F5EFE8] text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 focus:border-[#8B4513] focus:bg-white transition-colors"
-                placeholder="••••••••"
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <input type="checkbox" id="remember" className="rounded" />
-              <label htmlFor="remember" className="text-xs text-gray-500">Recordarme por 30 días</label>
-            </div>
-          </div>
-
-          <PrimaryBtn
-            full
-            onClick={() => { if (loginType === "admin") nav("admin"); }}
-          >
-            Iniciar sesión <ArrowRight size={15} />
-          </PrimaryBtn>
-
-          <p className="text-center text-xs text-gray-400 mt-6">
-            ¿Aún no eres parte?{" "}
-            <button onClick={() => nav("contact")} className="text-[#8B4513] font-semibold hover:underline">
-              Únete a nuestra comunidad
-            </button>
-          </p>
-        </div>
-      </div>
+function LoginPage({ nav, session, isAdmin }: { nav: (p: Page) => void; session: Session | null; isAdmin: boolean }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState('');
+  const [recovery, setRecovery] = useState(false);
+  useEffect(() => {
+    if (!supabase) return;
+    const { data } = supabase.auth.onAuthStateChange(event => {
+      if (event === 'PASSWORD_RECOVERY') setRecovery(true);
+    });
+    return () => data.subscription.unsubscribe();
+  }, []);
+  async function updatePassword(event: React.FormEvent) {
+    event.preventDefault();
+    const { error } = await supabase!.auth.updateUser({ password });
+    if (error) setMessage('No se pudo actualizar la contraseña.');
+    else { setRecovery(false); setPassword(''); setMessage('Contraseña actualizada. Ya puedes continuar.'); }
+  }
+  async function login(event: React.FormEvent) {
+    event.preventDefault();
+    if (!supabase) return;
+    setBusy(true); setMessage('');
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setBusy(false);
+    if (error) setMessage('No se pudo iniciar sesión. Verifica tu correo y contraseña.');
+    else nav('home');
+  }
+  async function resetPassword() {
+    if (!supabase || !email.trim()) { setMessage('Escribe tu correo para restablecer la contraseña.'); return; }
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: window.location.origin });
+    setMessage(error ? 'No se pudo enviar el correo de recuperación.' : 'Si el correo está registrado, recibirás instrucciones para recuperar el acceso.');
+  }
+  return <div className="min-h-[75vh] bg-[#F9F5EE] flex items-center justify-center px-4 py-16">
+    <div className="bg-white border border-[#E7D9C8] shadow-sm rounded-3xl p-7 sm:p-10 w-full max-w-md">
+      <h1 className="text-3xl font-bold text-[#5C4033] mb-2" style={serif}>Acceso a GETS</h1>
+      <p className="text-[#755E51] mb-7">Ingresa con el correo y la contraseña que te proporcionaron.</p>
+      {recovery ? <form onSubmit={updatePassword} className="space-y-4"><label className="block text-sm font-semibold text-[#5C4033]">Nueva contraseña<input type="password" minLength={8} required autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label><button className="rounded-xl bg-[#8B4513] px-5 py-3 text-white">Guardar contraseña</button></form> : session ? <div className="space-y-4"><p className="text-[#5C4033]">Sesión iniciada: {session.user.email}</p>
+        <button onClick={() => nav(isAdmin ? 'admin' : 'gallery')} className="rounded-xl bg-[#8B4513] text-white px-5 py-3">{isAdmin ? 'Ir a moderación' : 'Ir a la galería'}</button>
+        <button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="block text-[#8B4513] underline">Cerrar sesión</button></div> :
+        <form onSubmit={login} className="space-y-4">
+          <label className="block text-sm font-semibold text-[#5C4033]">Correo electrónico<input type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label>
+          <label className="block text-sm font-semibold text-[#5C4033]">Contraseña<input type="password" required autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label>
+          <button type="submit" disabled={busy || !supabase} className="w-full rounded-xl bg-[#8B4513] py-3 text-white disabled:opacity-50">{busy ? 'Ingresando…' : 'Iniciar sesión'}</button>
+          <button type="button" onClick={resetPassword} className="text-sm text-[#8B4513] underline">¿Olvidaste tu contraseña?</button>
+        </form>}
+      {!supabase && <p className="mt-4 text-sm text-[#8B4513]">Falta configurar la conexión a Supabase.</p>}
+      {message && <p role="status" className="mt-4 text-sm text-[#8B4513]">{message}</p>}
     </div>
-  );
+  </div>;
 }
 
-// ===================== ADMIN PAGE =====================
-
-const ADMIN_MEMBERS = [
-  { id: 1, name: "Abena Owusu", email: "abena@email.com", joined: "June 12, 2025", status: "Active", group: "Bible Study" },
-  { id: 2, name: "Michael Darko", email: "michael@email.com", joined: "June 18, 2025", status: "Pending", group: "Youth" },
-  { id: 3, name: "Grace Amponsah", email: "grace@email.com", joined: "June 22, 2025", status: "Active", group: "Worship" },
-  { id: 4, name: "Kwame Asante", email: "kwame@email.com", joined: "June 25, 2025", status: "Pending", group: "Outreach" },
-  { id: 5, name: "Efua Boateng", email: "efua@email.com", joined: "June 30, 2025", status: "Active", group: "Prayer" },
-];
-
-const ADMIN_SPONSORS = [
-  { id: 1, org: "Bright Star Foundation", contact: "Dr. Samuel Osei", email: "samuel@bsf.org", amount: "GH₵ 5,000", status: "Approved" },
-  { id: 2, org: "Heritage Bank Ltd", contact: "Maame Osei", email: "maame@heritage.com", amount: "GH₵ 10,000", status: "Pending" },
-  { id: 3, org: "Grace Supplies Co.", contact: "Joseph Mensah", email: "joseph@grace.com", amount: "GH₵ 2,500", status: "Approved" },
-];
-
-function AdminPage({ nav }: { nav: (p: Page) => void }) {
-  const [section, setSection] = useState<"dashboard" | "members" | "sponsors" | "gallery">("dashboard");
-  const [deleteId, setDeleteId] = useState<number | null>(null);
-
-  const navItems = [
-    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { id: "members", label: "Memberships", icon: UserCheck },
-    { id: "sponsors", label: "Sponsors", icon: Building2 },
-    { id: "gallery", label: "Gallery", icon: TrendingUp },
-  ] as const;
-
-  return (
-    <div className="flex min-h-screen bg-[#F5EFE8]">
-      {/* Sidebar */}
-      <aside className="w-60 bg-[#8B4513] flex flex-col min-h-screen shrink-0">
-        <div className="p-5 border-b border-white/10">
-          <button onClick={() => nav("home")} className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
-              <span className="text-white font-bold text-xs" style={serif}>GETS</span>
-            </div>
-            <div>
-              <div className="text-white font-bold text-sm" style={serif}>GETS Admin</div>
-              <div className="text-white/40 text-[10px]">Management Portal</div>
-            </div>
-          </button>
-        </div>
-        <nav className="flex-1 p-3 space-y-1">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setSection(item.id)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                section === item.id
-                  ? "bg-white/20 text-white"
-                  : "text-white/60 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <item.icon size={16} />
-              {item.label}
-            </button>
-          ))}
-        </nav>
-        <div className="p-3 border-t border-white/10">
-          <button
-            onClick={() => nav("login")}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/60 hover:bg-white/10 hover:text-white transition-colors"
-          >
-            <LogOut size={16} /> Sign Out
-          </button>
-        </div>
-      </aside>
-
-      {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Top bar */}
-        <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="font-bold text-[#5C4033] text-lg" style={serif}>
-              {section === "dashboard" && "Dashboard"}
-              {section === "members" && "Membership Requests"}
-              {section === "sponsors" && "Sponsor Requests"}
-              {section === "gallery" && "Gallery Management"}
-            </h1>
-            <p className="text-xs text-gray-400 mt-0.5">
-              {new Date().toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button className="relative p-2 hover:bg-gray-50 rounded-xl">
-              <Bell size={16} className="text-gray-500" />
-              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#D4AF37] rounded-full" />
-            </button>
-            <div className="flex items-center gap-2">
-              <img
-                src={IMG("photo-1560250097-0b93528c311a", 60, 60)}
-                alt="Admin"
-                className="w-8 h-8 rounded-full object-cover"
-              />
-              <div className="text-xs">
-                <div className="font-semibold text-[#5C4033]">Pastor Emmanuel</div>
-                <div className="text-gray-400">Super Admin</div>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <main className="flex-1 p-6 overflow-auto">
-          {section === "dashboard" && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {[
-                  { label: "Total Members", value: "2,418", change: "+24 this month", icon: Users, color: "blue" },
-                  { label: "Pending Requests", value: "12", change: "4 new today", icon: MessageSquare, color: "gold" },
-                  { label: "Active Sponsors", value: "8", change: "+2 this quarter", icon: Building2, color: "green" },
-                  { label: "Upcoming Events", value: "6", change: "Next: July 12", icon: Calendar, color: "blue" },
-                ].map((s) => (
-                  <div key={s.label} className="bg-white rounded-2xl p-5 shadow-sm">
-                    <div className="flex items-start justify-between mb-4">
-                      <div
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                          s.color === "gold" ? "bg-[#FFF8E1]" : s.color === "green" ? "bg-[#E8F8F0]" : "bg-[#F5EFE8]"
-                        }`}
-                      >
-                        <s.icon
-                          size={16}
-                          className={
-                            s.color === "gold" ? "text-[#B8860B]" : s.color === "green" ? "text-[#1A7A4A]" : "text-[#8B4513]"
-                          }
-                        />
-                      </div>
-                      <TrendingUp size={14} className="text-green-400" />
-                    </div>
-                    <div className="text-2xl font-bold text-[#5C4033]" style={serif}>{s.value}</div>
-                    <div className="text-xs text-gray-400 mt-1">{s.label}</div>
-                    <div className="text-xs text-green-500 mt-1 font-medium">{s.change}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid lg:grid-cols-2 gap-6">
-                <div className="bg-white rounded-2xl p-5 shadow-sm">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-bold text-[#5C4033] text-sm" style={serif}>Recent Members</h3>
-                    <button onClick={() => setSection("members")} className="text-xs text-[#8B4513] font-semibold">View all</button>
-                  </div>
-                  <div className="space-y-3">
-                    {ADMIN_MEMBERS.slice(0, 4).map((m) => (
-                      <div key={m.id} className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-[#F5EFE8] flex items-center justify-center text-[#8B4513] text-xs font-bold">
-                            {m.name.charAt(0)}
-                          </div>
-                          <div>
-                            <div className="text-xs font-semibold text-[#5C4033]">{m.name}</div>
-                            <div className="text-[10px] text-gray-400">{m.group}</div>
-                          </div>
-                        </div>
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-                          m.status === "Active" ? "bg-[#E8F8F0] text-[#1A7A4A]" : "bg-[#FFF8E1] text-[#B8860B]"
-                        }`}>
-                          {m.status}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-2xl p-5 shadow-sm">
-                  <h3 className="font-bold text-[#5C4033] text-sm mb-4" style={serif}>Quick Actions</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {[
-                      { label: "Add Event", icon: Calendar, action: () => {} },
-                      { label: "Upload Photo", icon: Upload, action: () => setSection("gallery") },
-                      { label: "View Members", icon: Users, action: () => setSection("members") },
-                      { label: "View Sponsors", icon: Building2, action: () => setSection("sponsors") },
-                    ].map((q) => (
-                      <button
-                        key={q.label}
-                        onClick={q.action}
-                        className="flex flex-col items-center gap-2 p-4 rounded-xl bg-[#F5EFE8] hover:bg-[#F5EFE8] hover:text-[#8B4513] transition-colors group"
-                      >
-                        <q.icon size={18} className="text-gray-400 group-hover:text-[#8B4513] transition-colors" />
-                        <span className="text-xs font-medium text-gray-500 group-hover:text-[#8B4513]">{q.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {section === "members" && (
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-              <div className="p-5 border-b border-gray-100 flex items-center justify-between">
-                <div className="relative w-64">
-                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                  <input
-                    className="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 bg-[#F5EFE8]"
-                    placeholder="Search members..."
-                  />
-                </div>
-                <div className="flex gap-2">
-                  <button className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-xl text-xs text-gray-500 hover:bg-gray-50">
-                    <Filter size={12} /> Filter
-                  </button>
-                </div>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-[#F5EFE8] text-xs text-gray-400 font-semibold">
-                    <tr>
-                      {["Name", "Email", "Joined", "Group", "Status", "Actions"].map((h) => (
-                        <th key={h} className="px-5 py-3 text-left">{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {ADMIN_MEMBERS.map((m) => (
-                      <tr key={m.id} className="hover:bg-[#F5EFE8] transition-colors">
-                        <td className="px-5 py-3.5 text-sm font-medium text-[#5C4033]">{m.name}</td>
-                        <td className="px-5 py-3.5 text-xs text-gray-400">{m.email}</td>
-                        <td className="px-5 py-3.5 text-xs text-gray-400">{m.joined}</td>
-                        <td className="px-5 py-3.5 text-xs text-gray-400">{m.group}</td>
-                        <td className="px-5 py-3.5">
-                          <span className={`text-[10px] px-2.5 py-1 rounded-full font-semibold ${
-                            m.status === "Active" ? "bg-[#E8F8F0] text-[#1A7A4A]" : "bg-[#FFF8E1] text-[#B8860B]"
-                          }`}>
-                            {m.status}
-                          </span>
-                        </td>
-                        <td className="px-5 py-3.5">
-                          <div className="flex items-center gap-1">
-                            <button className="p-1.5 hover:bg-[#F5EFE8] rounded-lg transition-colors">
-                              <Eye size={13} className="text-[#8B4513]" />
-                            </button>
-                            <button
-                              onClick={() => setDeleteId(m.id)}
-                              className="p-1.5 hover:bg-red-50 rounded-lg transition-colors"
-                            >
-                              <Trash2 size={13} className="text-red-400" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {section === "sponsors" && (
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-              <div className="p-5 border-b border-gray-100 flex items-center justify-between">
-                <h3 className="font-bold text-[#5C4033] text-sm" style={serif}>Sponsor Requests</h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-[#F5EFE8] text-xs text-gray-400 font-semibold">
-                    <tr>
-                      {["Organization", "Contact", "Email", "Amount", "Status", "Actions"].map((h) => (
-                        <th key={h} className="px-5 py-3 text-left">{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {ADMIN_SPONSORS.map((s) => (
-                      <tr key={s.id} className="hover:bg-[#F5EFE8] transition-colors">
-                        <td className="px-5 py-3.5 text-sm font-medium text-[#5C4033]">{s.org}</td>
-                        <td className="px-5 py-3.5 text-xs text-gray-500">{s.contact}</td>
-                        <td className="px-5 py-3.5 text-xs text-gray-400">{s.email}</td>
-                        <td className="px-5 py-3.5 text-xs font-semibold text-[#8B4513]">{s.amount}</td>
-                        <td className="px-5 py-3.5">
-                          <span className={`text-[10px] px-2.5 py-1 rounded-full font-semibold ${
-                            s.status === "Approved" ? "bg-[#E8F8F0] text-[#1A7A4A]" : "bg-[#FFF8E1] text-[#B8860B]"
-                          }`}>
-                            {s.status}
-                          </span>
-                        </td>
-                        <td className="px-5 py-3.5">
-                          <div className="flex items-center gap-1">
-                            <button className="p-1.5 hover:bg-[#F5EFE8] rounded-lg">
-                              <Eye size={13} className="text-[#8B4513]" />
-                            </button>
-                            <button
-                              onClick={() => setDeleteId(s.id)}
-                              className="p-1.5 hover:bg-red-50 rounded-lg"
-                            >
-                              <Trash2 size={13} className="text-red-400" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {section === "gallery" && (
-            <div className="space-y-6">
-              <div className="bg-white rounded-2xl p-6 shadow-sm">
-                <h3 className="font-bold text-[#5C4033] text-sm mb-4" style={serif}>Upload New Photo</h3>
-                <div className="border-2 border-dashed border-gray-200 rounded-xl p-10 flex flex-col items-center gap-3 hover:border-[#8B4513]/40 transition-colors cursor-pointer bg-[#F5EFE8]">
-                  <div className="w-12 h-12 rounded-xl bg-[#F5EFE8] flex items-center justify-center">
-                    <Upload size={20} className="text-[#8B4513]" />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-sm font-medium text-[#5C4033]">Drag and drop photos here</p>
-                    <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 10MB each</p>
-                  </div>
-                  <button className="px-5 py-2 bg-[#8B4513] text-white rounded-lg text-xs font-semibold hover:bg-[#4A2010] transition-colors">
-                    Browse Files
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </main>
-      </div>
+function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session }) {
+  const [comments, setComments] = useState<GalleryComment[]>([]);
+  const [message, setMessage] = useState('');
+  const [busyId, setBusyId] = useState<string | null>(null);
+  async function refresh() {
+    if (!supabase) return;
+    const { data, error } = await supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at')
+      .eq('status', 'pending').order('created_at', { ascending: true }).limit(100);
+    if (error) setMessage('No se pudo cargar la lista de comentarios.');
+    else { setComments(data || []); setMessage(''); }
+  }
+  useEffect(() => { void refresh(); }, []);
+  async function moderate(id: string, status: 'approved' | 'rejected') {
+    if (!supabase) return;
+    setBusyId(id);
+    const { error } = await supabase.from('gets_gallery_comments').update({ status }).eq('id', id);
+    setBusyId(null);
+    if (error) setMessage('No se pudo guardar la decisión.'); else await refresh();
+  }
+  return <main className="min-h-[75vh] bg-[#F9F5EE] px-4 py-12">
+    <div className="max-w-3xl mx-auto">
+      <div className="flex justify-between items-center gap-4 mb-8"><div><h1 className="text-3xl font-bold text-[#5C4033]" style={serif}>Moderación de comentarios</h1><p className="text-[#755E51] text-sm mt-2">Sesión de {session.user.email}</p></div>
+      <button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="text-[#8B4513] underline">Cerrar sesión</button></div>
+      {message && <p role="alert" className="mb-4 text-[#8B4513]">{message}</p>}
+      {comments.length === 0 ? <p className="rounded-2xl bg-white p-6 text-[#755E51]">No hay comentarios pendientes.</p> : <div className="space-y-4">{comments.map(c => <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
+        <div className="flex justify-between gap-3 text-sm font-semibold text-[#8B4513]"><span>{c.author_name}</span><time dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString('es-MX')}</time></div>
+        <p className="my-4 whitespace-pre-wrap break-words text-[#5C4033]">{c.body}</p>
+        <div className="flex gap-3"><button disabled={busyId === c.id} onClick={() => moderate(c.id, 'approved')} className="rounded-lg bg-[#8B4513] px-4 py-2 text-white disabled:opacity-50">Aprobar</button><button disabled={busyId === c.id} onClick={() => moderate(c.id, 'rejected')} className="rounded-lg border border-[#8B4513] px-4 py-2 text-[#8B4513] disabled:opacity-50">Rechazar</button></div>
+      </article>)}</div>}
     </div>
-  );
+  </main>;
 }
 
 // ===================== FOOTER =====================
@@ -1856,6 +1554,25 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
 export default function App() {
   const [page, setPage] = useState<Page>("home");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [session, setSession] = useState<Session | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
+  useEffect(() => {
+    if (!supabase) { setAuthReady(true); return; }
+    let active = true;
+    const sync = async (next: Session | null) => {
+      if (!active) return;
+      setSession(next);
+      if (next) {
+        const { data } = await supabase.from('gets_admins').select('user_id').eq('user_id', next.user.id).maybeSingle();
+        if (active) setIsAdmin(!!data);
+      } else { setIsAdmin(false); setPage(p => p === 'admin' ? 'home' : p); }
+      if (active) setAuthReady(true);
+    };
+    supabase.auth.getSession().then(({ data }) => sync(data.session));
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, next) => { setTimeout(() => { void sync(next); }, 0); });
+    return () => { active = false; listener.subscription.unsubscribe(); };
+  }, []);
 
   const nav = (p: Page) => {
     setPage(p);
@@ -1870,10 +1587,10 @@ export default function App() {
       {page === "about" && <AboutPage nav={nav} />}
       {page === "events" && <EventsPage nav={nav} />}
       {page === "sermons" && <SermonsPage />}
-      {page === "gallery" && <GalleryPage />}
+      {page === "gallery" && <GalleryPage nav={nav} session={session} />}
       {page === "contact" && <ContactPage nav={nav} />}
-      {page === "login" && <LoginPage nav={nav} />}
-      {page === "admin" && <AdminPage nav={nav} />}
+      {page === "login" && <LoginPage nav={nav} session={session} isAdmin={isAdmin} />}
+      {page === "admin" && (authReady && session && isAdmin ? <AdminPage nav={nav} session={session} /> : <LoginPage nav={nav} session={session} isAdmin={isAdmin} />)}
       {page !== "login" && page !== "admin" && <Footer nav={nav} />}
     </div>
   );
