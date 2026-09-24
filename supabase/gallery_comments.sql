@@ -1,9 +1,11 @@
--- Run once in the Supabase SQL Editor for the project connected to GETS.
+-- Run in the Supabase SQL Editor for GETS. Safe to rerun after a partial execution.
+begin;
 create table if not exists public.gets_admins (
   user_id uuid primary key references auth.users(id) on delete cascade
 );
 alter table public.gets_admins enable row level security;
 
+drop policy if exists "Read own admin membership" on public.gets_admins;
 create policy "Read own admin membership" on public.gets_admins
   for select to authenticated using (user_id = (select auth.uid()));
 
@@ -25,17 +27,23 @@ create table if not exists public.gets_gallery_comments (
 create index if not exists gets_gallery_comments_status_created_idx on public.gets_gallery_comments(status, created_at desc);
 alter table public.gets_gallery_comments enable row level security;
 
+drop policy if exists "Public reads approved comments" on public.gets_gallery_comments;
 create policy "Public reads approved comments" on public.gets_gallery_comments
   for select to anon, authenticated using (status = 'approved' or (select public.gets_is_admin()));
+drop policy if exists "Students submit pending comments" on public.gets_gallery_comments;
 create policy "Students submit pending comments" on public.gets_gallery_comments
   for insert to authenticated with check (
     author_id = (select auth.uid()) and status = 'pending'
   );
+drop policy if exists "Admins moderate comments" on public.gets_gallery_comments;
 create policy "Admins moderate comments" on public.gets_gallery_comments
   for update to authenticated using ((select public.gets_is_admin()))
   with check ((select public.gets_is_admin()));
+drop policy if exists "Admins delete comments" on public.gets_gallery_comments;
 create policy "Admins delete comments" on public.gets_gallery_comments
   for delete to authenticated using ((select public.gets_is_admin()));
+
+commit;
 
 -- Invite your boss as a user in Authentication > Users, then run this with her email:
 -- insert into public.gets_admins(user_id)
