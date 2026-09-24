@@ -20,10 +20,15 @@ create table if not exists public.gets_gallery_comments (
   id uuid primary key default gen_random_uuid(),
   author_id uuid not null references auth.users(id) on delete cascade,
   author_name text not null check (char_length(author_name) between 1 and 80),
+  content_type text not null default 'photo' check (content_type in ('photo', 'article')),
+  content_id text not null default 'convivio-15-septiembre-2026' check (char_length(content_id) between 1 and 120),
   body text not null check (char_length(body) between 1 and 1000),
   status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   created_at timestamptz not null default now()
 );
+alter table public.gets_gallery_comments add column if not exists content_type text not null default 'photo' check (content_type in ('photo', 'article'));
+alter table public.gets_gallery_comments add column if not exists content_id text not null default 'convivio-15-septiembre-2026' check (char_length(content_id) between 1 and 120);
+create index if not exists gets_gallery_comments_content_idx on public.gets_gallery_comments(content_type, content_id, status, created_at desc);
 create index if not exists gets_gallery_comments_status_created_idx on public.gets_gallery_comments(status, created_at desc);
 alter table public.gets_gallery_comments enable row level security;
 
