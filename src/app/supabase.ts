@@ -8,6 +8,8 @@ export type GalleryComment = {
   id: string;
   author_id: string;
   author_name: string;
+  content_type: 'photo' | 'article';
+  content_id: string;
   body: string;
   status: 'pending' | 'approved' | 'rejected';
   created_at: string;
