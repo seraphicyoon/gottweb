@@ -735,19 +735,6 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
 
                 Lo que comenzó como una pequeña reunión para hacer oración, se ha convertido en una vocación de servicio. Hoy llevamos este mensaje a cualquier lugar donde nos abran las puertas —ya sean parroquias, salones o casas— a través de talleres, pláticas y acompañamiento espiritual, siempre unidos por nuestro amor a Jesús.
               </p>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { label: "Año de inicio", value: "2018" },
-                  { label: "Miembros", value: "2,400+" },
-                  { label: "Talleres impartidos", value: "12" },
-                  { label: "Espacios visitados", value: "8" },
-                ].map((s) => (
-                  <div key={s.label} className="bg-[#F5EFE8] rounded-xl p-4 text-center">
-                    <div className="text-2xl font-bold text-[#8B4513]" style={serif}>{s.value}</div>
-                    <div className="text-xs text-gray-400 mt-1">{s.label}</div>
-                  </div>
-                ))}
-              </div>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <img
@@ -810,6 +797,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
             <h3 className="text-2xl md:text-3xl font-bold text-[#5C4033]" style={serif}>
               Lic. Ma. Luisa Rodríguez Assemat
             </h3>
+            <p className="mt-3 text-gray-600">Máster en Mística y Ciencias Humanas</p>
           </div>
         </div>
       </section>
