@@ -12,6 +12,7 @@ import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM_1 from '@/imports/WhatsApp
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM.jpeg'
 import image_a6581ea87ef7420b4834deabc17656a8 from '@/imports/a6581ea87ef7420b4834deabc17656a8.jpg'
 import convivioFoto from '@/imports/convivio-15-septiembre-2026.webp'
+import getsLogo from '@/imports/gets-logo.png'
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, type GalleryComment } from "./supabase";
@@ -352,7 +353,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <button onClick={() => nav("home")} className="flex items-center gap-3 text-left" aria-label="GETS, ir al inicio">
-            <span className="brand-mark" aria-hidden="true">✦</span>
+            <span className="h-10 w-10 shrink-0 rounded-xl bg-[#8B4513] p-1.5 flex items-center justify-center shadow-sm" aria-hidden="true"><img src={getsLogo} alt="" className="h-full w-full object-contain" /></span>
             <div>
               <div className="font-bold text-[#8B4513] text-base leading-none" style={serif}>GETS</div>
               <div className="text-[10px] text-gray-400 font-medium tracking-wide hidden sm:block">
