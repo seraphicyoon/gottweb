@@ -13,6 +13,7 @@ import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM from '@/imports/WhatsApp_I
 import image_a6581ea87ef7420b4834deabc17656a8 from '@/imports/a6581ea87ef7420b4834deabc17656a8.jpg'
 import convivioFoto from '@/imports/convivio-15-septiembre-2026.webp'
 import getsLogo from '@/imports/gets-logo.png'
+import getsWordmark from '@/imports/gets-wordmark.png'
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, type GalleryComment } from "./supabase";
@@ -354,12 +355,9 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
           {/* Logo */}
           <button onClick={() => nav("home")} className="flex items-center gap-3 text-left" aria-label="GETS, ir al inicio">
             <span className="h-10 w-10 shrink-0 rounded-xl bg-[#8B4513] p-1.5 flex items-center justify-center shadow-sm" aria-hidden="true"><img src={getsLogo} alt="" className="h-full w-full object-contain" /></span>
-            <div>
-              <div className="font-bold text-[#8B4513] text-base leading-none" style={serif}>GETS</div>
-              <div className="text-[10px] text-gray-400 font-medium tracking-wide hidden sm:block">
-                Grupo Educativo Teresiano Sanjuanista
-              </div>
-            </div>
+            <span className="rounded-xl bg-[#8B4513] px-2 py-1.5" aria-hidden="true">
+              <img src={getsWordmark} alt="" className="w-[165px] sm:w-[230px] h-auto" />
+            </span>
           </button>
 
           {/* Desktop nav */}
