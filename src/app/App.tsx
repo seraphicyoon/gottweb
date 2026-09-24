@@ -1474,18 +1474,48 @@ function LoginPage({ nav, session, isAdmin, forceRecovery, onRecoveryComplete }:
   </div>;
 }
 
+type BannedUser = { user_id: string; reason: string; banned_at: string };
+
 function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session }) {
+  const [filter, setFilter] = useState<'pending' | 'approved' | 'rejected'>('pending');
   const [comments, setComments] = useState<GalleryComment[]>([]);
+  const [banned, setBanned] = useState<BannedUser[]>([]);
+  const [counts, setCounts] = useState({ pending: 0, approved: 0, rejected: 0 });
   const [message, setMessage] = useState('');
   const [busyId, setBusyId] = useState<string | null>(null);
-  async function refresh() {
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const [banCandidate, setBanCandidate] = useState<string | null>(null);
+  const [banReason, setBanReason] = useState('');
+
+  async function refresh(status = filter) {
     if (!supabase) return;
-    const { data, error } = await supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at,content_type,content_id')
-      .eq('status', 'pending').order('created_at', { ascending: true }).limit(100);
-    if (error) setMessage('No se pudo cargar la lista de comentarios.');
-    else { setComments(data || []); setMessage(''); }
+    const [result, bans, pending, approved, rejected] = await Promise.all([
+      supabase.from('gets_gallery_comments').select('id,author_id,author_name,body,status,created_at,content_type,content_id')
+        .eq('status', status).order('created_at', { ascending: false }).range(0, 49),
+      supabase.from('gets_banned_users').select('user_id,reason,banned_at').order('banned_at', { ascending: false }).limit(200),
+      supabase.from('gets_gallery_comments').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+      supabase.from('gets_gallery_comments').select('id', { count: 'exact', head: true }).eq('status', 'approved'),
+      supabase.from('gets_gallery_comments').select('id', { count: 'exact', head: true }).eq('status', 'rejected'),
+    ]);
+    if (result.error || bans.error || pending.error || approved.error || rejected.error) {
+      setMessage('No se pudo cargar el panel. Comprueba que ejecutaste el SQL de moderación.');
+      return;
+    }
+    setComments(result.data || []); setOffset(result.data?.length || 0); setHasMore((result.data?.length || 0) === 50);
+    setBanned(bans.data || []);
+    setCounts({ pending: pending.count || 0, approved: approved.count || 0, rejected: rejected.count || 0 });
+    setMessage('');
   }
-  useEffect(() => { void refresh(); }, []);
+  useEffect(() => { void refresh(filter); }, [filter]);
+  async function loadMore() {
+    if (!supabase || !hasMore) return;
+    const { data, error } = await supabase.from('gets_gallery_comments')
+      .select('id,author_id,author_name,body,status,created_at,content_type,content_id')
+      .eq('status', filter).order('created_at', { ascending: false }).range(offset, offset + 49);
+    if (error) { setMessage('No se pudieron cargar más comentarios.'); return; }
+    setComments(previous => [...previous, ...(data || [])]); setOffset(offset + (data?.length || 0)); setHasMore((data?.length || 0) === 50);
+  }
   async function moderate(id: string, status: 'approved' | 'rejected') {
     if (!supabase) return;
     setBusyId(id);
@@ -1493,16 +1523,46 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
     setBusyId(null);
     if (error) setMessage('No se pudo guardar la decisión.'); else await refresh();
   }
+  async function banUser(userId: string) {
+    if (!supabase || !banReason.trim()) return;
+    setBusyId(userId);
+    const { error } = await supabase.from('gets_banned_users').insert({
+      user_id: userId, reason: banReason.trim().slice(0, 200), banned_by: session.user.id,
+    });
+    setBusyId(null);
+    if (error) setMessage('No se pudo restringir la cuenta.');
+    else { setBanCandidate(null); setBanReason(''); await refresh(); }
+  }
+  async function unbanUser(userId: string) {
+    if (!supabase) return;
+    setBusyId(userId);
+    const { error } = await supabase.from('gets_banned_users').delete().eq('user_id', userId);
+    setBusyId(null);
+    if (error) setMessage('No se pudo quitar la restricción.'); else await refresh();
+  }
+  const isBanned = (userId: string) => banned.some(item => item.user_id === userId);
   return <main className="min-h-[75vh] bg-[#F9F5EE] px-4 py-12">
-    <div className="max-w-3xl mx-auto">
-      <div className="flex justify-between items-center gap-4 mb-8"><div><h1 className="text-3xl font-bold text-[#5C4033]" style={serif}>Moderación de comentarios</h1><p className="text-[#755E51] text-sm mt-2">Sesión de {session.user.email}</p></div>
-      <button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="text-[#8B4513] underline">Cerrar sesión</button></div>
+    <div className="max-w-4xl mx-auto">
+      <div className="flex flex-wrap justify-between items-center gap-4 mb-7"><div><h1 className="text-3xl font-bold text-[#5C4033]" style={serif}>Moderación de GETS</h1><p className="text-[#755E51] text-sm mt-2">Administradora: {session.user.email}</p></div>
+      <div className="flex gap-4"><button onClick={() => void refresh()} className="text-[#8B4513] underline">Actualizar</button><button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="text-[#8B4513] underline">Cerrar sesión</button></div></div>
+      <p className="mb-5 rounded-xl border border-[#E7D9C8] bg-white p-4 text-sm text-[#755E51]">Los comentarios nuevos esperan aprobación. Puedes ocultar uno publicado desde la pestaña Publicados. Restringir una cuenta impide nuevos comentarios y oculta los suyos mientras dure la restricción.</p>
+      <div className="flex flex-wrap gap-2 mb-6">{([
+        ['pending', 'Pendientes'], ['approved', 'Publicados'], ['rejected', 'Rechazados'],
+      ] as const).map(([key, label]) => <button key={key} onClick={() => { setFilter(key); setMessage(''); }} aria-pressed={filter === key} className={`rounded-xl px-4 py-2.5 text-sm font-semibold ${filter === key ? 'bg-[#8B4513] text-white' : 'bg-white text-[#8B4513] border border-[#E7D9C8]'}`}>{label} ({counts[key]})</button>)}</div>
       {message && <p role="alert" className="mb-4 text-[#8B4513]">{message}</p>}
-      {comments.length === 0 ? <p className="rounded-2xl bg-white p-6 text-[#755E51]">No hay comentarios pendientes.</p> : <div className="space-y-4">{comments.map(c => <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
-        <div className="flex justify-between gap-3 text-sm font-semibold text-[#8B4513]"><span>{c.author_name}</span><time dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString('es-MX')}</time></div>
-        <p className="mt-2 text-xs text-[#755E51]">{c.content_type === 'photo' ? 'Foto' : 'Artículo'}: {c.content_id}</p><p className="my-4 whitespace-pre-wrap break-words text-[#5C4033]">{c.body}</p>
-        <div className="flex gap-3"><button disabled={busyId === c.id} onClick={() => moderate(c.id, 'approved')} className="rounded-lg bg-[#8B4513] px-4 py-2 text-white disabled:opacity-50">Aprobar</button><button disabled={busyId === c.id} onClick={() => moderate(c.id, 'rejected')} className="rounded-lg border border-[#8B4513] px-4 py-2 text-[#8B4513] disabled:opacity-50">Rechazar</button></div>
+      {comments.length === 0 ? <p className="rounded-2xl bg-white p-6 text-[#755E51]">No hay comentarios en esta sección.</p> : <div className="space-y-4">{comments.map(c => <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
+        <div className="flex flex-wrap justify-between gap-2 text-sm font-semibold text-[#8B4513]"><span>{c.author_name}{isBanned(c.author_id) && <span className="ml-2 text-red-700">Cuenta restringida</span>}</span><time dateTime={c.created_at}>{new Date(c.created_at).toLocaleString('es-MX')}</time></div>
+        <p className="mt-2 text-xs text-[#755E51]">{c.content_type === 'photo' ? 'Foto' : 'Artículo'}: {c.content_id}</p>
+        <p className="my-4 whitespace-pre-wrap break-words text-[#5C4033]">{c.body}</p>
+        <div className="flex flex-wrap gap-2">
+          {c.status !== 'approved' && <button disabled={busyId === c.id} onClick={() => void moderate(c.id, 'approved')} className="rounded-lg bg-[#8B4513] px-4 py-2 text-white disabled:opacity-50">Aprobar</button>}
+          {c.status !== 'rejected' && <button disabled={busyId === c.id} onClick={() => void moderate(c.id, 'rejected')} className="rounded-lg border border-[#8B4513] px-4 py-2 text-[#8B4513] disabled:opacity-50">{c.status === 'approved' ? 'Ocultar' : 'Rechazar'}</button>}
+          {isBanned(c.author_id) ? <button disabled={busyId === c.author_id} onClick={() => void unbanUser(c.author_id)} className="rounded-lg border border-green-700 px-4 py-2 text-green-800 disabled:opacity-50">Quitar restricción</button> : <button onClick={() => { setBanCandidate(c.author_id); setBanReason(''); }} className="rounded-lg border border-red-300 px-4 py-2 text-red-700">Restringir cuenta</button>}
+        </div>
+        {banCandidate === c.author_id && !isBanned(c.author_id) && <div className="mt-4 rounded-xl bg-[#F9F5EE] p-4"><label className="block text-sm text-[#5C4033] font-semibold" htmlFor={`reason-${c.id}`}>Motivo de la restricción</label><input id={`reason-${c.id}`} maxLength={200} value={banReason} onChange={e => setBanReason(e.target.value)} className="mt-2 w-full rounded-lg border border-[#E7D9C8] p-2" placeholder="Por ejemplo: lenguaje ofensivo" /><div className="flex gap-2 mt-3"><button disabled={!banReason.trim() || busyId === c.author_id} onClick={() => void banUser(c.author_id)} className="rounded-lg bg-red-700 px-4 py-2 text-white disabled:opacity-50">Confirmar restricción</button><button onClick={() => setBanCandidate(null)} className="text-[#755E51] underline">Cancelar</button></div></div>}
       </article>)}</div>}
+      {hasMore && <button onClick={() => void loadMore()} className="mt-6 rounded-xl border border-[#8B4513] px-5 py-2 text-[#8B4513]">Cargar más</button>}
+      {banned.length > 0 && <section className="mt-12"><h2 className="text-xl font-bold text-[#5C4033] mb-4" style={serif}>Cuentas restringidas</h2><div className="space-y-2">{banned.map(item => <div key={item.user_id} className="rounded-xl border border-[#E7D9C8] bg-white p-4 flex flex-wrap items-center justify-between gap-3"><div><p className="font-medium text-[#5C4033]">{comments.find(c => c.author_id === item.user_id)?.author_name || `Cuenta ${item.user_id.slice(0, 8)}`}</p><p className="text-sm text-[#755E51]">{item.reason} · {new Date(item.banned_at).toLocaleDateString('es-MX')}</p></div><button disabled={busyId === item.user_id} onClick={() => void unbanUser(item.user_id)} className="text-green-800 underline disabled:opacity-50">Quitar restricción</button></div>)}</div></section>}
     </div>
   </main>;
 }
