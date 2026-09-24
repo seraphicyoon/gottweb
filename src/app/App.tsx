@@ -1493,6 +1493,8 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
   const [hasMore, setHasMore] = useState(false);
   const [banCandidate, setBanCandidate] = useState<string | null>(null);
   const [banReason, setBanReason] = useState('');
+  const [recoveryEmail, setRecoveryEmail] = useState('');
+  const [sendingRecovery, setSendingRecovery] = useState(false);
 
   async function refresh(status = filter) {
     if (!supabase) return;
@@ -1546,6 +1548,17 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
     setBusyId(null);
     if (error) setMessage('No se pudo quitar la restricción.'); else await refresh();
   }
+  async function sendRecovery(event: React.FormEvent) {
+    event.preventDefault();
+    if (!supabase || !recoveryEmail.trim() || sendingRecovery) return;
+    setSendingRecovery(true); setMessage('');
+    const { error } = await supabase.auth.resetPasswordForEmail(recoveryEmail.trim(), {
+      redirectTo: window.location.origin,
+    });
+    setSendingRecovery(false);
+    setMessage(error ? 'No se pudo solicitar el enlace. Inténtalo más tarde.' : 'Si la cuenta existe, Supabase enviará un enlace para que esa persona elija una contraseña nueva.');
+    if (!error) setRecoveryEmail('');
+  }
   const isBanned = (userId: string) => banned.some(item => item.user_id === userId);
   return <main className="min-h-[75vh] bg-[#F9F5EE] px-4 py-12">
     <div className="max-w-4xl mx-auto">
@@ -1555,7 +1568,12 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
       <div className="flex flex-wrap gap-2 mb-6">{([
         ['pending', 'Pendientes'], ['approved', 'Publicados'], ['rejected', 'Rechazados'],
       ] as const).map(([key, label]) => <button key={key} onClick={() => { setFilter(key); setMessage(''); }} aria-pressed={filter === key} className={`rounded-xl px-4 py-2.5 text-sm font-semibold ${filter === key ? 'bg-[#8B4513] text-white' : 'bg-white text-[#8B4513] border border-[#E7D9C8]'}`}>{label} ({counts[key]})</button>)}</div>
-      {message && <p role="alert" className="mb-4 text-[#8B4513]">{message}</p>}
+      <form onSubmit={sendRecovery} className="mb-6 rounded-2xl border border-[#E7D9C8] bg-white p-5">
+        <h2 className="text-lg font-bold text-[#5C4033]" style={serif}>Ayudar a recuperar el acceso</h2>
+        <p className="mt-1 mb-4 text-sm text-[#755E51]">Escribe el correo de la alumna. Ella recibirá un enlace y elegirá su nueva contraseña; no necesitas conocerla.</p>
+        <div className="flex flex-col sm:flex-row gap-2"><label htmlFor="recovery-email" className="sr-only">Correo de la alumna</label><input id="recovery-email" type="email" required autoComplete="off" value={recoveryEmail} onChange={e => setRecoveryEmail(e.target.value)} placeholder="alumna@correo.com" className="flex-1 rounded-lg border border-[#E7D9C8] px-3 py-2" /><button type="submit" disabled={sendingRecovery} className="rounded-lg bg-[#8B4513] px-4 py-2 text-white disabled:opacity-50">{sendingRecovery ? 'Enviando…' : 'Enviar enlace de recuperación'}</button></div>
+      </form>
+      {message && <p role="status" className="mb-4 text-[#8B4513]">{message}</p>}
       {comments.length === 0 ? <p className="rounded-2xl bg-white p-6 text-[#755E51]">No hay comentarios en esta sección.</p> : <div className="space-y-4">{comments.map(c => <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
         <div className="flex flex-wrap justify-between gap-2 text-sm font-semibold text-[#8B4513]"><span>{c.author_name}{isBanned(c.author_id) && <span className="ml-2 text-red-700">Cuenta restringida</span>}</span><time dateTime={c.created_at}>{new Date(c.created_at).toLocaleString('es-MX')}</time></div>
         <p className="mt-2 text-xs text-[#755E51]">{c.content_type === 'photo' ? 'Foto' : 'Artículo'}: {c.content_id}</p>
