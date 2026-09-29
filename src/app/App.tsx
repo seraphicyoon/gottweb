@@ -344,7 +344,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
     { label: "Inicio", page: "home" },
     { label: "Nosotros", page: "about" },
     { label: "Actividades", page: "events" },
-    { label: "Enseñanzas e Historia", page: "sermons" },
+    { label: "Historia", page: "sermons" },
     { label: "Galería", page: "gallery" },
     { label: "Contacto", page: "contact" },
   ];
