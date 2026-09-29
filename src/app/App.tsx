@@ -12,6 +12,9 @@ import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM_1 from '@/imports/WhatsApp
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM.jpeg'
 import image_a6581ea87ef7420b4834deabc17656a8 from '@/imports/a6581ea87ef7420b4834deabc17656a8.jpg'
 import convivioFoto from '@/imports/convivio-15-septiembre-2026.webp'
+import dinamicaFoto1 from '@/imports/dinamica-28-septiembre-2026-1.webp'
+import dinamicaFoto2 from '@/imports/dinamica-28-septiembre-2026-2.webp'
+import dinamicaFoto3 from '@/imports/dinamica-28-septiembre-2026-3.webp'
 import getsLogo from '@/imports/gets-logo.png'
 import getsWordmark from '@/imports/gets-wordmark.png'
 import { useEffect, useState } from "react";
@@ -1213,6 +1216,23 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             <SectionHeading>La comunidad en imágenes</SectionHeading>
             <p className="text-[#755E51] max-w-2xl">Un recuerdo de los encuentros que nos acercan y fortalecen nuestros lazos.</p>
           </div>
+          <article className="rounded-[1.75rem] border border-[#E7D9C8] bg-white p-5 sm:p-8 shadow-[0_20px_65px_rgba(74,32,16,.08)]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#F5EFE8] px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#8B4513]"><Calendar size={14} /> 28 de septiembre de 2026</span>
+            <h2 className="mt-5 text-2xl sm:text-3xl font-bold text-[#5C4033]" style={serif}>Dinámica del grupo</h2>
+            <p className="mt-3 mb-6 text-[#755E51]">Compartimos una dinámica de reflexión y convivencia en nuestro grupo GETS.</p>
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                { src: dinamicaFoto1, alt: 'Material de la dinámica dispuesto en el suelo durante el encuentro de GETS' },
+                { src: dinamicaFoto2, alt: 'Integrantes de GETS participan en la dinámica del grupo' },
+                { src: dinamicaFoto3, alt: 'Integrantes de GETS realizan una actividad de reflexión alrededor de una mesa' },
+              ].map(photo => (
+                <a key={photo.src} href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={`Ver foto completa: ${photo.alt}`} className="block overflow-hidden rounded-xl bg-[#EAE2D8] focus-visible:outline-2 focus-visible:outline-[#8B4513]">
+                  <img src={photo.src} alt={photo.alt} className="h-60 w-full object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
+                </a>
+              ))}
+            </div>
+          </article>
+          <div className="mb-16"><CommentsSection nav={nav} session={session} contentType="photo" contentId="dinamica-grupo-28-septiembre-2026" /></div>
           <article className="gallery-feature grid md:grid-cols-[1fr_.8fr] overflow-hidden bg-white rounded-[1.75rem] border border-[#E7D9C8] shadow-[0_20px_65px_rgba(74,32,16,.08)]">
             <div className="gallery-feature-image bg-[#EAE2D8]">
               <img src={convivioFoto} alt="Participantes de GETS posan alrededor de la mesa durante su convivio del 15 de septiembre" className="w-full h-full object-cover object-center" loading="lazy" />
