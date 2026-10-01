@@ -20,6 +20,7 @@ import getsWordmark from '@/imports/gets-wordmark.png'
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, type GalleryComment } from "./supabase";
+import { Classroom, StudentManager } from './Classroom';
 import {
   Menu, X, Search, Play, Users, BookOpen, MapPin, Phone,
   Mail, Clock, ArrowRight, Calendar, Music, ChevronDown,
@@ -29,11 +30,11 @@ import {
   Video, Leaf, ScrollText
 } from "lucide-react";
 
-type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin";
+type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom";
 const PAGE_PATHS: Record<Page, string> = {
   home: "/", about: "/nosotros", events: "/actividades",
   sermons: "/ensenanzas-e-historia", gallery: "/galeria",
-  contact: "/contacto", login: "/ingresar", admin: "/admin",
+  contact: "/contacto", login: "/ingresar", admin: "/admin", classroom: "/alumnas",
 };
 function pageFromPath(path: string): Page {
   const normalized = path.replace(/\/+$/, "") || "/";
@@ -388,8 +389,8 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
             >
               Ingresar
             </button>
-            <PrimaryBtn onClick={() => nav("contact")} size="sm">
-              Entra a la comunidad
+            <PrimaryBtn onClick={() => nav("classroom")} size="sm">
+              Alumnas
             </PrimaryBtn>
           </div>
 
@@ -420,8 +421,8 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
             </button>
           ))}
           <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-gray-100">
-            <PrimaryBtn onClick={() => nav("contact")} full>
-              Únete a la comunidad
+            <PrimaryBtn onClick={() => nav("classroom")} full>
+              Espacio de alumnas
             </PrimaryBtn>
             <button
               onClick={() => nav("login")}
@@ -1475,6 +1476,7 @@ function LoginPage({ nav, session, isAdmin, forceRecovery, onRecoveryComplete }:
       <p className="text-[#755E51] mb-7">Ingresa o crea tu cuenta para participar en GETS.</p>
       {recovery ? <form onSubmit={updatePassword} className="space-y-4"><label className="block text-sm font-semibold text-[#5C4033]">Nueva contraseña<input type="password" minLength={8} required autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label><button className="rounded-xl bg-[#8B4513] px-5 py-3 text-white">Guardar contraseña</button></form> : session ? <div className="space-y-4"><p className="text-[#5C4033]">Sesión iniciada: {session.user.email}</p>
         <button onClick={() => setRecovery(true)} className="block text-[#8B4513] underline">Crear o cambiar contraseña</button>
+        <button onClick={() => nav('classroom')} className="block rounded-xl bg-[#8B4513] text-white px-5 py-3">Espacio de alumnas</button>
         <button onClick={() => nav(isAdmin ? 'admin' : 'gallery')} className="rounded-xl bg-[#8B4513] text-white px-5 py-3">{isAdmin ? 'Ir a moderación' : 'Ir a la galería'}</button>
         <button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="block text-[#8B4513] underline">Cerrar sesión</button></div> :
         <div>
@@ -1588,7 +1590,9 @@ function AdminPage({ nav, session }: { nav: (p: Page) => void; session: Session 
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-wrap justify-between items-center gap-4 mb-7"><div><h1 className="text-3xl font-bold text-[#5C4033]" style={serif}>Moderación de GETS</h1><p className="text-[#755E51] text-sm mt-2">Administradora: {session.user.email}</p></div>
       <div className="flex gap-4"><button onClick={() => void refresh()} className="text-[#8B4513] underline">Actualizar</button><button onClick={async () => { await supabase?.auth.signOut(); nav('home'); }} className="text-[#8B4513] underline">Cerrar sesión</button></div></div>
-      <p className="mb-5 rounded-xl border border-[#E7D9C8] bg-white p-4 text-sm text-[#755E51]">Los comentarios nuevos esperan aprobación. Puedes ocultar uno publicado desde la pestaña Publicados o eliminar definitivamente cualquier comentario. Restringir una cuenta impide nuevos comentarios y oculta los suyos mientras dure la restricción.</p>
+      <div className="mb-6 flex flex-wrap gap-3"><button onClick={() => nav('classroom')} className="rounded-xl bg-[#8B4513] px-5 py-3 text-white">Materiales y foro privado</button><button onClick={() => nav('home')} className="rounded-xl border border-[#E7D9C8] px-5 py-3 text-[#8B4513]">Volver a la web</button></div>
+      <StudentManager session={session} />
+      <p className="mb-5 rounded-xl border border-[#E7D9C8] bg-white p-4 text-sm text-[#755E51]">Los comentarios nuevos esperan aprobación. Puedes ocultar uno publicado desde la pestaña Publicados o eliminar definitivamente cualquier comentario. Restringir una cuenta impide nuevos comentarios, oculta los suyos y bloquea su acceso al espacio de alumnas mientras dure la restricción.</p>
       <div className="flex flex-wrap gap-2 mb-6">{([
         ['pending', 'Pendientes'], ['approved', 'Publicados'], ['rejected', 'Rechazados'],
       ] as const).map(([key, label]) => <button key={key} onClick={() => { setFilter(key); setMessage(''); }} aria-pressed={filter === key} className={`rounded-xl px-4 py-2.5 text-sm font-semibold ${filter === key ? 'bg-[#8B4513] text-white' : 'bg-white text-[#8B4513] border border-[#E7D9C8]'}`}>{label} ({counts[key]})</button>)}</div>
@@ -1650,6 +1654,7 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
               title: "COMUNIDAD",
               links: [
                 { l: "Intenciones de oración", p: "contact" as Page },
+                { l: "Espacio de alumnas", p: "classroom" as Page },
                 { l: "Voluntariado", p: "contact" as Page },
                 { l: "Próximos eventos", p: "events" as Page },
               ],
@@ -1746,6 +1751,7 @@ export default function App() {
       {page === "sermons" && <SermonsPage nav={nav} session={session} />}
       {page === "gallery" && <GalleryPage nav={nav} session={session} />}
       {page === "contact" && <ContactPage nav={nav} />}
+      {page === "classroom" && (authReady ? <Classroom key={session?.user.id || 'guest'} session={session} isAdmin={isAdmin} onLogin={() => nav('login')} onAdmin={() => nav('admin')} /> : <p className="p-12 text-center">Comprobando sesión…</p>)}
       {page === "login" && <LoginPage nav={nav} session={session} isAdmin={isAdmin} forceRecovery={recoveryRequested} onRecoveryComplete={() => setRecoveryRequested(false)} />}
       {page === "admin" && (authReady && session && isAdmin ? <AdminPage nav={nav} session={session} /> : <LoginPage nav={nav} session={session} isAdmin={isAdmin} forceRecovery={recoveryRequested} onRecoveryComplete={() => setRecoveryRequested(false)} />)}
       {page !== "login" && page !== "admin" && <Footer nav={nav} />}
