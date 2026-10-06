@@ -1222,7 +1222,7 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
   const [openAlbum, setOpenAlbum] = useState<string | null>(null);
   const albums = [
     {
-      id: 'actividad-grupo-5-octubre-2026', title: 'Actividad del grupo', date: '5 de octubre de 2026',
+      id: 'actividad-grupo-5-octubre-2026', title: 'Actividad del grupo', date: '5 de octubre de 2026', isoDate: '2026-10-05',
       description: 'Compartimos algunas imágenes de la actividad realizada por nuestras alumnas durante el encuentro del lunes 5 de octubre.',
       cover: octubreFoto1,
       photos: [
@@ -1231,7 +1231,7 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
       ],
     },
     {
-      id: 'dinamica-grupo-28-septiembre-2026', title: 'Dinámica del grupo', date: '28 de septiembre de 2026',
+      id: 'dinamica-grupo-28-septiembre-2026', title: 'Dinámica del grupo', date: '28 de septiembre de 2026', isoDate: '2026-09-28',
       description: 'Compartimos una dinámica de reflexión y convivencia en nuestro grupo GETS.',
       cover: dinamicaFoto3,
       photos: [
@@ -1241,12 +1241,28 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
       ],
     },
     {
-      id: 'convivio-15-septiembre-2026', title: 'Convivio del 15 de septiembre', date: '15 de septiembre de 2026',
+      id: 'convivio-15-septiembre-2026', title: 'Convivio del 15 de septiembre', date: '15 de septiembre de 2026', isoDate: '2026-09-15',
       description: 'Compartimos una jornada de convivencia, alegría y fraternidad en GETS. Gracias a quienes hicieron posible este encuentro.',
       cover: convivioFoto,
       photos: [{ src: convivioFoto, alt: 'Participantes de GETS posan alrededor de la mesa durante su convivio del 15 de septiembre' }],
     },
   ];
+
+  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  const latestDate = albums.reduce((latest, album) => album.isoDate > latest ? album.isoDate : latest, albums[0].isoDate);
+  const [calendarMonth, setCalendarMonth] = useState(() => latestDate.slice(0, 7));
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [year, month] = calendarMonth.split('-').map(Number);
+  const firstWeekday = (new Date(year, month - 1, 1).getDay() + 6) % 7;
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const monthAlbums = albums.filter(album => album.isoDate.startsWith(calendarMonth));
+  const visibleAlbums = monthAlbums.filter(album => !selectedDate || album.isoDate === selectedDate);
+  const years = Array.from(new Set([...albums.map(album => Number(album.isoDate.slice(0, 4))), new Date().getFullYear(), new Date().getFullYear() - 1, year])).sort((a, b) => b - a);
+  const changeMonth = (value: string) => { setCalendarMonth(value); setSelectedDate(null); setOpenAlbum(null); };
+  const moveMonth = (offset: number) => {
+    const next = new Date(year, month - 1 + offset, 1);
+    changeMonth(`${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, '0')}`);
+  };
 
   return (
     <div>
@@ -1263,10 +1279,54 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
           <div className="mb-8">
             <SectionLabel>RECUERDOS COMPARTIDOS</SectionLabel>
             <SectionHeading>Nuestros encuentros</SectionHeading>
-            <p className="text-[#755E51]">Abre una actividad para ver sus fotos y compartir un comentario.</p>
+            <p className="text-[#755E51]">Elige un año y un mes. Las fechas marcadas tienen fotos de nuestros encuentros.</p>
           </div>
+          <div className="mb-8 rounded-2xl border border-[#E7D9C8] bg-white p-4 sm:p-6">
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+              <div className="flex gap-3">
+                <label className="text-xs font-semibold text-[#755E51]">Año
+                  <select value={year} onChange={event => changeMonth(`${event.target.value}-${String(month).padStart(2, '0')}`)} className="mt-1 block rounded-lg border border-[#E7D9C8] bg-white px-3 py-2 text-sm text-[#5C4033]">{years.map(value => <option key={value}>{value}</option>)}</select>
+                </label>
+                <label className="text-xs font-semibold text-[#755E51]">Mes
+                  <select value={month} onChange={event => changeMonth(`${year}-${event.target.value.padStart(2, '0')}`)} className="mt-1 block rounded-lg border border-[#E7D9C8] bg-white px-3 py-2 text-sm text-[#5C4033]">{months.map((name, index) => <option key={name} value={index + 1}>{name}</option>)}</select>
+                </label>
+              </div>
+              <div className="flex items-center gap-2">
+                <button type="button" aria-label="Mes anterior" onClick={() => moveMonth(-1)} className="rounded-lg border border-[#E7D9C8] px-3 py-2 text-[#8B4513]">‹</button>
+                <button type="button" onClick={() => changeMonth(latestDate.slice(0, 7))} className="rounded-lg border border-[#E7D9C8] px-3 py-2 text-sm text-[#8B4513]">Últimas fotos</button>
+                <button type="button" aria-label="Mes siguiente" onClick={() => moveMonth(1)} className="rounded-lg border border-[#E7D9C8] px-3 py-2 text-[#8B4513]">›</button>
+              </div>
+            </div>
+            <h2 className="mb-4 text-xl font-bold text-[#5C4033]" style={serif}>{months[month - 1]} {year}</h2>
+            <div className="grid grid-cols-7 gap-1 sm:gap-2">
+              {['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map(day => <span key={day} className="pb-2 text-center text-xs font-semibold text-[#755E51]">{day}</span>)}
+              {Array.from({ length: firstWeekday }, (_, index) => <span key={`blank-${index}`} aria-hidden="true" />)}
+              {Array.from({ length: daysInMonth }, (_, index) => {
+                const day = index + 1;
+                const date = `${calendarMonth}-${String(day).padStart(2, '0')}`;
+                const dayAlbums = monthAlbums.filter(album => album.isoDate === date);
+                const marked = dayAlbums.length > 0;
+                return (
+                  <button key={date} type="button" disabled={!marked} aria-pressed={selectedDate === date} aria-label={`${day} de ${months[month - 1]} de ${year}: ${marked ? dayAlbums.map(album => album.title).join(', ') : 'sin fotos'}`} onClick={() => { setSelectedDate(date); setOpenAlbum(dayAlbums[0].id); }} className={`min-h-14 sm:min-h-20 rounded-lg border p-1 sm:p-2 text-sm flex flex-col items-center justify-center gap-1 ${selectedDate === date ? 'bg-[#8B4513] border-[#8B4513] text-white' : marked ? 'bg-[#F5EFE8] border-[#D4AF37] text-[#8B4513] hover:bg-[#EDE1D2]' : 'border-transparent text-gray-400'} focus-visible:outline-2 focus-visible:outline-[#8B4513]`}>
+                    <span className={marked ? 'font-bold' : ''}>{day}</span>
+                    {marked && <><span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" /><span className="hidden sm:block text-[10px]">{dayAlbums.reduce((total, album) => total + album.photos.length, 0)} fotos</span></>}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="mt-4 text-xs text-[#755E51]">Las fechas doradas tienen álbumes. Pulsa una para ver sus fotos.</p>
+            <div className="mt-5 flex flex-wrap gap-2 border-t border-[#E7D9C8] pt-4">
+              <span className="self-center mr-1 text-xs text-[#755E51]">Meses con fotos:</span>
+              {Array.from(new Set(albums.map(album => album.isoDate.slice(0, 7)))).sort().reverse().map(value => <button key={value} type="button" onClick={() => changeMonth(value)} className={`rounded-full px-3 py-1.5 text-xs ${value === calendarMonth ? 'bg-[#8B4513] text-white' : 'bg-[#F5EFE8] text-[#8B4513]'}`}>{months[Number(value.slice(5)) - 1]} {value.slice(0, 4)}</button>)}
+            </div>
+          </div>
+          <div className="mb-5 flex items-center justify-between gap-3">
+            <h2 className="text-xl font-bold text-[#5C4033]" style={serif}>{selectedDate ? 'Encuentros de la fecha elegida' : `Álbumes de ${months[month - 1].toLowerCase()}`}</h2>
+            {selectedDate && <button type="button" onClick={() => { setSelectedDate(null); setOpenAlbum(null); }} className="text-sm font-semibold text-[#8B4513]">Ver todo el mes</button>}
+          </div>
+          {visibleAlbums.length === 0 && <p className="rounded-2xl border border-[#E7D9C8] bg-white p-8 text-center text-[#755E51]">Todavía no hay fotos publicadas de este mes.</p>}
           <div className="space-y-5">
-            {albums.map(album => {
+            {visibleAlbums.map(album => {
               const expanded = openAlbum === album.id;
               return (
                 <article key={album.id} className="overflow-hidden rounded-2xl border border-[#E7D9C8] bg-white shadow-sm">
