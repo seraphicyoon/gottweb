@@ -666,7 +666,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
         </div>
       </section>
 
-      {/* Volunteer & Sponsor */}
+      {/* Participación comunitaria */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-6">
@@ -1340,7 +1340,7 @@ function DiocesePage() {
 // ===================== CONTACT PAGE =====================
 
 function ContactPage({ nav }: { nav: (p: Page) => void }) {
-  const [tab, setTab] = useState<"membership" | "sponsor" | "prayer">("membership");
+  const [tab, setTab] = useState<"membership" | "prayer">("membership");
 
   return (
     <div>
@@ -1398,10 +1398,10 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
               </div>
             </div>
 
-            {/* Forms con el select de las 3 áreas de interés */}
+            {/* Formularios de contacto y oración */}
             <div className="lg:col-span-2">
               <div className="flex gap-1 bg-[#F5EFE8] rounded-xl p-1 mb-6 md:mb-8 w-full md:w-fit overflow-x-auto">
-                {(["membership", "sponsor", "prayer"] as const).map((t) => (
+                {(["membership", "prayer"] as const).map((t) => (
                   <button
                     key={t}
                     onClick={() => setTab(t)}
@@ -1409,7 +1409,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
                       tab === t ? "bg-white text-[#8B4513] shadow-sm" : "text-gray-500 hover:text-gray-700"
                     }`}
                   >
-                    {t === "membership" ? "Únete al Taller" : t === "sponsor" ? "Patrocinio" : "Intención de Oración"}
+                    {t === "membership" ? "Únete al Taller" : "Intención de Oración"}
                   </button>
                 ))}
               </div>
@@ -1449,28 +1449,6 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
                       <textarea className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 h-24 resize-none" placeholder="Cuéntanos tu historia..." />
                     </div>
                     <PrimaryBtn full>Enviar mensaje <ArrowRight size={15} /></PrimaryBtn>
-                  </div>
-                )}
-
-                {tab === "sponsor" && (
-                  <div>
-                    <h3 className="font-bold text-[#5C4033] mb-6" style={serif}>Formulario de Patrocinio</h3>
-                    {[
-                      { l: "Nombre de la organización o empresa", p: "Tu organización" },
-                      { l: "Persona de contacto", p: "Nombre completo" },
-                      { l: "Correo electrónico", p: "contacto@org.com" },
-                      { l: "Número de teléfono", p: "+52..." },
-                    ].map((f) => (
-                      <div key={f.l} className="mb-4">
-                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">{f.l}</label>
-                        <input className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20" placeholder={f.p} />
-                      </div>
-                    ))}
-                    <div className="mb-6">
-                      <label className="block text-xs font-semibold text-gray-500 mb-1.5">¿Cómo te gustaría apoyar a GETS?</label>
-                      <textarea className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 h-24 resize-none" placeholder="Describe cómo te gustaría colaborar con GETS..." />
-                    </div>
-                    <GoldBtn full>Enviar interés de patrocinio <ArrowRight size={15} /></GoldBtn>
                   </div>
                 )}
 
