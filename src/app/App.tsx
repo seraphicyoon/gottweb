@@ -1197,73 +1197,97 @@ function CommentsSection({ nav, session, contentType, contentId }: { nav: (p: Pa
 }
 
 function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
+  const [openAlbum, setOpenAlbum] = useState<string | null>(null);
+  const albums = [
+    {
+      id: 'actividad-grupo-5-octubre-2026', title: 'Actividad del grupo', date: '5 de octubre de 2026',
+      description: 'Compartimos algunas imágenes de la actividad realizada por nuestras alumnas durante el encuentro del lunes 5 de octubre.',
+      cover: octubreFoto1,
+      photos: [
+        { src: octubreFoto1, alt: 'Alumnas de GETS muestran el trabajo elaborado en equipo durante la actividad del 5 de octubre' },
+        { src: octubreFoto2, alt: 'Integrantes de GETS presentan su trabajo en equipo durante el encuentro del 5 de octubre' },
+      ],
+    },
+    {
+      id: 'dinamica-grupo-28-septiembre-2026', title: 'Dinámica del grupo', date: '28 de septiembre de 2026',
+      description: 'Compartimos una dinámica de reflexión y convivencia en nuestro grupo GETS.',
+      cover: dinamicaFoto3,
+      photos: [
+        { src: dinamicaFoto1, alt: 'Material de la dinámica dispuesto en el suelo durante el encuentro de GETS' },
+        { src: dinamicaFoto2, alt: 'Integrantes de GETS participan en la dinámica del grupo' },
+        { src: dinamicaFoto3, alt: 'Integrantes de GETS realizan una actividad de reflexión alrededor de una mesa' },
+      ],
+    },
+    {
+      id: 'convivio-15-septiembre-2026', title: 'Convivio del 15 de septiembre', date: '15 de septiembre de 2026',
+      description: 'Compartimos una jornada de convivencia, alegría y fraternidad en GETS. Gracias a quienes hicieron posible este encuentro.',
+      cover: convivioFoto,
+      photos: [{ src: convivioFoto, alt: 'Participantes de GETS posan alrededor de la mesa durante su convivio del 15 de septiembre' }],
+    },
+  ];
+
   return (
     <div>
       <section className="relative min-h-64 py-16 flex items-center bg-[#5C2D0E] overflow-hidden">
-        <img
-          src={IMG("photo-1531206715517-5c0ba140b2b8", 1600, 500)}
-          alt="Galería"
-          className="absolute inset-0 w-full h-full object-cover opacity-15"
-        />
+        <img src={IMG("photo-1531206715517-5c0ba140b2b8", 1600, 500)} alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>MOMENTOS GETS</SectionLabel>
           <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Galería de la Comunidad</h1>
           <p className="text-white/80 mt-3 max-w-xl">Nuestra vida en comunidad, contada a través de momentos compartidos.</p>
         </div>
       </section>
-
-      <section className="py-14 md:py-20 bg-[#F9F5EE]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 md:mb-10">
+      <section className="py-12 md:py-16 bg-[#F9F5EE]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8">
             <SectionLabel>RECUERDOS COMPARTIDOS</SectionLabel>
-            <SectionHeading>La comunidad en imágenes</SectionHeading>
-            <p className="text-[#755E51] max-w-2xl">Un recuerdo de los encuentros que nos acercan y fortalecen nuestros lazos.</p>
+            <SectionHeading>Nuestros encuentros</SectionHeading>
+            <p className="text-[#755E51]">Abre una actividad para ver sus fotos y compartir un comentario.</p>
           </div>
-          <article className="rounded-[1.75rem] border border-[#E7D9C8] bg-white p-5 sm:p-8 shadow-[0_20px_65px_rgba(74,32,16,.08)]">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#F5EFE8] px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#8B4513]"><Calendar size={14} /> 5 de octubre de 2026</span>
-            <h2 className="mt-5 text-2xl sm:text-3xl font-bold text-[#5C4033]" style={serif}>Actividad del grupo</h2>
-            <p className="mt-3 mb-6 text-[#755E51]">Compartimos algunas imágenes de la actividad realizada por nuestras alumnas durante el encuentro del lunes 5 de octubre.</p>
-            <div className="grid gap-4 md:grid-cols-2">
-              {[
-                { src: octubreFoto1, alt: 'Alumnas de GETS muestran el trabajo elaborado en equipo durante la actividad del 5 de octubre' },
-                { src: octubreFoto2, alt: 'Integrantes de GETS presentan su trabajo en equipo durante el encuentro del 5 de octubre' },
-              ].map(photo => (
-                <a key={photo.src} href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={`Ver foto completa: ${photo.alt}`} className="block overflow-hidden rounded-xl bg-[#EAE2D8] focus-visible:outline-2 focus-visible:outline-[#8B4513]">
-                  <img src={photo.src} alt={photo.alt} className="aspect-[4/3] w-full object-contain" loading="lazy" />
-                </a>
-              ))}
-            </div>
-          </article>
-          <div className="mb-16"><CommentsSection nav={nav} session={session} contentType="photo" contentId="actividad-grupo-5-octubre-2026" /></div>
-          <article className="rounded-[1.75rem] border border-[#E7D9C8] bg-white p-5 sm:p-8 shadow-[0_20px_65px_rgba(74,32,16,.08)]">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#F5EFE8] px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#8B4513]"><Calendar size={14} /> 28 de septiembre de 2026</span>
-            <h2 className="mt-5 text-2xl sm:text-3xl font-bold text-[#5C4033]" style={serif}>Dinámica del grupo</h2>
-            <p className="mt-3 mb-6 text-[#755E51]">Compartimos una dinámica de reflexión y convivencia en nuestro grupo GETS.</p>
-            <div className="grid gap-4 md:grid-cols-3">
-              {[
-                { src: dinamicaFoto1, alt: 'Material de la dinámica dispuesto en el suelo durante el encuentro de GETS' },
-                { src: dinamicaFoto2, alt: 'Integrantes de GETS participan en la dinámica del grupo' },
-                { src: dinamicaFoto3, alt: 'Integrantes de GETS realizan una actividad de reflexión alrededor de una mesa' },
-              ].map(photo => (
-                <a key={photo.src} href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={`Ver foto completa: ${photo.alt}`} className="block overflow-hidden rounded-xl bg-[#EAE2D8] focus-visible:outline-2 focus-visible:outline-[#8B4513]">
-                  <img src={photo.src} alt={photo.alt} className="h-60 w-full object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
-                </a>
-              ))}
-            </div>
-          </article>
-          <div className="mb-16"><CommentsSection nav={nav} session={session} contentType="photo" contentId="dinamica-grupo-28-septiembre-2026" /></div>
-          <article className="gallery-feature grid md:grid-cols-[1fr_.8fr] overflow-hidden bg-white rounded-[1.75rem] border border-[#E7D9C8] shadow-[0_20px_65px_rgba(74,32,16,.08)]">
-            <div className="gallery-feature-image bg-[#EAE2D8]">
-              <img src={convivioFoto} alt="Participantes de GETS posan alrededor de la mesa durante su convivio del 15 de septiembre" className="w-full h-full object-cover object-center" loading="lazy" />
-            </div>
-            <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-14">
-              <span className="inline-flex self-start items-center gap-2 rounded-full bg-[#F5EFE8] px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#8B4513]"><Calendar size={14} /> 21 de septiembre de 2026</span>
-              <h2 className="mt-6 text-3xl lg:text-4xl font-bold leading-tight text-[#5C4033]" style={serif}>Convivio del 15 de septiembre</h2>
-              <p className="mt-5 text-[#755E51] leading-relaxed">Compartimos una jornada de convivencia, alegría y fraternidad en GETS. Gracias a quienes hicieron posible este encuentro.</p>
-              <p className="mt-8 pt-6 border-t border-[#E7D9C8] text-sm font-semibold text-[#8B4513]">Grupo Educativo Teresiano Sanjuanista</p>
-            </div>
-          </article>
-          <CommentsSection nav={nav} session={session} contentType="photo" contentId="convivio-15-septiembre-2026" />
+          <div className="space-y-5">
+            {albums.map(album => {
+              const expanded = openAlbum === album.id;
+              return (
+                <article key={album.id} className="overflow-hidden rounded-2xl border border-[#E7D9C8] bg-white shadow-sm">
+                  <h2>
+                    <button
+                      id={`heading-${album.id}`}
+                      type="button"
+                      aria-expanded={expanded}
+                      aria-controls={`album-${album.id}`}
+                      onClick={() => setOpenAlbum(expanded ? null : album.id)}
+                      className="flex w-full items-center gap-4 p-4 text-left transition-colors hover:bg-[#FBF8F3] focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#8B4513] sm:gap-6 sm:p-5"
+                    >
+                      <img src={album.cover} alt="" loading="lazy" className="h-24 w-24 shrink-0 rounded-xl object-cover sm:h-28 sm:w-40" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-xs font-semibold text-[#8B4513] sm:text-sm">{album.date}</span>
+                        <span className="mt-1 block text-xl font-bold leading-tight text-[#5C4033] sm:text-2xl" style={serif}>{album.title}</span>
+                        <span className="mt-2 block text-sm text-[#755E51]">{album.photos.length} {album.photos.length === 1 ? 'foto' : 'fotos'}</span>
+                        <span className="mt-2 block text-sm font-semibold text-[#8B4513] sm:hidden">{expanded ? 'Cerrar álbum' : 'Ver fotos'}</span>
+                      </span>
+                      <span className="hidden text-sm font-semibold text-[#8B4513] sm:block">{expanded ? 'Cerrar álbum' : 'Ver fotos'}</span>
+                      <ChevronDown aria-hidden="true" size={22} className={`shrink-0 text-[#8B4513] transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} />
+                    </button>
+                  </h2>
+                  <div id={`album-${album.id}`} role="region" aria-labelledby={`heading-${album.id}`} hidden={!expanded}>
+                    {expanded && (
+                      <div className="border-t border-[#E7D9C8] p-4 sm:p-6">
+                        <p className="mb-5 leading-relaxed text-[#755E51]">{album.description}</p>
+                        <div className={`grid gap-4 ${album.photos.length > 1 ? 'sm:grid-cols-2' : 'max-w-3xl mx-auto'}`}>
+                          {album.photos.map((photo, index) => (
+                            <a key={photo.src} href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={`Ver foto completa: ${photo.alt}`} className="group overflow-hidden rounded-xl border border-[#E7D9C8] bg-[#F5EFE8] focus-visible:outline-2 focus-visible:outline-[#8B4513]">
+                              <img src={photo.src} alt={photo.alt} loading="lazy" className="aspect-[4/3] w-full object-contain" />
+                              <span className="flex justify-between bg-white px-4 py-3 text-xs text-[#755E51]"><span>Foto {index + 1}</span><span className="font-semibold text-[#8B4513] group-hover:underline">Ver completa ↗</span></span>
+                            </a>
+                          ))}
+                        </div>
+                        <CommentsSection nav={nav} session={session} contentType="photo" contentId={album.id} />
+                      </div>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
     </div>
