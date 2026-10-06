@@ -12,6 +12,8 @@ import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM_1 from '@/imports/WhatsApp
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM.jpeg'
 import image_a6581ea87ef7420b4834deabc17656a8 from '@/imports/a6581ea87ef7420b4834deabc17656a8.jpg'
 import convivioFoto from '@/imports/convivio-15-septiembre-2026.webp'
+import octubreFoto1 from '@/imports/actividad-5-octubre-2026-1.webp'
+import octubreFoto2 from '@/imports/actividad-5-octubre-2026-2.webp'
 import dinamicaFoto1 from '@/imports/dinamica-28-septiembre-2026-1.webp'
 import dinamicaFoto2 from '@/imports/dinamica-28-septiembre-2026-2.webp'
 import dinamicaFoto3 from '@/imports/dinamica-28-septiembre-2026-3.webp'
@@ -1217,6 +1219,22 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             <SectionHeading>La comunidad en imágenes</SectionHeading>
             <p className="text-[#755E51] max-w-2xl">Un recuerdo de los encuentros que nos acercan y fortalecen nuestros lazos.</p>
           </div>
+          <article className="rounded-[1.75rem] border border-[#E7D9C8] bg-white p-5 sm:p-8 shadow-[0_20px_65px_rgba(74,32,16,.08)]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#F5EFE8] px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#8B4513]"><Calendar size={14} /> 5 de octubre de 2026</span>
+            <h2 className="mt-5 text-2xl sm:text-3xl font-bold text-[#5C4033]" style={serif}>Actividad del grupo</h2>
+            <p className="mt-3 mb-6 text-[#755E51]">Compartimos algunas imágenes de la actividad realizada por nuestras alumnas durante el encuentro del lunes 5 de octubre.</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                { src: octubreFoto1, alt: 'Alumnas de GETS muestran el trabajo elaborado en equipo durante la actividad del 5 de octubre' },
+                { src: octubreFoto2, alt: 'Integrantes de GETS presentan su trabajo en equipo durante el encuentro del 5 de octubre' },
+              ].map(photo => (
+                <a key={photo.src} href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={`Ver foto completa: ${photo.alt}`} className="block overflow-hidden rounded-xl bg-[#EAE2D8] focus-visible:outline-2 focus-visible:outline-[#8B4513]">
+                  <img src={photo.src} alt={photo.alt} className="aspect-[4/3] w-full object-contain" loading="lazy" />
+                </a>
+              ))}
+            </div>
+          </article>
+          <div className="mb-16"><CommentsSection nav={nav} session={session} contentType="photo" contentId="actividad-grupo-5-octubre-2026" /></div>
           <article className="rounded-[1.75rem] border border-[#E7D9C8] bg-white p-5 sm:p-8 shadow-[0_20px_65px_rgba(74,32,16,.08)]">
             <span className="inline-flex items-center gap-2 rounded-full bg-[#F5EFE8] px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#8B4513]"><Calendar size={14} /> 28 de septiembre de 2026</span>
             <h2 className="mt-5 text-2xl sm:text-3xl font-bold text-[#5C4033]" style={serif}>Dinámica del grupo</h2>
