@@ -1398,7 +1398,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
               </div>
             </div>
 
-            {/* Formularios de contacto y oración */}
+            {/* Contacto: inscripción al taller e intenciones de oración */}
             <div className="lg:col-span-2">
               <div className="flex gap-1 bg-[#F5EFE8] rounded-xl p-1 mb-6 md:mb-8 w-full md:w-fit overflow-x-auto">
                 {(["membership", "prayer"] as const).map((t) => (
