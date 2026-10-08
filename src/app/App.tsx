@@ -1440,6 +1440,11 @@ function PersonalStudiesPage() {
             <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}>Clasificación de diversas escenas en el Evangelio de San Marcos</h2>
             <p className="mt-4 text-[#755E51]">Lic. María Luisa Rodríguez Assemat</p>
           </article>
+          <article className="mt-5 rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
+            <BookOpen size={30} className="mb-5 text-[#8B4513]" aria-hidden="true" />
+            <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}>Presentación de la síntesis de hechos, actitudes y acciones de Jesús, acciones de los discípulos y actitudes de los apóstoles en el Evangelio de San Marcos</h2>
+            <p className="mt-4 text-[#755E51]">Lic. María Luisa Rodríguez Assemat</p>
+          </article>
         </div>
       </section>
     </main>
