@@ -1453,22 +1453,30 @@ function PersonalStudiesPage() {
   );
 }
 
-function FratelliPage() {
+function FratelliPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
   return (
     <main>
       <section className="bg-[#5C2D0E] py-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <SectionLabel>HISTORIA · ESTUDIO EN GRUPO</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Estudio en grupo de la encíclica social Fratelli tutti</h1>
-          <p className="mt-4 max-w-2xl text-white/80">Un espacio para compartir el estudio y la reflexión en grupo sobre Fratelli tutti.</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}>Estudio en grupo de la encíclica social Fratelli tutti</h1>
         </div>
       </section>
-      <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
-        <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
-          <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestras publicaciones</h2>
-          <p className="mt-3 text-[#755E51]">Aquí compartiremos los estudios y reflexiones del grupo sobre esta encíclica.</p>
-        </div>
+      <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
+        <article className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-5 sm:p-8">
+          <SectionLabel>MATERIAL DE ESTUDIO</SectionLabel>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Fratelli tutti · Material de estudio</h2>
+          <p className="mt-3 text-sm text-[#755E51]">Estudio y reflexión en grupo · 5 páginas</p>
+          <div className="mt-6 space-y-5" aria-label="Material de estudio, 5 páginas">
+            {Array.from({ length: 5 }, (_, index) => (
+              <figure key={index} className="overflow-hidden rounded-xl border border-[#E7D9C8] bg-[#F9F5EE]">
+                <img src={`/documentos/fratelli-tutti/pagina-${String(index + 1).padStart(2, '0')}.jpg`} alt={`Estudio de Fratelli tutti, página ${index + 1} de 5`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" width={1376} height={1780} draggable={false} className="block h-auto w-full" />
+                <figcaption className="py-2 text-center text-xs text-[#755E51]">Página {index + 1} de 5</figcaption>
+              </figure>
+            ))}
+          </div>
+        </article>
+        <CommentsSection nav={nav} session={session} contentType="article" contentId="estudio-fratelli-tutti" />
       </section>
     </main>
   );
@@ -2101,7 +2109,7 @@ export default function App() {
       {page === "studies" && <PersonalStudiesPage />}
       {page === "parish" && <ParishPage />}
       {page === "diocesanMeetings" && <DiocesanMeetingsPage />}
-      {page === "fratelli" && <FratelliPage />}
+      {page === "fratelli" && <FratelliPage nav={nav} session={session} />}
       {page === "gallery" && <GalleryPage nav={nav} session={session} />}
       {page === "contact" && <ContactPage nav={nav} />}
       {page === "classroom" && (authReady ? <Classroom key={session?.user.id || 'guest'} session={session} isAdmin={isAdmin} onLogin={() => nav('login')} onAdmin={() => nav('admin')} /> : <p className="p-12 text-center">Comprobando sesión…</p>)}
