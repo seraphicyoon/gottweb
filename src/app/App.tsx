@@ -32,10 +32,10 @@ import {
   Video, Leaf, ScrollText
 } from "lucide-react";
 
-type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli";
+type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli" | "carmelo" | "diocesanActivities" | "lumen";
 const PAGE_PATHS: Record<Page, string> = {
   home: "/", about: "/nosotros", events: "/actividades",
-  fratelli: "/historia/estudio-fratelli-tutti", parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
+  carmelo: "/actividades/carmelo-descalzo", diocesanActivities: "/actividades/diocesanas", lumen: "/actividades/santa-teresa-lumen-gentium", fratelli: "/historia/estudio-fratelli-tutti", parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
   contact: "/contacto", login: "/ingresar", admin: "/admin", classroom: "/alumnas",
 };
 function pageFromPath(path: string): Page {
@@ -351,8 +351,15 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
     { label: "Galería", page: "gallery" },
     { label: "Contacto", page: "contact" },
   ];
+  const [activitiesOpen, setActivitiesOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
-  useEffect(() => { setHistoryOpen(false); }, [page, mobileOpen]);
+  useEffect(() => { setHistoryOpen(false); setActivitiesOpen(false); }, [page, mobileOpen]);
+  const activityItems = (<>
+    <button type="button" onClick={() => { setActivitiesOpen(false); nav('events'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Todas las actividades</button>
+    <button type="button" onClick={() => { setActivitiesOpen(false); nav('carmelo'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Actividades en el Carmelo Descalzo</button>
+    <button type="button" onClick={() => { setActivitiesOpen(false); nav('diocesanActivities'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Actividades diocesanas</button>
+    <button type="button" onClick={() => { setActivitiesOpen(false); nav('lumen'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Estudio en grupo de Santa Teresa de Jesús y el misterio de la Iglesia: Lumen gentium del Concilio Vaticano II</button>
+  </>);
   const historyItems = (
     <>
       <button type="button" onClick={() => { setHistoryOpen(false); nav('sermons'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Historia de GETS</button>
@@ -380,9 +387,16 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {links.map((l) => l.page === 'sermons' ? (
+            {links.map((l) => l.page === 'events' ? (
               <div key={l.page} className="relative">
-                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => setHistoryOpen(!historyOpen)} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' || page === 'parish' || page === 'diocesanMeetings' || page === 'fratelli' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <button type="button" aria-expanded={activitiesOpen} aria-controls="activities-desktop" onClick={() => { setActivitiesOpen(!activitiesOpen); setHistoryOpen(false); }} onKeyDown={event => { if (event.key === 'Escape') setActivitiesOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${['events', 'carmelo', 'diocesanActivities', 'lumen'].includes(page) ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
+                  Actividades <ChevronDown size={14} aria-hidden="true" className={activitiesOpen ? 'rotate-180' : ''} />
+                </button>
+                {activitiesOpen && <div id="activities-desktop" className="absolute left-0 top-full mt-2 w-80 max-h-[70vh] overflow-y-auto rounded-xl border border-[#E7D9C8] bg-white p-2 shadow-lg">{activityItems}</div>}
+              </div>
+            ) : l.page === 'sermons' ? (
+              <div key={l.page} className="relative">
+                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => { setHistoryOpen(!historyOpen); setActivitiesOpen(false); }} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' || page === 'parish' || page === 'diocesanMeetings' || page === 'fratelli' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
                   Historia <ChevronDown size={14} aria-hidden="true" className={historyOpen ? 'rotate-180' : ''} />
                 </button>
                 {historyOpen && <div id="history-desktop" className="absolute left-0 top-full mt-2 w-72 rounded-xl border border-[#E7D9C8] bg-white p-2 shadow-lg">{historyItems}</div>}
@@ -1485,6 +1499,75 @@ function DiocesanMeetingsPage() {
   );
 }
 
+function CarmeloPage() {
+  return (
+    <main>
+      <section className="bg-[#5C2D0E] py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLabel>ACTIVIDADES · CARMELO DESCALZO</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Actividades en el Carmelo Descalzo</h1>
+          <p className="mt-4 max-w-2xl text-white/80">Encuentros y actividades en el Carmelo Descalzo.</p>
+        </div>
+      </section>
+      <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
+        <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
+          <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestras actividades</h2>
+          <p className="mt-3 text-[#755E51]">Aquí compartiremos nuestras actividades en el Carmelo Descalzo.</p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function DiocesanActivitiesPage() {
+  return (
+    <main>
+      <section className="bg-[#5C2D0E] py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLabel>ACTIVIDADES · VIDA DIOCESANA</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Actividades diocesanas</h1>
+          <p className="mt-4 max-w-2xl text-white/80">Un espacio para compartir nuestras actividades diocesanas.</p>
+        </div>
+      </section>
+      <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
+        <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
+          <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestras actividades</h2>
+          <p className="mt-3 text-[#755E51]">Aquí compartiremos las actividades que realizamos en nuestra diócesis.</p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function LumenPage() {
+  return (
+    <main>
+      <section className="bg-[#5C2D0E] py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <SectionLabel>ACTIVIDADES · ESTUDIO EN GRUPO</SectionLabel>
+          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}>Estudio en grupo de Santa Teresa de Jesús y el misterio de la Iglesia: Lumen gentium del Concilio Vaticano II</h1>
+        </div>
+      </section>
+      <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
+        <article className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-5 sm:p-8">
+          <SectionLabel>MATERIAL DE ESTUDIO</SectionLabel>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Santa Teresa de Jesús y el «misterio» de la Iglesia</h2>
+          <p className="mt-3 text-sm text-[#755E51]">Enrique Llamas Martínez · Anales de la Real Academia de Doctores de España · 2005 · 15 páginas</p>
+          <div className="my-6 flex flex-wrap gap-3">
+            <a href="/documentos/lumen-gentium-mistica.pdf" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-[#8B4513] px-5 py-3 text-sm font-semibold text-white">Abrir documento</a>
+            <a href="/documentos/lumen-gentium-mistica.pdf" download="Lumen-Gentium-Mistica.pdf" className="rounded-xl border border-[#8B4513] px-5 py-3 text-sm font-semibold text-[#8B4513]">Descargar PDF</a>
+          </div>
+          <object data="/documentos/lumen-gentium-mistica.pdf" type="application/pdf" aria-label="Material de estudio: Santa Teresa de Jesús y el misterio de la Iglesia" className="block h-[70vh] min-h-[400px] w-full rounded-xl border border-[#E7D9C8]">
+            <p className="p-5 text-[#755E51]">Puedes leer el material usando el botón «Abrir documento».</p>
+          </object>
+        </article>
+      </section>
+    </main>
+  );
+}
+
 // ===================== CONTACT PAGE =====================
 
 function ContactPage({ nav }: { nav: (p: Page) => void }) {
@@ -1959,6 +2042,9 @@ export default function App() {
       {page === "home" && <HomePage nav={nav} />}
       {page === "about" && <AboutPage nav={nav} />}
       {page === "events" && <EventsPage nav={nav} />}
+      {page === "carmelo" && <CarmeloPage />}
+      {page === "diocesanActivities" && <DiocesanActivitiesPage />}
+      {page === "lumen" && <LumenPage />}
       {page === "sermons" && <SermonsPage nav={nav} session={session} />}
       {page === "diocese" && <DiocesePage />}
       {page === "studies" && <PersonalStudiesPage />}
