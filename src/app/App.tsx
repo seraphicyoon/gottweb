@@ -32,10 +32,10 @@ import {
   Video, Leaf, ScrollText
 } from "lucide-react";
 
-type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies";
+type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings";
 const PAGE_PATHS: Record<Page, string> = {
   home: "/", about: "/nosotros", events: "/actividades",
-  studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
+  parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
   contact: "/contacto", login: "/ingresar", admin: "/admin", classroom: "/alumnas",
 };
 function pageFromPath(path: string): Page {
@@ -358,6 +358,8 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
       <button type="button" onClick={() => { setHistoryOpen(false); nav('sermons'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Historia de GETS</button>
       <button type="button" onClick={() => { setHistoryOpen(false); nav('diocese'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Actividades en la diócesis de Tampico</button>
       <button type="button" onClick={() => { setHistoryOpen(false); nav('studies'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Estudios personales</button>
+      <button type="button" onClick={() => { setHistoryOpen(false); nav('parish'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario</button>
+      <button type="button" onClick={() => { setHistoryOpen(false); nav('diocesanMeetings'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Nuestros encuentros diocesanos</button>
     </>
   );
   const adminPage = page === "admin";
@@ -379,7 +381,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
           <nav className="hidden lg:flex items-center gap-1">
             {links.map((l) => l.page === 'sermons' ? (
               <div key={l.page} className="relative">
-                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => setHistoryOpen(!historyOpen)} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => setHistoryOpen(!historyOpen)} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' || page === 'parish' || page === 'diocesanMeetings' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
                   Historia <ChevronDown size={14} aria-hidden="true" className={historyOpen ? 'rotate-180' : ''} />
                 </button>
                 {historyOpen && <div id="history-desktop" className="absolute left-0 top-full mt-2 w-72 rounded-xl border border-[#E7D9C8] bg-white p-2 shadow-lg">{historyItems}</div>}
@@ -1419,6 +1421,48 @@ function PersonalStudiesPage() {
   );
 }
 
+function ParishPage() {
+  return (
+    <main>
+      <section className="bg-[#5C2D0E] py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLabel>HISTORIA · VIDA PARROQUIAL</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario</h1>
+          <p className="mt-4 max-w-2xl text-white/80">Un espacio para compartir nuestra vida y actividades parroquiales.</p>
+        </div>
+      </section>
+      <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
+        <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
+          <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestras publicaciones</h2>
+          <p className="mt-3 text-[#755E51]">Aquí compartiremos las actividades y experiencias de la Parroquia Nuestra Señora del Rosario.</p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function DiocesanMeetingsPage() {
+  return (
+    <main>
+      <section className="bg-[#5C2D0E] py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLabel>HISTORIA · VIDA DIOCESANA</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Nuestros encuentros diocesanos</h1>
+          <p className="mt-4 max-w-2xl text-white/80">Recuerdos y experiencias de nuestros encuentros en la diócesis.</p>
+        </div>
+      </section>
+      <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
+        <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
+          <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestros encuentros</h2>
+          <p className="mt-3 text-[#755E51]">Aquí compartiremos las publicaciones de nuestros encuentros diocesanos.</p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 // ===================== CONTACT PAGE =====================
 
 function ContactPage({ nav }: { nav: (p: Page) => void }) {
@@ -1896,6 +1940,8 @@ export default function App() {
       {page === "sermons" && <SermonsPage nav={nav} session={session} />}
       {page === "diocese" && <DiocesePage />}
       {page === "studies" && <PersonalStudiesPage />}
+      {page === "parish" && <ParishPage />}
+      {page === "diocesanMeetings" && <DiocesanMeetingsPage />}
       {page === "gallery" && <GalleryPage nav={nav} session={session} />}
       {page === "contact" && <ContactPage nav={nav} />}
       {page === "classroom" && (authReady ? <Classroom key={session?.user.id || 'guest'} session={session} isAdmin={isAdmin} onLogin={() => nav('login')} onAdmin={() => nav('admin')} /> : <p className="p-12 text-center">Comprobando sesión…</p>)}
