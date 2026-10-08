@@ -32,10 +32,10 @@ import {
   Video, Leaf, ScrollText
 } from "lucide-react";
 
-type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings";
+type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli";
 const PAGE_PATHS: Record<Page, string> = {
   home: "/", about: "/nosotros", events: "/actividades",
-  parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
+  fratelli: "/historia/estudio-fratelli-tutti", parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
   contact: "/contacto", login: "/ingresar", admin: "/admin", classroom: "/alumnas",
 };
 function pageFromPath(path: string): Page {
@@ -360,6 +360,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
       <button type="button" onClick={() => { setHistoryOpen(false); nav('studies'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Estudios personales</button>
       <button type="button" onClick={() => { setHistoryOpen(false); nav('parish'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario</button>
       <button type="button" onClick={() => { setHistoryOpen(false); nav('diocesanMeetings'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Nuestros encuentros diocesanos</button>
+      <button type="button" onClick={() => { setHistoryOpen(false); nav('fratelli'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Estudio en grupo de la encíclica social Fratelli tutti</button>
     </>
   );
   const adminPage = page === "admin";
@@ -381,7 +382,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
           <nav className="hidden lg:flex items-center gap-1">
             {links.map((l) => l.page === 'sermons' ? (
               <div key={l.page} className="relative">
-                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => setHistoryOpen(!historyOpen)} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' || page === 'parish' || page === 'diocesanMeetings' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => setHistoryOpen(!historyOpen)} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' || page === 'parish' || page === 'diocesanMeetings' || page === 'fratelli' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
                   Historia <ChevronDown size={14} aria-hidden="true" className={historyOpen ? 'rotate-180' : ''} />
                 </button>
                 {historyOpen && <div id="history-desktop" className="absolute left-0 top-full mt-2 w-72 rounded-xl border border-[#E7D9C8] bg-white p-2 shadow-lg">{historyItems}</div>}
@@ -1421,6 +1422,27 @@ function PersonalStudiesPage() {
   );
 }
 
+function FratelliPage() {
+  return (
+    <main>
+      <section className="bg-[#5C2D0E] py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionLabel>HISTORIA · ESTUDIO EN GRUPO</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Estudio en grupo de la encíclica social Fratelli tutti</h1>
+          <p className="mt-4 max-w-2xl text-white/80">Un espacio para compartir el estudio y la reflexión en grupo sobre Fratelli tutti.</p>
+        </div>
+      </section>
+      <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
+        <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
+          <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestras publicaciones</h2>
+          <p className="mt-3 text-[#755E51]">Aquí compartiremos los estudios y reflexiones del grupo sobre esta encíclica.</p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function ParishPage() {
   return (
     <main>
@@ -1942,6 +1964,7 @@ export default function App() {
       {page === "studies" && <PersonalStudiesPage />}
       {page === "parish" && <ParishPage />}
       {page === "diocesanMeetings" && <DiocesanMeetingsPage />}
+      {page === "fratelli" && <FratelliPage />}
       {page === "gallery" && <GalleryPage nav={nav} session={session} />}
       {page === "contact" && <ContactPage nav={nav} />}
       {page === "classroom" && (authReady ? <Classroom key={session?.user.id || 'guest'} session={session} isAdmin={isAdmin} onLogin={() => nav('login')} onAdmin={() => nav('admin')} /> : <p className="p-12 text-center">Comprobando sesión…</p>)}
