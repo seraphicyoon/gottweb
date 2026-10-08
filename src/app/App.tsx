@@ -1548,7 +1548,7 @@ function DiocesanActivitiesPage() {
   );
 }
 
-function LumenPage() {
+function LumenPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
   return (
     <main>
       <section className="bg-[#5C2D0E] py-16">
@@ -1571,6 +1571,7 @@ function LumenPage() {
             ))}
           </div>
         </article>
+        <CommentsSection nav={nav} session={session} contentType="article" contentId="santa-teresa-lumen-gentium" />
       </section>
     </main>
   );
@@ -2052,7 +2053,7 @@ export default function App() {
       {page === "events" && <EventsPage nav={nav} />}
       {page === "carmelo" && <CarmeloPage />}
       {page === "diocesanActivities" && <DiocesanActivitiesPage />}
-      {page === "lumen" && <LumenPage />}
+      {page === "lumen" && <LumenPage nav={nav} session={session} />}
       {page === "sermons" && <SermonsPage nav={nav} session={session} />}
       {page === "diocese" && <DiocesePage />}
       {page === "studies" && <PersonalStudiesPage />}
