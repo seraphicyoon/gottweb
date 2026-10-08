@@ -443,10 +443,17 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-black/5 bg-white px-4 pb-4 pt-2">
-          {links.map((l) => l.page === 'sermons' ? (
+        <div className="lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-black/5 bg-white px-4 pb-4 pt-2">
+          {links.map((l) => l.page === 'events' ? (
             <div key={l.page}>
-              <button type="button" aria-expanded={historyOpen} aria-controls="history-mobile" onClick={() => setHistoryOpen(!historyOpen)} className="flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[#8B4513]">
+              <button type="button" aria-expanded={activitiesOpen} aria-controls="activities-mobile" onClick={() => { setActivitiesOpen(!activitiesOpen); setHistoryOpen(false); }} className="flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[#8B4513]">
+                Actividades <ChevronDown size={16} aria-hidden="true" className={activitiesOpen ? 'rotate-180' : ''} />
+              </button>
+              {activitiesOpen && <div id="activities-mobile" className="ml-3 mb-2 border-l border-[#E7D9C8] pl-2">{activityItems}</div>}
+            </div>
+          ) : l.page === 'sermons' ? (
+            <div key={l.page}>
+              <button type="button" aria-expanded={historyOpen} aria-controls="history-mobile" onClick={() => { setHistoryOpen(!historyOpen); setActivitiesOpen(false); }} className="flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[#8B4513]">
                 Historia <ChevronDown size={16} aria-hidden="true" className={historyOpen ? 'rotate-180' : ''} />
               </button>
               {historyOpen && <div id="history-mobile" className="ml-3 mb-2 border-l border-[#E7D9C8] pl-2">{historyItems}</div>}
