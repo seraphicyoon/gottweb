@@ -1429,14 +1429,17 @@ function PersonalStudiesPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>HISTORIA · ESTUDIOS PERSONALES</SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Estudios personales</h1>
-          <p className="mt-4 max-w-2xl text-white/80">Un espacio para compartir estudios y reflexiones personales.</p>
+          <p className="mt-4 max-w-2xl text-white/80">Catálogo de estudios y reflexiones personales.</p>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
-        <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
-          <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestros estudios</h2>
-          <p className="mt-3 text-[#755E51]">Aquí encontrarás los estudios personales que compartamos con la comunidad.</p>
+        <div className="max-w-5xl mx-auto">
+          <SectionLabel>CATÁLOGO DE ESTUDIOS</SectionLabel>
+          <article className="mt-4 rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
+            <BookOpen size={30} className="mb-5 text-[#8B4513]" aria-hidden="true" />
+            <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}>Clasificación de diversas escenas en el Evangelio de San Marcos</h2>
+            <p className="mt-4 text-[#755E51]">Lic. María Luisa Rodríguez Assemat</p>
+          </article>
         </div>
       </section>
     </main>
