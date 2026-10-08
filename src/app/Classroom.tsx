@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from './supabase';
+import { Attendance } from './Attendance';
 
 const field = 'w-full rounded-xl border border-[#E7D9C8] bg-white px-3 py-2 text-[#5C4033]';
 const button = 'rounded-xl bg-[#8B4513] px-4 py-2 text-white disabled:opacity-50';
@@ -14,6 +15,7 @@ type Post = { id: string; author_id: string; author_name: string; kind: 'materia
 type Reply = { id: string; post_id: string; author_id: string; author_name: string; body: string; status: 'pending' | 'approved' | 'rejected'; created_at: string };
 
 export function StudentManager({ session }: { session: Session }) {
+  const [attendanceUser, setAttendanceUser] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
   const [onlyStudents, setOnlyStudents] = useState(false);
@@ -46,7 +48,7 @@ export function StudentManager({ session }: { session: Session }) {
       const result = account.is_student
         ? await supabase.from('gets_students').delete().eq('user_id', account.user_id).select('user_id')
         : await supabase.from('gets_students').insert({ user_id: account.user_id, enrolled_by: session.user.id }).select('user_id');
-      if (result.error || !result.data?.length) throw new Error('No se pudo guardar el cambio. Actualiza e inténtalo de nuevo.');
+      if (result.error || !result.data?.length) throw new Error(result.error?.message || 'No se pudo guardar el cambio. Actualiza e inténtalo de nuevo.');
       setMessage(account.is_student ? 'Alta de alumna retirada. Su cuenta sigue activa.' : 'Alumna dada de alta. Ya puede entrar al espacio privado.');
       if (offset && accounts.length === 1 && onlyStudents && account.is_student) setOffset(Math.max(0, offset - 25));
       setRevision(n => n + 1);
@@ -72,6 +74,8 @@ export function StudentManager({ session }: { session: Session }) {
         <div className="mt-2 flex flex-wrap gap-2 text-xs"><span className="rounded-full bg-[#F5EFE8] px-2 py-1 text-[#8B4513]">{account.is_student ? 'Alumna' : 'Usuaria'}</span>{account.is_admin && <span className="px-2 py-1 text-[#8B4513]">Administradora · acceso privado</span>}{account.is_banned && <span className="px-2 py-1 text-red-700">Cuenta restringida</span>}</div>
       </div>
       <button disabled={busy || loading} onClick={() => void changeMembership(account)} className={account.is_student ? secondary : button}>{account.is_student ? 'Quitar de alumnas' : 'Dar de alta como alumna'}</button>
+      <button className={secondary} aria-expanded={attendanceUser === account.user_id} onClick={() => setAttendanceUser(attendanceUser === account.user_id ? null : account.user_id)}>Asistencias / recuperación</button>
+      {attendanceUser === account.user_id && <Attendance userId={account.user_id} admin onChanged={() => setRevision(n => n + 1)} />}
     </li>)}</ul> : <p className="mt-5 text-[#755E51]">No hay cuentas que coincidan con esta búsqueda.</p>}
     <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-[#755E51]">
       <button disabled={loading || busy || !offset} className={secondary} onClick={() => setOffset(Math.max(0, offset - 25))}>Anterior</button>
@@ -225,8 +229,9 @@ export function Classroom({ session, isAdmin, onLogin, onAdmin }: { session: Ses
   </div>;
   const status = (item: Post | Reply) => item.status !== 'approved' && <span className="ml-2 text-xs font-semibold text-[#8B4513]">{item.status === 'pending' ? 'Pendiente de aprobación' : 'Rechazada'}</span>;
   if (!session) return <main className="min-h-[65vh] bg-[#F9F5EE] px-4 py-16 text-center"><h1 className="text-3xl font-bold text-[#5C4033]">Espacio de alumnas</h1><p className="my-6 text-[#755E51]">Inicia sesión para consultar si tienes acceso a los materiales y al foro privado.</p><button className={button} onClick={onLogin}>Ingresar</button></main>;
-  if (access !== 'allowed') return <main className="min-h-[65vh] bg-[#F9F5EE] px-4 py-16 text-center"><h1 className="text-3xl font-bold text-[#5C4033]">Espacio de alumnas</h1><p className="mx-auto my-6 max-w-xl text-[#755E51]">{access === 'loading' ? 'Comprobando acceso…' : access === 'setup' ? (isAdmin ? setupMessage : 'El espacio de alumnas todavía no está disponible. Inténtalo más tarde.') : 'Este espacio es exclusivo para alumnas dadas de alta por una administradora. Si eres alumna, pide que identifiquen tu cuenta. Una cuenta restringida no puede entrar.'}</p>{access !== 'loading' && <button className={button} onClick={() => void refresh()}>Comprobar de nuevo</button>}{isAdmin && <button className={`${secondary} ml-2`} onClick={onAdmin}>Ir al panel</button>}</main>;
+  if (access !== 'allowed') return <main className="min-h-[65vh] bg-[#F9F5EE] px-4 py-16 text-center"><h1 className="text-3xl font-bold text-[#5C4033]">Espacio de alumnas</h1><p className="mx-auto my-6 max-w-xl text-[#755E51]">{access === 'loading' ? 'Comprobando acceso…' : access === 'setup' ? (isAdmin ? setupMessage : 'El espacio de alumnas todavía no está disponible. Inténtalo más tarde.') : 'Este espacio es exclusivo para alumnas dadas de alta por una administradora. Si eres alumna, pide que identifiquen tu cuenta. Una cuenta restringida no puede entrar.'}</p>{access !== 'loading' && <button className={button} onClick={() => void refresh()}>Comprobar de nuevo</button>}{isAdmin && <button className={`${secondary} ml-2`} onClick={onAdmin}>Ir al panel</button>}<div className="mx-auto mt-6 max-w-xl"><Attendance userId={session.user.id} /></div></main>;
   return <main className="min-h-[75vh] bg-[#F9F5EE] px-4 py-10 sm:py-14"><div className="mx-auto max-w-4xl">
+    <div className="mb-6"><Attendance userId={session.user.id} /></div>
     <div className="mb-7 flex flex-wrap items-center justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-widest text-[#8B4513]">Comunidad privada GETS</p><h1 className="mt-2 text-3xl font-bold text-[#5C4033]">Espacio de alumnas</h1><p className="mt-3 text-[#755E51]">Materiales y conversaciones para nuestras alumnas. Las participaciones se revisan antes de publicarse.</p></div>{isAdmin && <button className={secondary} onClick={onAdmin}>Administrar alumnas</button>}</div>
     <div className="mb-6 flex flex-wrap gap-2">{([['material', 'Materiales'], ['discussion', 'Conversaciones'], ...(isAdmin ? [['moderation', 'Pendientes de aprobación']] : [])] as [typeof tab, string][]).map(([key, label]) => <button key={key} disabled={busy} className={tab === key ? button : secondary} aria-pressed={tab === key} onClick={() => { setOffset(0); setTab(key); }}>{label}</button>)}<button disabled={busy || loading} className={secondary} onClick={() => { setMessage(''); setSelected(null); void refresh(); }}>Actualizar</button></div>
     {message && <p role="status" className="mb-5 rounded-xl border border-[#E7D9C8] bg-white p-4 text-sm text-[#8B4513]">{message}</p>}
