@@ -1555,12 +1555,8 @@ function LumenPage() {
           <SectionLabel>MATERIAL DE ESTUDIO</SectionLabel>
           <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Santa Teresa de Jesús y el «misterio» de la Iglesia</h2>
           <p className="mt-3 text-sm text-[#755E51]">Enrique Llamas Martínez · Anales de la Real Academia de Doctores de España · 2005 · 15 páginas</p>
-          <div className="my-6 flex flex-wrap gap-3">
-            <a href="/documentos/lumen-gentium-mistica.pdf" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-[#8B4513] px-5 py-3 text-sm font-semibold text-white">Abrir documento</a>
-            <a href="/documentos/lumen-gentium-mistica.pdf" download="Lumen-Gentium-Mistica.pdf" className="rounded-xl border border-[#8B4513] px-5 py-3 text-sm font-semibold text-[#8B4513]">Descargar PDF</a>
-          </div>
-          <object data="/documentos/lumen-gentium-mistica.pdf" type="application/pdf" aria-label="Material de estudio: Santa Teresa de Jesús y el misterio de la Iglesia" className="block h-[70vh] min-h-[400px] w-full rounded-xl border border-[#E7D9C8]">
-            <p className="p-5 text-[#755E51]">Puedes leer el material usando el botón «Abrir documento».</p>
+          <object data="/documentos/lumen-gentium-mistica.pdf#toolbar=0&navpanes=0" type="application/pdf" aria-label="Material de estudio: Santa Teresa de Jesús y el misterio de la Iglesia" className="mt-6 block h-[70vh] min-h-[400px] w-full rounded-xl border border-[#E7D9C8]">
+            <p className="p-5 text-[#755E51]">Este navegador no permite mostrar el material dentro de la página. Intenta con otro navegador.</p>
           </object>
         </article>
       </section>
