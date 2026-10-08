@@ -32,10 +32,10 @@ import {
   Video, Leaf, ScrollText
 } from "lucide-react";
 
-type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli" | "carmelo" | "diocesanActivities" | "lumen";
+type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli" | "carmelo" | "diocesanActivities" | "lumen" | "workshopIntro";
 const PAGE_PATHS: Record<Page, string> = {
   home: "/", about: "/nosotros", events: "/actividades",
-  carmelo: "/actividades/carmelo-descalzo", diocesanActivities: "/actividades/diocesanas", lumen: "/actividades/santa-teresa-lumen-gentium", fratelli: "/historia/estudio-fratelli-tutti", parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
+  workshopIntro: "/actividades/introduccion-formacion-laicos", carmelo: "/actividades/carmelo-descalzo", diocesanActivities: "/actividades/diocesanas", lumen: "/actividades/santa-teresa-lumen-gentium", fratelli: "/historia/estudio-fratelli-tutti", parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
   contact: "/contacto", login: "/ingresar", admin: "/admin", classroom: "/alumnas",
 };
 function pageFromPath(path: string): Page {
@@ -359,6 +359,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
     <button type="button" onClick={() => { setActivitiesOpen(false); nav('carmelo'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Actividades en el Carmelo Descalzo</button>
     <button type="button" onClick={() => { setActivitiesOpen(false); nav('diocesanActivities'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Actividades diocesanas</button>
     <button type="button" onClick={() => { setActivitiesOpen(false); nav('lumen'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Estudio en grupo de Santa Teresa de Jesús y el misterio de la Iglesia: Lumen gentium del Concilio Vaticano II</button>
+    <button type="button" onClick={() => { setActivitiesOpen(false); nav('workshopIntro'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Introducción al taller: formación y misión de los laicos</button>
   </>);
   const historyItems = (
     <>
@@ -389,7 +390,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
           <nav className="hidden lg:flex items-center gap-1">
             {links.map((l) => l.page === 'events' ? (
               <div key={l.page} className="relative">
-                <button type="button" aria-expanded={activitiesOpen} aria-controls="activities-desktop" onClick={() => { setActivitiesOpen(!activitiesOpen); setHistoryOpen(false); }} onKeyDown={event => { if (event.key === 'Escape') setActivitiesOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${['events', 'carmelo', 'diocesanActivities', 'lumen'].includes(page) ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <button type="button" aria-expanded={activitiesOpen} aria-controls="activities-desktop" onClick={() => { setActivitiesOpen(!activitiesOpen); setHistoryOpen(false); }} onKeyDown={event => { if (event.key === 'Escape') setActivitiesOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${['events', 'carmelo', 'diocesanActivities', 'lumen', 'workshopIntro'].includes(page) ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
                   Actividades <ChevronDown size={14} aria-hidden="true" className={activitiesOpen ? 'rotate-180' : ''} />
                 </button>
                 {activitiesOpen && <div id="activities-desktop" className="absolute left-0 top-full mt-2 w-80 max-h-[70vh] overflow-y-auto rounded-xl border border-[#E7D9C8] bg-white p-2 shadow-lg">{activityItems}</div>}
@@ -1585,6 +1586,37 @@ function LumenPage({ nav, session }: { nav: (p: Page) => void; session: Session 
   );
 }
 
+function WorkshopIntroPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
+  return (
+    <main>
+      <section className="bg-[#5C2D0E] py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <SectionLabel>ACTIVIDADES · INTRODUCCIÓN AL TALLER</SectionLabel>
+          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}>Formación y misión de los laicos</h1>
+        </div>
+      </section>
+      <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
+        <article className="max-w-3xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
+          <h2 className="mb-7 text-2xl font-bold text-[#5C4033]" style={serif}>Introducción</h2>
+          <div className="space-y-5 text-base sm:text-lg leading-relaxed text-[#755E51]">
+            <p>Un imperativo para la V Conferencia: profundizar en el tema de los laicos y las laicas, dada la relevancia que en su momento le otorgó el Concilio Vaticano II.</p>
+            <p>Ellos son: entender un discipulado fermento del sacerdocio común al cual estamos llamados desde el bautismo; trabajar en un laicado adulto, gestor de nuevos rostros y ministerios que respondan a una auténtica construcción de humanidad.</p>
+            <p>Promover la formación del laicado para asumir la corresponsabilidad eclesial, lo cual incluye aspectos tales como asumir decididamente el protagonismo de la mujer y responsabilizarse de las dimensiones públicas de la vida humana: la política, la economía, la ecología y el ecumenismo.</p>
+            <p>El laico, hombre y mujer, tiene entonces la misión de asumir el liderazgo para afrontar la problemática humana con sus múltiples matices. Los temas existenciales como la pobreza, la violencia y otros más son signos de los tiempos que se convierten en desafíos permanentes para hacer del discipulado en el mundo un motivo de evangelización. «De ahí que su participación en lo social y en todo ámbito en pro del ser humano sean caminos para hacer concreta dicha evangelización».</p>
+            <p>La consolidación de un laicado adulto dependerá también, en gran parte, de la capacidad que se tenga de descubrir el cristianismo como una «vocación» para todos y todas: en términos de la V Conferencia, una vocación del discipulado.</p>
+            <p>Si al laicado se le ha definido en negativo y si se le ha considerado sujeto pasivo de la vida eclesial, el punto de partida para un protagonismo —fundado en lo más genuino de la experiencia cristiana— es la recuperación de la vocación cristiana al discipulado.</p>
+            <p className="font-semibold text-[#5C4033]">En la medida en que crece la participación de los laicos en la vida de la Iglesia y en la misión de esta en el mundo, se hace también más urgente la necesidad de una formación humana en general, formación doctrinal, social y apostólica.</p>
+            <p>La formación teológica debe ser más apreciada y requerida. El laico o la laica debe «dar razón de su fe» (1 P 3, 15). La teología ya no es una ciencia reservada para unos pocos.</p>
+            <p>La «alfabetización teológica» es un derecho fundamental de todo cristiano. De la misma manera como la alfabetización abre a las personas un mundo más amplio y les permite moverse con propiedad dentro de él, la teología permite madurar en la fe, purificarla, entenderla, aclararla; en otras palabras, vivirla con responsabilidad adulta, de quien pone todos los medios a su alcance para tener una palabra de sentido a los múltiples desafíos de cada momento histórico. Crece el número de personas interesadas por estos estudios y ello debe alegrarnos.</p>
+            <p>La presencia femenina en la tarea evangelizadora no es desconocida. Sin embargo, su participación en las esferas de decisión puede aportar a la misión evangelizadora de la Iglesia toda la dimensión femenina de Dios que, sin ser exclusiva de la mujer, sí ha sido tradicionalmente promovida más fuertemente por ella. Su presencia puede recrear una evangelización con un amor que engendra vida, que nunca se aparta, que siempre perdona, que acepta la diversidad, porque experimenta, desde dentro, que todos somos hijos e hijas de Dios.</p>
+          </div>
+        </article>
+        <CommentsSection nav={nav} session={session} contentType="article" contentId="introduccion-formacion-mision-laicos" />
+      </section>
+    </main>
+  );
+}
+
 // ===================== CONTACT PAGE =====================
 
 function ContactPage({ nav }: { nav: (p: Page) => void }) {
@@ -2062,6 +2094,7 @@ export default function App() {
       {page === "carmelo" && <CarmeloPage />}
       {page === "diocesanActivities" && <DiocesanActivitiesPage />}
       {page === "lumen" && <LumenPage nav={nav} session={session} />}
+      {page === "workshopIntro" && <WorkshopIntroPage nav={nav} session={session} />}
       {page === "sermons" && <SermonsPage nav={nav} session={session} />}
       {page === "diocese" && <DiocesePage />}
       {page === "studies" && <PersonalStudiesPage />}
