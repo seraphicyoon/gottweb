@@ -1555,9 +1555,14 @@ function LumenPage() {
           <SectionLabel>MATERIAL DE ESTUDIO</SectionLabel>
           <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Santa Teresa de Jesús y el «misterio» de la Iglesia</h2>
           <p className="mt-3 text-sm text-[#755E51]">Enrique Llamas Martínez · Anales de la Real Academia de Doctores de España · 2005 · 15 páginas</p>
-          <object data="/documentos/lumen-gentium-mistica.pdf#toolbar=0&navpanes=0" type="application/pdf" aria-label="Material de estudio: Santa Teresa de Jesús y el misterio de la Iglesia" className="mt-6 block h-[70vh] min-h-[400px] w-full rounded-xl border border-[#E7D9C8]">
-            <p className="p-5 text-[#755E51]">Este navegador no permite mostrar el material dentro de la página. Intenta con otro navegador.</p>
-          </object>
+          <div className="mt-6 space-y-5" aria-label="Material de estudio, 15 páginas">
+            {Array.from({ length: 15 }, (_, index) => (
+              <figure key={index} className="overflow-hidden rounded-xl border border-[#E7D9C8] bg-[#F9F5EE]">
+                <img src={`/documentos/lumen-gentium/pagina-${String(index + 1).padStart(2, '0')}.jpg`} alt={`Santa Teresa de Jesús y el misterio de la Iglesia, página ${index + 1} de 15`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" width={1057} height={1500} draggable={false} className="block h-auto w-full" />
+                <figcaption className="py-2 text-center text-xs text-[#755E51]">Página {index + 1} de 15</figcaption>
+              </figure>
+            ))}
+          </div>
         </article>
       </section>
     </main>
