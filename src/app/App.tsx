@@ -524,7 +524,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
           </div>
           <button onClick={() => nav("gallery")} className="hero-photo group relative hidden lg:block text-left" aria-label="Ver la galería de la comunidad">
             <img src="/santa-teresa-portada.webp" alt="Santa Teresa de Jesús ante un manuscrito histórico" className="w-full h-full object-cover object-[center_40%] transition-transform duration-500 group-hover:scale-[1.03]" />
-            <span className="hero-photo-caption"><span>EN COMUNIDAD · 21 SEP 2026</span><strong>Momentos que nos unen <ArrowRight size={18} /></strong></span>
+
           </button>
         </div>
       </section>
