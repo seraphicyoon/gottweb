@@ -352,18 +352,6 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
     { label: "Galería", page: "gallery" },
     { label: "Contacto", page: "contact" },
   ];
-  const [historyOpen, setHistoryOpen] = useState(false);
-  useEffect(() => { setHistoryOpen(false); }, [page, mobileOpen]);
-  const historyItems = (
-    <>
-      <button type="button" onClick={() => { setHistoryOpen(false); nav('sermons'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Historia de GETS</button>
-      <button type="button" onClick={() => { setHistoryOpen(false); nav('diocese'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Actividades en la diócesis de Tampico</button>
-      <button type="button" onClick={() => { setHistoryOpen(false); nav('studies'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Estudios personales</button>
-      <button type="button" onClick={() => { setHistoryOpen(false); nav('parish'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario</button>
-      <button type="button" onClick={() => { setHistoryOpen(false); nav('diocesanMeetings'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Nuestros encuentros diocesanos</button>
-      <button type="button" onClick={() => { setHistoryOpen(false); nav('fratelli'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Estudio en grupo de la encíclica social Fratelli tutti</button>
-    </>
-  );
   const adminPage = page === "admin";
   if (adminPage) return null;
 
@@ -381,14 +369,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {links.map((l) => l.page === 'sermons' ? (
-              <div key={l.page} className="relative">
-                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => { setHistoryOpen(!historyOpen); }} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' || page === 'parish' || page === 'diocesanMeetings' || page === 'fratelli' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
-                  Historia <ChevronDown size={14} aria-hidden="true" className={historyOpen ? 'rotate-180' : ''} />
-                </button>
-                {historyOpen && <div id="history-desktop" className="absolute left-0 top-full mt-2 w-72 rounded-xl border border-[#E7D9C8] bg-white p-2 shadow-lg">{historyItems}</div>}
-              </div>
-            ) : (
+            {links.map((l) => (
               <button
                 key={l.page}
                 onClick={() => nav(l.page)}
@@ -431,14 +412,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-black/5 bg-white px-4 pb-4 pt-2">
-          {links.map((l) => l.page === 'sermons' ? (
-            <div key={l.page}>
-              <button type="button" aria-expanded={historyOpen} aria-controls="history-mobile" onClick={() => { setHistoryOpen(!historyOpen); }} className="flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[#8B4513]">
-                Historia <ChevronDown size={16} aria-hidden="true" className={historyOpen ? 'rotate-180' : ''} />
-              </button>
-              {historyOpen && <div id="history-mobile" className="ml-3 mb-2 border-l border-[#E7D9C8] pl-2">{historyItems}</div>}
-            </div>
-          ) : (
+          {links.map((l) => (
             <button
               key={l.page}
               onClick={() => nav(l.page)}
@@ -2068,6 +2042,49 @@ function ActivitiesHubPage({ nav, session }: { nav: (p: Page) => void; session: 
   );
 }
 
+
+function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
+  const sections = [
+    { id: 'gets', title: 'Historia de GETS' },
+    { id: 'diocese', title: 'Actividades en la diócesis de Tampico' },
+    { id: 'studies', title: 'Estudios personales' },
+    { id: 'parish', title: 'Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario' },
+    { id: 'meetings', title: 'Nuestros encuentros diocesanos' },
+    { id: 'fratelli', title: 'Estudio en grupo de la encíclica social Fratelli tutti' },
+  ] as const;
+  const [selected, setSelected] = useState<(typeof sections)[number]['id']>('gets');
+  return (
+    <main className="bg-[#F9F5EE] min-h-screen">
+      <section className="bg-[#5C2D0E] py-12 md:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <SectionLabel>GETS · NUESTRA TRAYECTORIA</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Historia</h1>
+          <p className="mt-3 text-white/80">Selecciona un tema para descubrir su contenido en esta misma página.</p>
+        </div>
+      </section>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8" aria-label="Temas de historia">
+          {sections.map(section => (
+            <button key={section.id} type="button" onClick={() => setSelected(section.id)}
+              aria-pressed={selected === section.id}
+              className={`rounded-xl border p-4 text-left text-sm md:text-base font-medium transition-colors ${selected === section.id ? 'bg-[#8B4513] text-white border-[#8B4513] shadow-md' : 'bg-white text-[#5C4033] border-[#E7D9C8] hover:bg-[#F5EFE8]'}`}>
+              {section.title}
+            </button>
+          ))}
+        </div>
+        <div id="contenido-historia" aria-live="polite" className="overflow-hidden rounded-2xl bg-white shadow-sm">
+          {selected === 'gets' && <SermonsPage nav={nav} session={session} />}
+          {selected === 'diocese' && <DiocesePage />}
+          {selected === 'studies' && <PersonalStudiesPage />}
+          {selected === 'parish' && <ParishPage />}
+          {selected === 'meetings' && <DiocesanMeetingsPage />}
+          {selected === 'fratelli' && <FratelliPage nav={nav} session={session} />}
+        </div>
+      </div>
+    </main>
+  );
+}
+
 // ===================== APP =====================
 
 export default function App() {
@@ -2124,7 +2141,7 @@ export default function App() {
       {page === "diocesanActivities" && <DiocesanActivitiesPage />}
       {page === "lumen" && <LumenPage nav={nav} session={session} />}
       {page === "workshopIntro" && <WorkshopIntroPage nav={nav} session={session} />}
-      {page === "sermons" && <SermonsPage nav={nav} session={session} />}
+      {page === "sermons" && <HistoryHubPage nav={nav} session={session} />}
       {page === "diocese" && <DiocesePage />}
       {page === "studies" && <PersonalStudiesPage />}
       {page === "parish" && <ParishPage />}
