@@ -352,16 +352,8 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
     { label: "Galería", page: "gallery" },
     { label: "Contacto", page: "contact" },
   ];
-  const [activitiesOpen, setActivitiesOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
-  useEffect(() => { setHistoryOpen(false); setActivitiesOpen(false); }, [page, mobileOpen]);
-  const activityItems = (<>
-    <button type="button" onClick={() => { setActivitiesOpen(false); nav('events'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Todas las actividades</button>
-    <button type="button" onClick={() => { setActivitiesOpen(false); nav('carmelo'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Actividades en el Carmelo Descalzo</button>
-    <button type="button" onClick={() => { setActivitiesOpen(false); nav('diocesanActivities'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Actividades diocesanas</button>
-    <button type="button" onClick={() => { setActivitiesOpen(false); nav('lumen'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Estudio en grupo de Santa Teresa de Jesús y el misterio de la Iglesia: Lumen gentium del Concilio Vaticano II</button>
-    <button type="button" onClick={() => { setActivitiesOpen(false); nav('workshopIntro'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Introducción al taller: formación y misión de los laicos</button>
-  </>);
+  useEffect(() => { setHistoryOpen(false); }, [page, mobileOpen]);
   const historyItems = (
     <>
       <button type="button" onClick={() => { setHistoryOpen(false); nav('sermons'); }} className="block w-full rounded-lg px-4 py-3 text-left text-sm text-[#5C4033] hover:bg-[#F5EFE8]">Historia de GETS</button>
@@ -389,16 +381,9 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {links.map((l) => l.page === 'events' ? (
+            {links.map((l) => l.page === 'sermons' ? (
               <div key={l.page} className="relative">
-                <button type="button" aria-expanded={activitiesOpen} aria-controls="activities-desktop" onClick={() => { setActivitiesOpen(!activitiesOpen); setHistoryOpen(false); }} onKeyDown={event => { if (event.key === 'Escape') setActivitiesOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${['events', 'carmelo', 'diocesanActivities', 'lumen', 'workshopIntro'].includes(page) ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
-                  Actividades <ChevronDown size={14} aria-hidden="true" className={activitiesOpen ? 'rotate-180' : ''} />
-                </button>
-                {activitiesOpen && <div id="activities-desktop" className="absolute left-0 top-full mt-2 w-80 max-h-[70vh] overflow-y-auto rounded-xl border border-[#E7D9C8] bg-white p-2 shadow-lg">{activityItems}</div>}
-              </div>
-            ) : l.page === 'sermons' ? (
-              <div key={l.page} className="relative">
-                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => { setHistoryOpen(!historyOpen); setActivitiesOpen(false); }} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' || page === 'parish' || page === 'diocesanMeetings' || page === 'fratelli' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <button type="button" aria-expanded={historyOpen} aria-controls="history-desktop" onClick={() => { setHistoryOpen(!historyOpen); }} onKeyDown={event => { if (event.key === 'Escape') setHistoryOpen(false); }} className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium ${page === 'sermons' || page === 'diocese' || page === 'studies' || page === 'parish' || page === 'diocesanMeetings' || page === 'fratelli' ? 'bg-[#F5EFE8] text-[#8B4513]' : 'text-gray-600 hover:bg-gray-50'}`}>
                   Historia <ChevronDown size={14} aria-hidden="true" className={historyOpen ? 'rotate-180' : ''} />
                 </button>
                 {historyOpen && <div id="history-desktop" className="absolute left-0 top-full mt-2 w-72 rounded-xl border border-[#E7D9C8] bg-white p-2 shadow-lg">{historyItems}</div>}
@@ -446,16 +431,9 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-black/5 bg-white px-4 pb-4 pt-2">
-          {links.map((l) => l.page === 'events' ? (
+          {links.map((l) => l.page === 'sermons' ? (
             <div key={l.page}>
-              <button type="button" aria-expanded={activitiesOpen} aria-controls="activities-mobile" onClick={() => { setActivitiesOpen(!activitiesOpen); setHistoryOpen(false); }} className="flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[#8B4513]">
-                Actividades <ChevronDown size={16} aria-hidden="true" className={activitiesOpen ? 'rotate-180' : ''} />
-              </button>
-              {activitiesOpen && <div id="activities-mobile" className="ml-3 mb-2 border-l border-[#E7D9C8] pl-2">{activityItems}</div>}
-            </div>
-          ) : l.page === 'sermons' ? (
-            <div key={l.page}>
-              <button type="button" aria-expanded={historyOpen} aria-controls="history-mobile" onClick={() => { setHistoryOpen(!historyOpen); setActivitiesOpen(false); }} className="flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[#8B4513]">
+              <button type="button" aria-expanded={historyOpen} aria-controls="history-mobile" onClick={() => { setHistoryOpen(!historyOpen); }} className="flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[#8B4513]">
                 Historia <ChevronDown size={16} aria-hidden="true" className={historyOpen ? 'rotate-180' : ''} />
               </button>
               {historyOpen && <div id="history-mobile" className="ml-3 mb-2 border-l border-[#E7D9C8] pl-2">{historyItems}</div>}
@@ -2048,6 +2026,48 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
   );
 }
 
+
+// Página única de actividades: secciones seleccionables sin menús desplegables.
+function ActivitiesHubPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
+  const sections = [
+    { id: 'all', title: 'Todas las actividades' },
+    { id: 'carmelo', title: 'Actividades en el Carmelo Descalzo' },
+    { id: 'diocesan', title: 'Actividades diocesanas' },
+    { id: 'lumen', title: 'Estudio en grupo de Santa Teresa de Jesús y el misterio de la Iglesia: Lumen gentium del Concilio Vaticano II' },
+    { id: 'workshop', title: 'Introducción al taller: formación y misión de los laicos' },
+  ] as const;
+  const [selected, setSelected] = useState<(typeof sections)[number]['id']>('all');
+  return (
+    <main className="bg-[#F9F5EE] min-h-screen">
+      <section className="bg-[#5C2D0E] py-12 md:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <SectionLabel>GETS · NUESTRAS ACTIVIDADES</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Actividades</h1>
+          <p className="mt-3 text-white/80">Elige una sección para consultar su contenido en esta misma página.</p>
+        </div>
+      </section>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8" aria-label="Secciones de actividades">
+          {sections.map(section => (
+            <button key={section.id} type="button" onClick={() => setSelected(section.id)}
+              aria-pressed={selected === section.id}
+              className={`rounded-xl border p-4 text-left text-sm md:text-base font-medium transition-colors ${selected === section.id ? 'bg-[#8B4513] text-white border-[#8B4513] shadow-md' : 'bg-white text-[#5C4033] border-[#E7D9C8] hover:bg-[#F5EFE8]'}`}>
+              {section.title}
+            </button>
+          ))}
+        </div>
+        <div id="contenido-actividades" aria-live="polite" className="overflow-hidden rounded-2xl bg-white shadow-sm">
+          {selected === 'all' && <EventsPage nav={nav} />}
+          {selected === 'carmelo' && <CarmeloPage />}
+          {selected === 'diocesan' && <DiocesanActivitiesPage />}
+          {selected === 'lumen' && <LumenPage nav={nav} session={session} />}
+          {selected === 'workshop' && <WorkshopIntroPage nav={nav} session={session} />}
+        </div>
+      </div>
+    </main>
+  );
+}
+
 // ===================== APP =====================
 
 export default function App() {
@@ -2099,7 +2119,7 @@ export default function App() {
       <Nav page={page} nav={nav} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
       {page === "home" && <HomePage nav={nav} />}
       {page === "about" && <AboutPage nav={nav} />}
-      {page === "events" && <EventsPage nav={nav} />}
+      {page === "events" && <ActivitiesHubPage nav={nav} session={session} />}
       {page === "carmelo" && <CarmeloPage />}
       {page === "diocesanActivities" && <DiocesanActivitiesPage />}
       {page === "lumen" && <LumenPage nav={nav} session={session} />}
