@@ -1495,8 +1495,6 @@ function WorkshopIntroPage({ nav, session }: { nav: (p: Page) => void; session: 
 // ===================== CONTACT PAGE =====================
 
 function ContactPage({ nav }: { nav: (p: Page) => void }) {
-  const [tab, setTab] = useState<"membership" | "prayer">("membership");
-
   return (
     <div>
       <section className="relative h-64 flex items-center bg-[#8B4513] overflow-hidden">
@@ -1553,25 +1551,10 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
               </div>
             </div>
 
-            {/* Contacto: inscripción al taller e intenciones de oración */}
+            {/* Formulario de registro y contacto */}
             <div className="lg:col-span-2">
-              <div className="flex gap-1 bg-[#F5EFE8] rounded-xl p-1 mb-6 md:mb-8 w-full md:w-fit overflow-x-auto">
-                {(["membership", "prayer"] as const).map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTab(t)}
-                    className={`flex-1 md:flex-none px-3 md:px-5 py-2 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap transition-colors ${
-                      tab === t ? "bg-white text-[#8B4513] shadow-sm" : "text-gray-500 hover:text-gray-700"
-                    }`}
-                  >
-                    {t === "membership" ? "Únete al Taller" : "Intención de Oración"}
-                  </button>
-                ))}
-              </div>
-
               <div className="bg-[#F5EFE8] rounded-2xl p-5 md:p-8">
-                {tab === "membership" && (
-                  <div>
+                <div>
                     <h3 className="font-bold text-[#5C4033] mb-6" style={serif}>Formulario de Registro y Contacto</h3>
                     <div className="grid sm:grid-cols-2 gap-4 mb-4">
                       {["Nombre", "Apellido"].map((f) => (
@@ -1607,27 +1590,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
                   </div>
                 )}
 
-                {tab === "prayer" && (
-                  <div>
-                    <h3 className="font-bold text-[#5C4033] mb-2" style={serif}>Intención de Oración</h3>
-                    <p className="text-gray-400 text-sm mb-6">Llevamos cada intención a nuestra oración comunitaria con fidelidad.</p>
-                    {["Tu nombre", "Correo electrónico"].map((f) => (
-                      <div key={f} className="mb-4">
-                        <label className="block text-xs font-semibold text-gray-500 mb-1.5">{f}</label>
-                        <input className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20" placeholder={f} />
-                      </div>
-                    ))}
-                    <div className="mb-4">
-                      <label className="block text-xs font-semibold text-gray-500 mb-1.5">Intención de oración</label>
-                      <textarea className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 h-32 resize-none" placeholder="Comparte lo que deseas que oremos por ti..." />
-                    </div>
-                    <div className="flex items-center gap-2 mb-6">
-                      <input type="checkbox" id="anonymous" className="rounded" />
-                      <label htmlFor="anonymous" className="text-xs text-gray-500">Mantener mi intención de forma anónima</label>
-                    </div>
-                    <PrimaryBtn full>Enviar intención <Heart size={15} /></PrimaryBtn>
-                  </div>
-                )}
+
               </div>
             </div>
           </div>
@@ -1871,9 +1834,7 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
             {
               title: "COMUNIDAD",
               links: [
-                { l: "Intenciones de oración", p: "contact" as Page },
                 { l: "Espacio de alumnas", p: "classroom" as Page },
-                { l: "Voluntariado", p: "contact" as Page },
                 { l: "Próximos eventos", p: "events" as Page },
               ],
             },
