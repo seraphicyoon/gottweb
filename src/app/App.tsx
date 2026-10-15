@@ -566,7 +566,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
           <div className="flex items-end justify-between mb-10">
             <div>
               <SectionLabel>PRÓXIMOS ENCUENTROS</SectionLabel>
-              <SectionHeading>Próximas Actividades</SectionHeading>
+              <SectionHeading>Actividades actuales</SectionHeading>
             </div>
             <button
               onClick={() => nav("events")}
