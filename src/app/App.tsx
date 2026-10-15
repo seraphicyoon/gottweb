@@ -1588,7 +1588,6 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
                     </div>
                     <PrimaryBtn full>Enviar mensaje <ArrowRight size={15} /></PrimaryBtn>
                   </div>
-                )}
 
 
               </div>
