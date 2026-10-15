@@ -1109,6 +1109,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
                   <li><strong>Talleres de Formación Espiritual y Humana:</strong> Conferencista: Luis Jorge González ocd. Lugar: Seminario de Tampico.</li>
                   <li><strong>Programación neurolingüística y espiritualidad (Año 2000):</strong> Coordinadores y expositores: Luis Jorge González; colaboradora: María Luisa Rodríguez Assemat.</li>
                   <li><strong>SETS (Seguimiento, retiros y clases a grupos y personas):</strong> Lugar: Residencia particular (Duración: 20 años).</li>
+                  <li><strong>Clases de Educación Continua:</strong> Temas de espiritualidad en las obras de Teresa de Jesús; «La Biblia con ojos de mujer» y reflexiones sobre Edith Stein y Viktor Frankl.</li>
                 </ul>
               </div>
 
@@ -1120,6 +1121,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
                   <li><strong>Talleres de Formación espiritual aplicada a las misiones:</strong> Coordinadores: Luis Jorge González ocd y María Luisa Rodríguez Assemat oscd. Lugar: Seminarios carmelitas en Nairobi, Kenia y en Morogoro, Tanzania.</li>
                   <li><strong>Talleres de formación en desarrollo humano y fe para agentes de Pastoral:</strong> Conferencista y coordinadora: María Luisa Rodríguez Assemat. Lugar: Ciudad Madero, Tamaulipas (Duración: Seis años).</li>
                   <li><strong>Clases Teresiano-Sanjuanistas:</strong> María Luisa Rodríguez Assemat. Lugar: Instituto Cultural Tampico (Duración: Diez años).</li>
+                  <li><strong>Retiros en línea.</strong></li>
                 </ul>
               </div>
 
