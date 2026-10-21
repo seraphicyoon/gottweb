@@ -538,7 +538,6 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
               { icon: Heart, label: "Fraternidad", desc: "Comunidad auténtica." },
               { icon: Globe, label: "Misión Teresiana", desc: "Compartiendo la experiencia." },
               { icon: Handshake, label: "Servicio", desc: "Amor convertido en acción." },
-              { icon: Music, label: "Alabanza y Oración", desc: "Trato íntimo con Dios." },
               { icon: Users, label: "Talleres y Pláticas", desc: "Espacios de formación espiritual." },
               { icon: Star, label: "Vida Interior", desc: "El camino de perfección." },
               { icon: Leaf, label: "Vivencia", desc: "Integrando la fe a la vida diaria." },
