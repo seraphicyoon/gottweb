@@ -488,7 +488,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
             <div>
               <SectionLabel>ESPIRITUALIDAD TERESIANA</SectionLabel>
               <SectionHeading>
-                Un lugar para <span className="text-[#8B4513] italic">Encontrarse con Dios</span>
+                Un lugar para <span className="text-[#8B4513] italic">encontrarse con Dios y los demás</span>
               </SectionHeading>
               <p className="text-gray-500 leading-relaxed mb-6">
                 Los invito a conocernos en varias vías dinámicas que han llegado a tres continentes: África, América y Europa, entrelazados en nuestra historia, fuente histórica y expansión misionera.
