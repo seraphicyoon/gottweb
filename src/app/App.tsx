@@ -491,10 +491,10 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
                 Un lugar para <span className="text-[#8B4513] italic">Encontrarse con Dios</span>
               </SectionHeading>
               <p className="text-gray-500 leading-relaxed mb-6">
-                En GETS buscamos crecer juntos en la fe inspirados por Santa Teresa de Jesús. A través de la oración constante y el estudio, creamos un ambiente donde todos pueden experimentar el amor de Cristo.
+                Los invito a conocernos en varias vías dinámicas que han llegado a tres continentes: África, América y Europa, entrelazados en nuestra historia, fuente histórica y expansión misionera.
               </p>
               <p className="text-gray-500 leading-relaxed mb-8">
-                No importa si apenas inicias tu camino o si buscas profundizar en tu interior, aquí tienes un espacio seguro para orar, aprender y pertenecer.
+                Se nutre de la riqueza de los doctores de la Iglesia, Teresa de Jesús y Juan de la Cruz. Nuestro marco de acción y objetivos se desarrollan en la Iglesia y para la Iglesia Católica.
               </p>
               <div className="flex gap-3">
                 <PrimaryBtn onClick={() => nav("about")}>Nuestro Propósito</PrimaryBtn>
