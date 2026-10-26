@@ -602,7 +602,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
       </section>
 
       {/* Reflexión teresiana */}
-      <section className="relative overflow-hidden bg-[#F7F1E8] py-20 md:py-28">
+      <section className="relative overflow-hidden bg-[#F7F1E8] py-8 md:py-10">
         <div className="pointer-events-none absolute -right-28 -top-32 h-80 w-80 rounded-full border border-[#D6B783]/40 md:h-[28rem] md:w-[28rem]" aria-hidden="true" />
         <div className="pointer-events-none absolute -bottom-36 -left-32 h-80 w-80 rounded-full border border-[#D6B783]/40" aria-hidden="true" />
         <div className="relative mx-auto max-w-5xl px-6 sm:px-10">
