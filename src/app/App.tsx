@@ -1140,6 +1140,17 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
     },
   ];
 
+  const undatedAlbums = [
+    {
+      id: 'origenes-cetses-gets',
+      title: 'Nuestros orígenes: de CETSES a GETS',
+      date: 'Sin fecha registrada',
+      description: 'Fotos de lo que en un principio se llamaba CETSES; más tarde, Centro de Estudios de Espiritualidad Edith Stein; y en el presente, GETS, Centro Educativo Teresiano Sanjuanista. En las fotos: retiros en Maranatha con el padre Rafael Checa, OCD, como director espiritual.',
+      cover: '/image.png',
+      photos: [{ src: '/image.png', alt: 'Fotografía histórica de un retiro en Maranatha con integrantes de la comunidad' }],
+    },
+  ];
+
   const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   const latestDate = albums.reduce((latest, album) => album.isoDate > latest ? album.isoDate : latest, albums[0].isoDate);
   const [calendarMonth, setCalendarMonth] = useState(() => latestDate.slice(0, 7));
@@ -1173,6 +1184,42 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             <SectionHeading>Nuestros encuentros</SectionHeading>
             <p className="text-[#755E51]">Elige un año y un mes. Las fechas marcadas tienen fotos de nuestros encuentros.</p>
           </div>
+          <section className="mb-10" aria-label="Álbumes sin fecha registrada">
+            <h2 className="mb-2 text-2xl font-bold text-[#5C4033]" style={serif}>Fotografías sin fecha</h2>
+            <p className="mb-5 text-[#755E51]">Recuerdos de nuestra historia cuya fecha exacta aún no está registrada.</p>
+            <div className="space-y-5">
+              {undatedAlbums.map(album => {
+                const expanded = openAlbum === album.id;
+                return (
+                  <article key={album.id} className="overflow-hidden rounded-2xl border border-[#E7D9C8] bg-white shadow-sm">
+                    <h3>
+                      <button type="button" id={`heading-${album.id}`} aria-expanded={expanded} aria-controls={`album-${album.id}`}
+                        onClick={() => setOpenAlbum(expanded ? null : album.id)}
+                        className="flex w-full items-center gap-4 p-4 text-left hover:bg-[#FBF8F3] sm:gap-6 sm:p-5">
+                        <img src={album.cover} alt="" loading="lazy" className="h-24 w-24 shrink-0 rounded-xl object-cover sm:h-28 sm:w-40" />
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-xs font-semibold text-[#8B4513] sm:text-sm">{album.date}</span>
+                          <span className="mt-1 block text-xl font-bold text-[#5C4033] sm:text-2xl" style={serif}>{album.title}</span>
+                          <span className="mt-2 block text-sm text-[#755E51]">1 foto</span>
+                        </span>
+                        <ChevronDown size={22} className={`shrink-0 text-[#8B4513] transition-transform ${expanded ? 'rotate-180' : ''}`} />
+                      </button>
+                    </h3>
+                    <div id={`album-${album.id}`} role="region" aria-labelledby={`heading-${album.id}`} hidden={!expanded}>
+                      {expanded && <div className="border-t border-[#E7D9C8] p-4 sm:p-6">
+                        <p className="mb-5 leading-relaxed text-[#755E51]">{album.description}</p>
+                        {album.photos.map(photo => <a key={photo.src} href={photo.src} target="_blank" rel="noopener noreferrer" className="block max-w-3xl overflow-hidden rounded-xl border border-[#E7D9C8]">
+                          <img src={photo.src} alt={photo.alt} loading="lazy" className="w-full object-contain" />
+                          <span className="block bg-white px-4 py-3 text-xs font-semibold text-[#8B4513]">Ver fotografía completa ↗</span>
+                        </a>)}
+                        <CommentsSection nav={nav} session={session} contentType="photo" contentId={album.id} />
+                      </div>}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
           <div className="mb-8 rounded-2xl border border-[#E7D9C8] bg-white p-4 sm:p-6">
             <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
               <div className="flex gap-3">
