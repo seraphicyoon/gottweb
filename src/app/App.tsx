@@ -601,23 +601,26 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
         </div>
       </section>
 
-      {/* Bible Verse */}
-      <section className="py-16 bg-[#8B4513] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="w-96 h-96 bg-white rounded-full -top-20 -right-20 absolute" />
-          <div className="w-64 h-64 bg-[#D4AF37] rounded-full -bottom-10 -left-10 absolute" />
-        </div>
-        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
-          <div className="text-[#D4AF37] text-5xl font-serif mb-6">"</div>
-          <blockquote
-            className="text-2xl md:text-3xl text-white font-medium leading-relaxed mb-6"
-            style={serif}
-          >
-            Busca a Dios en tu interior y hallarás la paz que el mundo no te puede dar.
-          </blockquote>
-          <p className="text-[#D4AF37] font-semibold text-sm tracking-wider uppercase">
-            Santa Teresa de Jesús — Pensamiento del Día
-          </p>
+      {/* Reflexión teresiana */}
+      <section className="relative overflow-hidden bg-[#F7F1E8] py-20 md:py-28">
+        <div className="pointer-events-none absolute -right-28 -top-32 h-80 w-80 rounded-full border border-[#D6B783]/40 md:h-[28rem] md:w-[28rem]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -bottom-36 -left-32 h-80 w-80 rounded-full border border-[#D6B783]/40" aria-hidden="true" />
+        <div className="relative mx-auto max-w-5xl px-6 sm:px-10">
+          <div className="mx-auto max-w-3xl rounded-[2rem] border border-[#E5D7C6] bg-white/80 px-7 py-12 text-center shadow-[0_20px_65px_-45px_rgba(92,45,14,0.4)] sm:px-14 md:py-16">
+            <div className="mx-auto mb-7 flex items-center justify-center gap-4">
+              <span className="h-px w-12 bg-[#C69B52]" />
+              <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#986125]">Reflexión teresiana</span>
+              <span className="h-px w-12 bg-[#C69B52]" />
+            </div>
+            <div className="mb-1 text-6xl leading-none text-[#C69B52]" style={serif} aria-hidden="true">“</div>
+            <blockquote className="mx-auto max-w-2xl text-[1.7rem] leading-[1.4] text-[#583C2E] sm:text-4xl md:text-[2.7rem]" style={serif}>
+              La libertad se parece al vuelo: requiere <em className="font-medium text-[#944B1D]">confianza, desapego, mirada alta y ligereza de alma.</em>
+            </blockquote>
+            <div className="mx-auto mt-9 h-px w-20 bg-[#C69B52]" aria-hidden="true" />
+            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#8A674D] sm:text-sm">
+              Oraciones teresianas · Espiritualidad teresiana
+            </p>
+          </div>
         </div>
       </section>
 
