@@ -2039,9 +2039,6 @@ function PersonalTrajectoryPage() {
       </section>
       <section className="bg-[#FBF8F3] px-4 py-10 sm:px-6 md:py-14">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-8 rounded-2xl border border-[#E7D9C8] bg-white p-5 text-sm leading-relaxed text-[#755E51] sm:p-7">
-            Este relato se ha organizado por etapas a partir de las notas biográficas originales. Cuando no se cuenta con una fecha exacta, se conserva el orden general sin atribuir años no documentados.
-          </div>
           <div className="space-y-5">
             {stages.map((stage, index) => (
               <article key={stage.heading} className="rounded-2xl border border-[#E7D9C8] bg-white p-6 shadow-sm sm:p-8">
