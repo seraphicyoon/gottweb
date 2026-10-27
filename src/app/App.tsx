@@ -2127,25 +2127,40 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
     { id: 'studies', title: 'Estudios personales' },
     { id: 'fratelli', title: 'Estudio en grupo de la encíclica social Fratelli tutti' },
   ] as const;
-  const [selected, setSelected] = useState<(typeof sections)[number]['id']>('gets');
+  type HistoryTopic = (typeof sections)[number]['id'];
+  const readTopic = (): HistoryTopic => {
+    const topic = new URLSearchParams(window.location.search).get('tema');
+    return sections.some(section => section.id === topic) ? topic as HistoryTopic : 'gets';
+  };
+  const [selected, setSelected] = useState<HistoryTopic>(readTopic);
+  useEffect(() => {
+    const syncTopic = () => setSelected(readTopic());
+    window.addEventListener('popstate', syncTopic);
+    return () => window.removeEventListener('popstate', syncTopic);
+  }, []);
+  const selectTopic = (topic: HistoryTopic) => {
+    const url = topic === 'gets' ? PAGE_PATHS.sermons : `${PAGE_PATHS.sermons}?tema=${topic}`;
+    window.history.pushState({}, '', url);
+    setSelected(topic);
+  };
   return (
     <main className="bg-[#F9F5EE] min-h-screen">
       <section className="bg-[#5C2D0E] py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <SectionLabel>GETS · NUESTRA TRAYECTORIA</SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Historia</h1>
-          <p className="mt-3 text-white/80">Selecciona un tema para descubrir su contenido en esta misma página.</p>
+          <p className="mt-3 text-white/80">Explora cada apartado y comparte su enlace de forma independiente.</p>
         </div>
       </section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <nav className="mb-6 rounded-2xl border border-[#E7D9C8] bg-white p-2 shadow-sm" aria-label="Temas de historia">
           <div className="flex flex-wrap items-center gap-1.5">
             {sections.map(section => (
-              <button key={section.id} type="button" onClick={() => setSelected(section.id)}
-                aria-pressed={selected === section.id}
+              <a key={section.id} href={section.id === "gets" ? PAGE_PATHS.sermons : `${PAGE_PATHS.sermons}?tema=${section.id}`} onClick={event => { event.preventDefault(); selectTopic(section.id); }}
+                aria-current={selected === section.id ? "page" : undefined}
                 className={`rounded-lg px-3 py-2.5 text-left text-xs sm:text-sm font-semibold leading-snug transition-colors ${selected === section.id ? 'bg-[#8B4513] text-white shadow-sm' : 'text-[#5C4033] hover:bg-[#F5EFE8]'}`}>
                 {section.title}
-              </button>
+              </a>
             ))}
           </div>
         </nav>
