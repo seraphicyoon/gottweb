@@ -1966,9 +1966,108 @@ function ActivitiesHubPage({ nav, session }: { nav: (p: Page) => void; session: 
 }
 
 
+
+function PersonalTrajectoryPage() {
+  const stages = [
+    {
+      period: 'Infancia y primeros años en Tampico',
+      heading: 'Primer acercamiento a la fe y la educación',
+      paragraphs: [
+        'Durante su etapa escolar en Tampico, desde la primaria hasta la secundaria, participó en las actividades religiosas de su colegio. Estas experiencias formaron parte de sus primeros vínculos con la vida de fe.',
+      ],
+    },
+    {
+      period: 'Formación preparatoria · St. Louis, Missouri',
+      heading: 'Estudio, oración y vocación de servicio',
+      paragraphs: [
+        'Cursó la preparatoria con las Religiosas del Sagrado Corazón, entre los 14 y los 17 años, en St. Louis, Missouri. Colaboró en la sacristía con la religiosa responsable del altar y las ceremonias, Mother Guillory.',
+        'Participó en actividades misioneras de recolección, clasificación y organización de timbres, cuya venta destinaba recursos a África. La misa diaria, la lectura de vidas de santos y los turnos dominicales de adoración eucarística fueron parte importante de su formación.',
+        'Durante el periodo del Concilio Vaticano II, participó en momentos especiales de oración por los trabajos de la Iglesia en Roma y estudió historia de la Iglesia y los documentos conciliares.',
+      ],
+    },
+    {
+      period: 'Etapa universitaria y estudios de posgrado',
+      heading: 'Psicología, francés y compromiso social',
+      paragraphs: [
+        'En su etapa universitaria recibió formación en un entorno vinculado a sacerdotes y religiosas dominicos y estudió francés y psicología. Continuó participando en la misa diaria y enseñó catecismo a niños hispanos los fines de semana fuera del campus.',
+        'Colaboró con la Cruz Roja de Nueva Orleans en tareas de apoyo a personas afectadas por ciclones: localización y rescate de víctimas, entrevistas a damnificados y evaluación de necesidades para apoyos de reconstrucción de viviendas.',
+        'También refiere estudios y actividades académicas en distintas universidades y un posgrado de dos años en psicopedagogía en la Universidad de Friburgo, Suiza.',
+      ],
+    },
+    {
+      period: 'Tampico · Vida familiar y labor docente',
+      heading: 'Enseñanza, familia y formación continua',
+      paragraphs: [
+        'En Tampico trabajó como maestra en el Colegio Verbo Encarnado, donde impartió orientación vocacional e inglés y participó en retiros y otras actividades. Contrajo matrimonio en enero de 1970 y dedicó una etapa importante a su familia. Cuando sus hijos crecieron, retomó la asistencia cotidiana a misa.',
+        'Reabrió la Alianza Francesa como directora y maestra, una labor que desarrolló durante diez años antes de dejarla para atender a sus hijos. También impartió clases universitarias, con referencias a la Universidad Autónoma de Tamaulipas, y cursos de liderazgo para docentes en el Cultural y el Anglo.',
+        'Profundizó en la espiritualidad de Ignacio de Loyola y contó durante aproximadamente ocho años con el acompañamiento espiritual de Fritz Brehm. Amplió asimismo su formación en programación neurolingüística en California, participó en capacitación en esta disciplina y abrió el Centro de Estudios Edith Stein.',
+      ],
+    },
+    {
+      period: 'Servicio parroquial y espiritualidad carmelitana',
+      heading: 'Acompañamiento, contemplación y retiros',
+      paragraphs: [
+        'A petición de los dominicos se integró al consejo de la Parroquia de Nuestra Señora del Rosario, del que fue integrante y coordinadora. Continuó su servicio cuando llegó el padre Julián Muñoz Heredia y ejerció durante diez años como ministra de la Eucaristía.',
+        'Participó junto con J. I. en un retiro de una semana con carmelitas de la antigua observancia en Indiana. Después del ciclón de 1985 retomó contacto con el padre Rafael Checa, quien la invitó a realizar las Jornadas de Contemplación.',
+        'Organizó diez jornadas dirigidas a matrimonios, religiosas y laicos. Posteriormente, el padre Rafael Checa visitó Tampico en tres ocasiones para impartir jornadas sobre Las Moradas de Santa Teresa de Jesús. Cada encuentro se desarrollaba durante un fin de semana e incluía enseñanza y orientación espiritual.',
+      ],
+    },
+    {
+      period: 'Formación diocesana y acción pastoral',
+      heading: 'Una misión de enseñanza y acompañamiento',
+      paragraphs: [
+        'Impartió clases de discernimiento a seminaristas del Seminario de Tampico. También acompañó durante un año a seminaristas del seminario menor en la Iglesia del Rosario y, por invitación del padre David, dirigió retiros de desarrollo humano para seminaristas.',
+        'En Acción Católica colaboró en la simplificación de documentos del Concilio Vaticano II para facilitar su estudio. Participó, junto con el padre Ángeles, en un taller diocesano para agentes de pastoral en la Parroquia del Sagrado Corazón de Ciudad Madero. Su tema era la formación psicoespiritual de la persona humana, inspirada en Edith Stein y enriquecida con dinámicas de psicología.',
+        'La respuesta de los participantes permitió abrir dos grupos, los lunes y los viernes, de alrededor de ochenta personas cada uno. Tras la incapacidad del padre Ángeles, asumió ambos temas. La actividad se desarrolló durante cuatro años, sin remuneración personal; los ingresos se destinaban a viajes y actividades del SEDEC. Dejó esta labor para participar en un simposio de psicología y espiritualidad en Roma.',
+      ],
+    },
+    {
+      period: 'Compromiso comunitario y otras iniciativas',
+      heading: 'Servicio a niños, jóvenes y comunidades',
+      paragraphs: [
+        'Colaboró en un albergue para niños situado detrás del antiguo cine Tampico y asistió a la psicóloga de otro albergue ubicado en una sección del antiguo Hospital Civil de Tampico, en la calle Altamira. El documento no precisa la duración de estas actividades.',
+        'Participó junto con su hijo, formadores y alumnos en iniciativas de Semana Santa, excursiones a El Cielo y misiones en comunidades cercanas a Tampico e Hidalgo.',
+      ],
+    },
+  ];
+  return (
+    <div>
+      <section className="bg-[#5C2D0E] px-6 py-12 text-center md:py-16">
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#E7C786]">Memoria y vocación</span>
+        <h2 className="mx-auto mt-3 max-w-3xl text-3xl font-bold text-white md:text-4xl" style={serif}>Trayectoria personal, académica y espiritual</h2>
+        <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-white/80">Un recorrido por las experiencias de formación, familia, docencia y servicio pastoral que acompañaron el camino hacia la misión educativa y espiritual de GETS.</p>
+      </section>
+      <section className="bg-[#FBF8F3] px-4 py-10 sm:px-6 md:py-14">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-8 rounded-2xl border border-[#E7D9C8] bg-white p-5 text-sm leading-relaxed text-[#755E51] sm:p-7">
+            Este relato se ha organizado por etapas a partir de las notas biográficas originales. Cuando no se cuenta con una fecha exacta, se conserva el orden general sin atribuir años no documentados.
+          </div>
+          <div className="space-y-5">
+            {stages.map((stage, index) => (
+              <article key={stage.heading} className="rounded-2xl border border-[#E7D9C8] bg-white p-6 shadow-sm sm:p-8">
+                <div className="mb-4 flex items-start gap-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5EFE8] text-sm font-bold text-[#8B4513]">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <p className="mb-1 text-xs font-bold uppercase tracking-[0.13em] text-[#A46B36]">{stage.period}</p>
+                    <h3 className="text-xl font-bold text-[#5C4033] sm:text-2xl" style={serif}>{stage.heading}</h3>
+                  </div>
+                </div>
+                <div className="space-y-4 pl-0 text-[15px] leading-7 text-[#66584F] sm:pl-14">
+                  {stage.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Session | null }) {
   const sections = [
     { id: 'gets', title: 'Historia de GETS' },
+    { id: 'trajectory', title: 'Trayectoria personal, académica y espiritual' },
     { id: 'diocese', title: 'Actividades en la diócesis de Tampico' },
     { id: 'studies', title: 'Estudios personales' },
     { id: 'parish', title: 'Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario' },
@@ -1997,6 +2096,7 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
         </div>
         <div id="contenido-historia" aria-live="polite" className="overflow-hidden rounded-2xl bg-white shadow-sm">
           {selected === 'gets' && <SermonsPage nav={nav} session={session} />}
+          {selected === 'trajectory' && <PersonalTrajectoryPage />}
           {selected === 'diocese' && <DiocesePage />}
           {selected === 'studies' && <PersonalStudiesPage />}
           {selected === 'parish' && <ParishPage />}
