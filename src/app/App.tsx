@@ -1995,11 +1995,12 @@ function PersonalTrajectoryPage() {
       ],
     },
     {
-      period: 'Tampico · Vida familiar y labor docente',
-      heading: 'Enseñanza, familia y formación continua',
+      period: 'Tampico · Capacitación y formación',
+      heading: 'Capacitación y formación',
+      family: 'Contrajo matrimonio en enero de 1970 y dedicó una etapa importante a su familia. Cuando sus hijos crecieron, retomó la asistencia cotidiana a misa.',
       paragraphs: [
-        'En Tampico trabajó como maestra en el Colegio Verbo Encarnado, donde impartió orientación vocacional e inglés y participó en retiros y otras actividades. Contrajo matrimonio en enero de 1970 y dedicó una etapa importante a su familia. Cuando sus hijos crecieron, retomó la asistencia cotidiana a misa.',
-        'Reabrió la Alianza Francesa como directora y maestra, una labor que desarrolló durante diez años antes de dejarla para atender a sus hijos. También impartió clases universitarias, con referencias a la Universidad Autónoma de Tamaulipas, y cursos de liderazgo para docentes en el Cultural y el Anglo.',
+        'En Tampico trabajó como responsable del Departamento de Orientación Vocacional y del Departamento de Inglés en el Colegio Verbo Encarnado, participando en retiros y otras actividades religiosas de la institución.',
+        'Reabrió la Alianza Francesa como directora y maestra, una labor que desarrolló durante diez años. También impartió clases universitarias, con referencias a la Universidad Autónoma de Tamaulipas, y cursos de liderazgo para docentes en el Cultural y el Anglo.',
         'Profundizó en la espiritualidad de Ignacio de Loyola y contó durante aproximadamente ocho años con el acompañamiento espiritual de Fritz Brehm. Amplió asimismo su formación en programación neurolingüística en California, participó en capacitación en esta disciplina y abrió el Centro de Estudios Edith Stein.',
       ],
     },
@@ -2046,9 +2047,15 @@ function PersonalTrajectoryPage() {
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5EFE8] text-sm font-bold text-[#8B4513]">{String(index + 1).padStart(2, '0')}</span>
                   <div>
                     <p className="mb-1 text-xs font-bold uppercase tracking-[0.13em] text-[#A46B36]">{stage.period}</p>
-                    <h3 className="text-xl font-bold text-[#5C4033] sm:text-2xl" style={serif}>{stage.heading}</h3>
+                    <h3 className={`font-bold text-[#5C4033] ${index === 3 ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'}`} style={serif}>{stage.heading}</h3>
                   </div>
                 </div>
+                {'family' in stage && stage.family && (
+                  <div className="mb-5 rounded-xl border-l-4 border-[#C69B52] bg-[#FBF5EB] px-5 py-4 sm:ml-14">
+                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-[#8B4513]">Vida familiar</p>
+                    <p className="text-[15px] leading-7 font-medium text-[#9A4B23]">{stage.family}</p>
+                  </div>
+                )}
                 <div className="space-y-4 pl-0 text-[15px] leading-7 text-[#66584F] sm:pl-14">
                   {stage.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
                 </div>
