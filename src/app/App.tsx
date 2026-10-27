@@ -2068,10 +2068,7 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
   const sections = [
     { id: 'gets', title: 'Historia de GETS' },
     { id: 'trajectory', title: 'Trayectoria personal, académica y espiritual' },
-    { id: 'diocese', title: 'Actividades en la diócesis de Tampico' },
     { id: 'studies', title: 'Estudios personales' },
-    { id: 'parish', title: 'Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario' },
-    { id: 'meetings', title: 'Nuestros encuentros diocesanos' },
     { id: 'fratelli', title: 'Estudio en grupo de la encíclica social Fratelli tutti' },
   ] as const;
   const [selected, setSelected] = useState<(typeof sections)[number]['id']>('gets');
