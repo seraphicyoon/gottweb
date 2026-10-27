@@ -2049,7 +2049,8 @@ function PersonalTrajectoryPage() {
         {
           title: 'Estudiantes en institutos y colegios',
           paragraphs: [
-            'Su labor de acompañamiento también se vinculó con estudiantes en institutos y colegios.',
+            'En el ámbito de los institutos académicos y colegios, incluido el Instituto Cultural Tampico (ICT), promovió entre los estudiantes el aprendizaje de la oración al estilo de Santa Teresa de Jesús: «Estar muchas veces a solas con quien sabemos nos ama».',
+            'Esta orientación se apoyaba en la experiencia y la historia de los doctores místicos de la Iglesia, Santa Teresa de Jesús y San Juan de la Cruz, y en la oración como camino hacia la unión con Dios.',
           ],
         },
         {
