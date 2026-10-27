@@ -2068,26 +2068,14 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
     <div>
       <section className="bg-[#5C2D0E] px-6 py-12 text-center md:py-16">
         <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#E7C786]">Memoria y vocación</span>
-        <h2 className="mx-auto mt-3 max-w-3xl text-3xl font-bold text-white md:text-4xl" style={serif}>Trayectoria personal, académica y espiritual</h2>
-        <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-white/80">Un recorrido por las experiencias de formación, familia, docencia y servicio pastoral que acompañaron el camino hacia la misión educativa y espiritual de GETS.</p>
+        <h2 className="mx-auto mt-3 max-w-3xl text-3xl font-bold text-white md:text-4xl" style={serif}>{filter === "parroquial" ? "Servicio parroquial" : filter === "carmelitana" ? "Espiritualidad carmelitana" : "Trayectoria personal, académica y espiritual"}</h2>
+        <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-white/80">{filter === "parroquial" ? "Historia y participación en la vida parroquial." : filter === "carmelitana" ? "Retiros, contemplación y formación en la espiritualidad carmelitana." : "Un recorrido por las experiencias personales, académicas, familiares y de servicio que acompañaron el camino hacia GETS."}</p>
       </section>
       <section className="bg-[#FBF8F3] px-4 py-10 sm:px-6 md:py-14">
         <div className="mx-auto max-w-4xl">
-          {filter === "all" && <div className="mb-8 grid gap-3 sm:grid-cols-2">
-            <button type="button" onClick={() => nav("parroquial")} className="rounded-2xl border border-[#DCC6B0] bg-white p-5 text-left shadow-sm transition hover:border-[#8B4513] hover:shadow-md">
-              <span className="block text-xs font-bold uppercase tracking-widest text-[#A46B36]">Historia parroquial</span>
-              <span className="mt-2 block text-xl font-bold text-[#5C4033]" style={serif}>Servicio parroquial</span>
-              <span className="mt-2 block text-sm text-[#755E51]">Abrir página independiente →</span>
-            </button>
-            <button type="button" onClick={() => nav("carmelitana")} className="rounded-2xl border border-[#DCC6B0] bg-white p-5 text-left shadow-sm transition hover:border-[#8B4513] hover:shadow-md">
-              <span className="block text-xs font-bold uppercase tracking-widest text-[#A46B36]">Historia carmelitana</span>
-              <span className="mt-2 block text-xl font-bold text-[#5C4033]" style={serif}>Espiritualidad carmelitana</span>
-              <span className="mt-2 block text-sm text-[#755E51]">Abrir página independiente →</span>
-            </button>
-          </div>}
           {filter !== "all" && <button type="button" onClick={() => nav("sermons")} className="mb-5 text-sm font-semibold text-[#8B4513] hover:underline">← Volver a Historia</button>}
           <div className="space-y-5">
-            {stages.map((stage, index) => ({ stage, index })).filter(({ stage }) => filter === "all" || (filter === "parroquial" ? stage.heading === "Servicio a la comunidad parroquial" : stage.heading === "Acompañamiento, contemplación y retiros")).map(({ stage, index }) => (
+            {stages.map((stage, index) => ({ stage, index })).filter(({ stage }) => filter === "all" ? !["Servicio a la comunidad parroquial", "Acompañamiento, contemplación y retiros"].includes(stage.heading) : filter === "parroquial" ? stage.heading === "Servicio a la comunidad parroquial" : stage.heading === "Acompañamiento, contemplación y retiros").map(({ stage, index }) => (
               <div key={stage.heading} className="contents">
                 {(stage.heading === 'Servicio a la comunidad parroquial' || stage.heading === 'Acompañamiento, contemplación y retiros' || stage.heading === 'Diócesis y Seminario de Tampico') && (
                   <div className="pt-8 pb-2">
@@ -2129,6 +2117,8 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
   const sections = [
     { id: 'gets', title: 'Historia de GETS' },
     { id: 'trajectory', title: 'Trayectoria personal, académica y espiritual' },
+    { id: 'parroquial', title: 'Servicio parroquial' },
+    { id: 'carmelitana', title: 'Espiritualidad carmelitana' },
     { id: 'studies', title: 'Estudios personales' },
     { id: 'fratelli', title: 'Estudio en grupo de la encíclica social Fratelli tutti' },
   ] as const;
@@ -2155,6 +2145,8 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
         <div id="contenido-historia" aria-live="polite" className="overflow-hidden rounded-2xl bg-white shadow-sm">
           {selected === 'gets' && <SermonsPage nav={nav} session={session} />}
           {selected === 'trajectory' && <PersonalTrajectoryPage nav={nav} />}
+          {selected === 'parroquial' && <PersonalTrajectoryPage nav={nav} filter="parroquial" />}
+          {selected === 'carmelitana' && <PersonalTrajectoryPage nav={nav} filter="carmelitana" />}
           {selected === 'diocese' && <DiocesePage />}
           {selected === 'studies' && <PersonalStudiesPage />}
           {selected === 'parish' && <ParishPage />}
