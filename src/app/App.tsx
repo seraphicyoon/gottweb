@@ -33,10 +33,11 @@ import {
   Video, Leaf, ScrollText
 } from "lucide-react";
 
-type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli" | "carmelo" | "diocesanActivities" | "lumen" | "workshopIntro";
+type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli" | "carmelo" | "diocesanActivities" | "lumen" | "workshopIntro" | "parroquial" | "carmelitana";
 const PAGE_PATHS: Record<Page, string> = {
   home: "/", about: "/nosotros", events: "/actividades",
   workshopIntro: "/actividades/introduccion-formacion-laicos", carmelo: "/actividades/carmelo-descalzo", diocesanActivities: "/actividades/diocesanas", lumen: "/actividades/santa-teresa-lumen-gentium", fratelli: "/historia/estudio-fratelli-tutti", parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
+  parroquial: "/parroquial", carmelitana: "/carmelitano",
   contact: "/contacto", login: "/ingresar", admin: "/admin", classroom: "/alumnas",
 };
 function pageFromPath(path: string): Page {
@@ -1967,7 +1968,7 @@ function ActivitiesHubPage({ nav, session }: { nav: (p: Page) => void; session: 
 
 
 
-function PersonalTrajectoryPage() {
+function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => void; filter?: "all" | "parroquial" | "carmelitana" }) {
   const stages = [
     {
       period: 'Infancia y primeros años en Tampico',
@@ -2072,8 +2073,21 @@ function PersonalTrajectoryPage() {
       </section>
       <section className="bg-[#FBF8F3] px-4 py-10 sm:px-6 md:py-14">
         <div className="mx-auto max-w-4xl">
+          {filter === "all" && <div className="mb-8 grid gap-3 sm:grid-cols-2">
+            <button type="button" onClick={() => nav("parroquial")} className="rounded-2xl border border-[#DCC6B0] bg-white p-5 text-left shadow-sm transition hover:border-[#8B4513] hover:shadow-md">
+              <span className="block text-xs font-bold uppercase tracking-widest text-[#A46B36]">Historia parroquial</span>
+              <span className="mt-2 block text-xl font-bold text-[#5C4033]" style={serif}>Servicio parroquial</span>
+              <span className="mt-2 block text-sm text-[#755E51]">Abrir página independiente →</span>
+            </button>
+            <button type="button" onClick={() => nav("carmelitana")} className="rounded-2xl border border-[#DCC6B0] bg-white p-5 text-left shadow-sm transition hover:border-[#8B4513] hover:shadow-md">
+              <span className="block text-xs font-bold uppercase tracking-widest text-[#A46B36]">Historia carmelitana</span>
+              <span className="mt-2 block text-xl font-bold text-[#5C4033]" style={serif}>Espiritualidad carmelitana</span>
+              <span className="mt-2 block text-sm text-[#755E51]">Abrir página independiente →</span>
+            </button>
+          </div>}
+          {filter !== "all" && <button type="button" onClick={() => nav("sermons")} className="mb-5 text-sm font-semibold text-[#8B4513] hover:underline">← Volver a Historia</button>}
           <div className="space-y-5">
-            {stages.map((stage, index) => (
+            {stages.map((stage, index) => ({ stage, index })).filter(({ stage }) => filter === "all" || (filter === "parroquial" ? stage.heading === "Servicio a la comunidad parroquial" : stage.heading === "Acompañamiento, contemplación y retiros")).map(({ stage, index }) => (
               <div key={stage.heading} className="contents">
                 {(stage.heading === 'Servicio a la comunidad parroquial' || stage.heading === 'Acompañamiento, contemplación y retiros' || stage.heading === 'Diócesis y Seminario de Tampico') && (
                   <div className="pt-8 pb-2">
@@ -2140,7 +2154,7 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
         </div>
         <div id="contenido-historia" aria-live="polite" className="overflow-hidden rounded-2xl bg-white shadow-sm">
           {selected === 'gets' && <SermonsPage nav={nav} session={session} />}
-          {selected === 'trajectory' && <PersonalTrajectoryPage />}
+          {selected === 'trajectory' && <PersonalTrajectoryPage nav={nav} />}
           {selected === 'diocese' && <DiocesePage />}
           {selected === 'studies' && <PersonalStudiesPage />}
           {selected === 'parish' && <ParishPage />}
@@ -2209,6 +2223,8 @@ export default function App() {
       {page === "lumen" && <LumenPage nav={nav} session={session} />}
       {page === "workshopIntro" && <WorkshopIntroPage nav={nav} session={session} />}
       {page === "sermons" && <HistoryHubPage nav={nav} session={session} />}
+      {page === "parroquial" && <PersonalTrajectoryPage nav={nav} filter="parroquial" />}
+      {page === "carmelitana" && <PersonalTrajectoryPage nav={nav} filter="carmelitana" />}
       {page === "diocese" && <DiocesePage />}
       {page === "studies" && <PersonalStudiesPage />}
       {page === "parish" && <ParishPage />}
