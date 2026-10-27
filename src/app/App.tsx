@@ -2014,7 +2014,7 @@ function PersonalTrajectoryPage() {
       period: 'Servicio diocesano y parroquial',
       heading: 'Servicio a la comunidad parroquial',
       paragraphs: [
-        'Durante el periodo de los párrocos y vicarios dominicos de la Parroquia de Nuestra Señora del Rosario, integró el Consejo Parroquial. Más tarde, durante el servicio del presbítero Julián Muñoz Heredia, fue nombrada ministra de la Eucaristía, siendo, según sus apuntes, la primera mujer de la ciudad en recibir este nombramiento. Desempeñó este ministerio durante diez años.',
+        'Durante el periodo de los párrocos y vicarios dominicos O.P. (Orden de Predicadores) de la Parroquia de Nuestra Señora del Rosario, integró el Consejo Parroquial. Más tarde, durante el servicio del presbítero Julián Muñoz Heredia, fue nombrada ministra de la Eucaristía, siendo, según sus apuntes, la primera mujer de la ciudad en recibir este nombramiento. Desempeñó este ministerio durante diez años.',
       ],
     },
     {
