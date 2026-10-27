@@ -1980,8 +1980,8 @@ function PersonalTrajectoryPage() {
       period: 'Formación preparatoria · St. Louis, Missouri',
       heading: 'Estudio, oración y vocación de servicio',
       paragraphs: [
-        'Cursó la preparatoria con las Religiosas del Sagrado Corazón, entre los 14 y los 17 años, en St. Louis, Missouri. Colaboró en la sacristía con la religiosa responsable del altar y las ceremonias, Mother Guillory.',
-        'Participó en actividades misioneras de recolección, clasificación y organización de timbres, cuya venta destinaba recursos a África. La misa diaria, la lectura de vidas de santos y los turnos dominicales de adoración eucarística fueron parte importante de su formación.',
+        'Cursó la preparatoria con las Religiosas del Sagrado Corazón, entre los 14 y los 17 años, en St. Louis, Missouri. Colaboró en la sacristía con la religiosa responsable del altar y las ceremonias.',
+        'Participó en actividades misioneras: recolectar y organizar timbres cuya venta se destinaba a atender necesidades en África. La misa diaria, la lectura de vidas de santos y los turnos dominicales de adoración eucarística fueron parte importante de su formación.',
         'Durante el periodo del Concilio Vaticano II, participó en momentos especiales de oración por los trabajos de la Iglesia en Roma y estudió historia de la Iglesia y los documentos conciliares.',
       ],
     },
