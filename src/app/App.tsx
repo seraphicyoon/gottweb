@@ -2064,6 +2064,11 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
       paragraphs: [],
     },
   ];
+  const visibleStages = stages.filter(stage => filter === "all"
+    ? !["Servicio a la comunidad parroquial", "Acompañamiento, contemplación y retiros", "Diócesis y Seminario de Tampico", "Servicio a niños, jóvenes y comunidades y misiones locales"].includes(stage.heading)
+    : filter === "parroquial"
+      ? ["Servicio a la comunidad parroquial", "Diócesis y Seminario de Tampico", "Servicio a niños, jóvenes y comunidades y misiones locales"].includes(stage.heading)
+      : stage.heading === "Acompañamiento, contemplación y retiros");
   return (
     <div>
       <section className="bg-[#5C2D0E] px-6 py-12 text-center md:py-16">
@@ -2075,7 +2080,7 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
         <div className="mx-auto max-w-4xl">
           {filter !== "all" && <button type="button" onClick={() => nav("sermons")} className="mb-5 text-sm font-semibold text-[#8B4513] hover:underline">← Volver a Historia</button>}
           <div className="space-y-5">
-            {stages.map((stage, index) => ({ stage, index })).filter(({ stage }) => filter === "all" ? !["Servicio a la comunidad parroquial", "Acompañamiento, contemplación y retiros"].includes(stage.heading) : filter === "parroquial" ? stage.heading === "Servicio a la comunidad parroquial" : stage.heading === "Acompañamiento, contemplación y retiros").map(({ stage, index }) => (
+            {visibleStages.map((stage, index) => (
               <div key={stage.heading} className="contents">
                 {(stage.heading === 'Servicio a la comunidad parroquial' || stage.heading === 'Acompañamiento, contemplación y retiros' || stage.heading === 'Diócesis y Seminario de Tampico') && (
                   <div className="pt-8 pb-2">
