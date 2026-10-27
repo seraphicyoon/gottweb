@@ -2074,7 +2074,7 @@ function PersonalTrajectoryPage() {
         <div className="mx-auto max-w-4xl">
           <div className="space-y-5">
             {stages.map((stage, index) => (
-              <React.Fragment key={stage.heading}>
+              <div key={stage.heading} className="contents">
                 {(stage.heading === 'Servicio a la comunidad parroquial' || stage.heading === 'Acompañamiento, contemplación y retiros' || stage.heading === 'Diócesis y Seminario de Tampico') && (
                   <div className="pt-8 pb-2">
                     <div className="mb-3 h-px bg-[#DEC8B1]" />
@@ -2102,7 +2102,7 @@ function PersonalTrajectoryPage() {
                   ))}
                 </div>
               </article>
-              </React.Fragment>
+              </div>
             ))}
           </div>
         </div>
