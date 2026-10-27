@@ -2011,12 +2011,18 @@ function PersonalTrajectoryPage() {
       ],
     },
     {
-      period: 'Servicio parroquial y espiritualidad carmelitana',
-      heading: 'Acompañamiento, contemplación y retiros',
+      period: 'Servicio diocesano y parroquial',
+      heading: 'Servicio a la comunidad parroquial',
       paragraphs: [
         'A petición de los dominicos se integró al consejo de la Parroquia de Nuestra Señora del Rosario, del que fue integrante y coordinadora. Continuó su servicio cuando llegó el padre Julián Muñoz Heredia y ejerció durante diez años como ministra de la Eucaristía.',
-        'Participó junto con J. I. en un retiro de una semana con carmelitas de la antigua observancia en Indiana. Después del ciclón de 1985 retomó contacto con el padre Rafael Checa, quien la invitó a realizar las Jornadas de Contemplación.',
-        'Organizó diez jornadas dirigidas a matrimonios, religiosas y laicos. Posteriormente, el padre Rafael Checa visitó Tampico en tres ocasiones para impartir jornadas sobre Las Moradas de Santa Teresa de Jesús. Cada encuentro se desarrollaba durante un fin de semana e incluía enseñanza y orientación espiritual.',
+      ],
+    },
+    {
+      period: 'Espiritualidad carmelitana',
+      heading: 'Acompañamiento, contemplación y retiros',
+      paragraphs: [
+        'Participó junto con José Ignacio en un retiro de una semana con carmelitas de la antigua observancia en Indiana. Después del ciclón de 1985 retomó contacto con el padre Rafael Checa, quien la invitó a realizar las Jornadas de Contemplación.',
+        'Organizó diez jornadas dirigidas a matrimonios, religiosas y laicos. Más tarde, el padre Rafael Checa visitó Tampico en tres ocasiones para impartir jornadas sobre «Las Moradas» de Santa Teresa de Jesús. Cada encuentro se desarrollaba durante un fin de semana e incluía enseñanza y orientación espiritual.',
       ],
     },
     {
