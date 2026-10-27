@@ -2026,12 +2026,13 @@ function PersonalTrajectoryPage() {
       ],
     },
     {
-      period: 'Formación diocesana y acción pastoral',
-      heading: 'Una misión de enseñanza y acompañamiento',
+      period: 'Servicio diocesano · Tampico y Ciudad Madero',
+      heading: 'Diócesis y Seminario de Tampico',
       paragraphs: [
-        'Impartió clases de discernimiento a seminaristas del Seminario de Tampico. También acompañó durante un año a seminaristas del seminario menor en la Iglesia del Rosario y, por invitación del padre David, dirigió retiros de desarrollo humano para seminaristas.',
-        'En Acción Católica colaboró en la simplificación de documentos del Concilio Vaticano II para facilitar su estudio. Participó, junto con el padre Ángeles, en un taller diocesano para agentes de pastoral en la Parroquia del Sagrado Corazón de Ciudad Madero. Su tema era la formación psicoespiritual de la persona humana, inspirada en Edith Stein y enriquecida con dinámicas de psicología.',
-        'La respuesta de los participantes permitió abrir dos grupos, los lunes y los viernes, de alrededor de ochenta personas cada uno. Tras la incapacidad del padre Ángeles, asumió ambos temas. La actividad se desarrolló durante cuatro años, sin remuneración personal; los ingresos se destinaban a viajes y actividades del SEDEC. Dejó esta labor para participar en un simposio de psicología y espiritualidad en Roma.',
+        'Impartió clases de discernimiento a seminaristas del Seminario de Tampico. Brindó acompañamiento durante un año a jóvenes del Seminario Menor, ubicados temporalmente en la Iglesia del Rosario durante la transición entre un obispo y otro. Asimismo, participó en la formación de seminaristas del Seminario Menor mediante retiros de desarrollo humano.',
+        'Colaboró en la simplificación escrita de los documentos del Concilio Vaticano II (CVII), para facilitar su estudio a los grupos de base de la Acción Católica.',
+        'Dirigió en la Parroquia del Sagrado Corazón de Ciudad Madero cursos de formación en la fe y desarrollo humano. Al principio, el padre Carlos impartía los temas de fe, mientras ella se encargaba del desarrollo humano desde la Biblia y de la formación de la persona a partir del pensamiento de Edith Stein.',
+        'La participación en estos cursos duró seis años. Los ingresos obtenidos se destinaban íntegramente a viajes y actividades del SEDEC (Secretariado Diocesano de Evangelización y Catequesis).',
       ],
     },
     {
