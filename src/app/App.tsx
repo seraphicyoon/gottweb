@@ -2036,12 +2036,30 @@ function PersonalTrajectoryPage() {
       ],
     },
     {
-      period: 'Compromiso comunitario y otras iniciativas',
-      heading: 'Servicio a niños, jóvenes y comunidades',
-      paragraphs: [
-        'Colaboró en un albergue para niños situado detrás del antiguo cine Tampico y asistió a la psicóloga de otro albergue ubicado en una sección del antiguo Hospital Civil de Tampico, en la calle Altamira. El documento no precisa la duración de estas actividades.',
-        'Participó junto con su hijo, formadores y alumnos en iniciativas de Semana Santa, excursiones a El Cielo y misiones en comunidades cercanas a Tampico e Hidalgo.',
+      period: 'Servicio diocesano · Niños, jóvenes y comunidades',
+      heading: 'Servicio a niños, jóvenes y comunidades y misiones locales',
+      sections: [
+        {
+          title: 'Acompañamiento a niños en recuperación',
+          paragraphs: [
+            'Colaboró en un albergue para niños en recuperación de la drogadicción, situado detrás del antiguo cine de Tampico.',
+            'Durante varios meses colaboró con la psicóloga de otro albergue, ubicado en el antiguo Hospital Civil de la calle Altamira, dedicado a niños en recuperación que habían tenido conflictos con la ley.',
+          ],
+        },
+        {
+          title: 'Estudiantes en institutos y colegios',
+          paragraphs: [
+            'Su labor de acompañamiento también se vinculó con estudiantes en institutos y colegios.',
+          ],
+        },
+        {
+          title: 'Semana Santa y misiones locales',
+          paragraphs: [
+            'Participó con formadores y alumnos del ICT en iniciativas de Semana Santa, excursiones y misiones en comunidades cercanas a Tampico.',
+          ],
+        },
       ],
+      paragraphs: [],
     },
   ];
   return (
@@ -2065,6 +2083,12 @@ function PersonalTrajectoryPage() {
                 </div>
                 <div className="space-y-4 pl-0 text-[15px] leading-7 text-[#66584F] sm:pl-14">
                   {stage.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex} className={stage.heading === 'Vida familiar' ? 'font-medium text-[#9A4B23]' : undefined}>{paragraph}</p>)}
+                  {'sections' in stage && stage.sections?.map((section) => (
+                    <section key={section.title} className="pt-2">
+                      <h4 className="mb-3 border-l-[3px] border-[#C69B52] pl-3 text-lg font-semibold text-[#8B4513]">{section.title}</h4>
+                      <div className="space-y-3">{section.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
+                    </section>
+                  ))}
                 </div>
               </article>
             ))}
