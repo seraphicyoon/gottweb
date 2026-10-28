@@ -1974,65 +1974,65 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
       period: 'Infancia y primeros años en Tampico',
       heading: 'Primer acercamiento a la fe y la educación',
       paragraphs: [
-        'Durante su etapa escolar en Tampico, desde la primaria hasta la secundaria, participó en las actividades religiosas de su colegio. Estas experiencias formaron parte de sus primeros vínculos con la vida de fe.',
+        'Etapa escolar en Tampico, de primaria a secundaria. Participación en las actividades religiosas del colegio como parte de los primeros vínculos con la vida de fe.',
       ],
     },
     {
       period: 'Formación preparatoria · St. Louis, Missouri',
       heading: 'Estudio, oración y vocación de servicio',
       paragraphs: [
-        'Cursó la preparatoria con las Religiosas del Sagrado Corazón, entre los 14 y los 17 años, en St. Louis, Missouri. Colaboró en la sacristía con la religiosa responsable del altar y las ceremonias.',
-        'Participó en actividades misioneras: recolectar y organizar timbres cuya venta se destinaba a atender necesidades en África. La misa diaria, la lectura de vidas de santos y los turnos dominicales de adoración eucarística fueron parte importante de su formación.',
-        'Durante el periodo del Concilio Vaticano II, participó en momentos especiales de oración por los trabajos de la Iglesia en Roma y estudió historia de la Iglesia y los documentos conciliares.',
+        'Estudios de preparatoria con las Religiosas del Sagrado Corazón, entre los 14 y los 17 años, en St. Louis, Missouri. Colaboración en la sacristía con la religiosa responsable del altar y las ceremonias.',
+        'Participación en actividades misioneras mediante la recolección y organización de timbres, cuya venta se destinaba a atender necesidades en África. Formación acompañada por la misa diaria, la lectura de vidas de santos y los turnos dominicales de adoración eucarística.',
+        'Durante el periodo del Concilio Vaticano II, participación en momentos especiales de oración por los trabajos de la Iglesia en Roma. Estudio de la historia de la Iglesia y de los documentos conciliares.',
       ],
     },
     {
       period: 'Etapa universitaria y estudios de posgrado',
       heading: 'Psicología, francés y compromiso social',
       paragraphs: [
-        'En su etapa universitaria recibió formación en un entorno vinculado a sacerdotes y religiosas dominicos y estudió francés y psicología. Continuó participando en la misa diaria y enseñó catecismo a niños hispanos los fines de semana fuera del campus.',
-        'Colaboró con la Cruz Roja de Nueva Orleans en tareas de apoyo a personas afectadas por ciclones: localización y rescate de víctimas, entrevistas a damnificados y evaluación de necesidades para apoyos de reconstrucción de viviendas.',
-        'También refiere estudios y actividades académicas en distintas universidades y un posgrado de dos años en psicopedagogía en la Universidad de Friburgo, Suiza.',
+        'Formación universitaria en un entorno vinculado a sacerdotes y religiosas dominicos, con estudios de francés y psicología. Participación continua en la misa diaria e impartición de catecismo a niños hispanos los fines de semana fuera del campus.',
+        'Colaboración con la Cruz Roja de Nueva Orleans en apoyo a personas afectadas por ciclones: localización y rescate de víctimas, entrevistas a damnificados y evaluación de necesidades para apoyos de reconstrucción de viviendas.',
+        'Estudios y actividades académicas en distintas universidades, así como un posgrado de dos años en psicopedagogía en la Universidad de Friburgo, Suiza, de acuerdo con los apuntes biográficos.',
       ],
     },
     {
       period: 'Tampico · Vida personal',
       heading: 'Vida familiar',
       paragraphs: [
-        'Contrajo matrimonio en enero de 1970 y dedicó una etapa importante a su familia. Cuando sus hijos crecieron, retomó la asistencia cotidiana a misa.',
+        'Matrimonio celebrado en enero de 1970. Etapa dedicada a la vida familiar y, posteriormente, reanudación de la asistencia cotidiana a misa cuando los hijos crecieron.',
       ],
     },
     {
       period: 'Tampico · Capacitación y formación',
       heading: 'Capacitación y formación',
       paragraphs: [
-        'En Tampico trabajó como responsable del Departamento de Orientación Vocacional y del Departamento de Inglés en el Colegio Verbo Encarnado, participando en retiros y otras actividades religiosas de la institución.',
-        'Reabrió la Alianza Francesa como directora y maestra, una labor que desarrolló durante diez años. También impartió clases universitarias, con referencias a la Universidad Autónoma de Tamaulipas, y cursos de liderazgo para docentes en el Cultural y el Anglo.',
-        'Profundizó en la espiritualidad de Ignacio de Loyola y contó durante aproximadamente ocho años con el acompañamiento espiritual de Fritz Brehm. Amplió asimismo su formación en programación neurolingüística en California, participó en capacitación en esta disciplina y abrió el Centro de Estudios Edith Stein.',
+        'Responsable del Departamento de Orientación Vocacional y del Departamento de Inglés en el Colegio Verbo Encarnado, Tampico. Participación en retiros y otras actividades religiosas de la institución.',
+        'Reapertura de la Alianza Francesa y desempeño como directora y maestra durante diez años. Impartición de clases universitarias, con referencias a la Universidad Autónoma de Tamaulipas, y cursos de liderazgo para docentes en el Cultural y el Anglo.',
+        'Profundización en la espiritualidad de Ignacio de Loyola y acompañamiento espiritual de Fritz Brehm durante aproximadamente ocho años. Ampliación de la formación en programación neurolingüística en California, capacitación en esta disciplina y apertura del Centro de Estudios Edith Stein.',
       ],
     },
     {
       period: 'Servicio diocesano y parroquial',
       heading: 'Servicio a la comunidad parroquial',
       paragraphs: [
-        'Durante el periodo de los párrocos y vicarios dominicos O.P. (Orden de Predicadores) de la Parroquia de Nuestra Señora del Rosario, integró el Consejo Parroquial. Más tarde, durante el servicio del presbítero Julián Muñoz Heredia, fue nombrada ministra de la Eucaristía, siendo, según sus apuntes, la primera mujer de la ciudad en recibir este nombramiento. Desempeñó este ministerio durante diez años.',
+        'Integración al Consejo Parroquial de la Parroquia de Nuestra Señora del Rosario durante el periodo de los párrocos y vicarios dominicos O.P. (Orden de Predicadores). Más tarde, nombramiento como ministra de la Eucaristía durante el servicio del presbítero Julián Muñoz Heredia; según los apuntes biográficos, primera mujer de la ciudad en recibir este nombramiento. Ejercicio de este ministerio durante diez años.',
       ],
     },
     {
       period: 'Espiritualidad carmelitana',
       heading: 'Acompañamiento, contemplación y retiros',
       paragraphs: [
-        'Participó junto con José Ignacio en un retiro de los carmelitas descalzos en Indiana, Estados Unidos. Asimismo, participó como invitada en un simposio de espiritualidad en Indiana, por invitación del padre Rafael Checa, OCD. Después del ciclón de 1985 retomó contacto con el padre Rafael Checa y continuó vinculada a las Jornadas de Contemplación.',
-        'Participó en diez jornadas contemplativas con el padre Rafael Checa, OCD, realizadas en varias ciudades de la República y dirigidas a matrimonios, religiosas, religiosos y laicos. Más tarde, el padre Rafael Checa visitó Tampico en tres ocasiones para impartir jornadas sobre «Las Moradas» de Santa Teresa de Jesús. Cada encuentro se desarrollaba durante un fin de semana e incluía enseñanza y orientación espiritual.',
+        'Participación junto con José Ignacio en un retiro de los carmelitas descalzos en Indiana, Estados Unidos. Participación como invitada en un simposio de espiritualidad en Indiana, por invitación del padre Rafael Checa, OCD. Reanudación del contacto con el padre Rafael Checa después del ciclón de 1985 y continuidad en las Jornadas de Contemplación.',
+        'Participación en diez jornadas contemplativas con el padre Rafael Checa, OCD, realizadas en varias ciudades de la República y dirigidas a matrimonios, religiosas, religiosos y laicos. Posteriormente, tres visitas del padre Rafael Checa a Tampico para impartir jornadas sobre «Las Moradas» de Santa Teresa de Jesús, con duración de un fin de semana por encuentro y actividades de enseñanza y orientación espiritual.',
       ],
     },
     {
       period: 'Servicio diocesano · Tampico y Ciudad Madero',
       heading: 'Diócesis y Seminario de Tampico',
       paragraphs: [
-        'Impartió clases de discernimiento a seminaristas del Seminario de Tampico. Brindó acompañamiento durante un año a jóvenes del Seminario Menor, ubicados temporalmente en la Iglesia del Rosario durante la transición entre un obispo y otro. Asimismo, participó en la formación de seminaristas del Seminario Menor mediante retiros de desarrollo humano.',
-        'Colaboró en la simplificación escrita de los documentos del Concilio Vaticano II (CVII), para facilitar su estudio a los grupos de base de la Acción Católica.',
-        'Dirigió en la Parroquia del Sagrado Corazón de Ciudad Madero cursos de formación en la fe y desarrollo humano. Al principio, el padre Carlos impartía los temas de fe, mientras ella se encargaba del desarrollo humano desde la Biblia y de la formación de la persona a partir del pensamiento de Edith Stein.',
+        'Impartición de clases de discernimiento a seminaristas del Seminario de Tampico. Acompañamiento durante un año a jóvenes del Seminario Menor, ubicados temporalmente en la Iglesia del Rosario durante la transición entre un obispo y otro. Formación de seminaristas del Seminario Menor mediante retiros de desarrollo humano.',
+        'Colaboración en la simplificación escrita de los documentos del Concilio Vaticano II (CVII), para facilitar su estudio a los grupos de base de la Acción Católica.',
+        'Dirección de cursos de formación en la fe y desarrollo humano en la Parroquia del Sagrado Corazón de Ciudad Madero. En la etapa inicial, impartición de los temas de fe a cargo del padre Carlos y de los cursos de desarrollo humano desde la Biblia y formación de la persona a partir del pensamiento de Edith Stein a cargo de la responsable de esta trayectoria.',
         'La participación en estos cursos duró seis años. Los ingresos obtenidos se destinaban íntegramente a viajes y actividades del SEDEC (Secretariado Diocesano de Evangelización y Catequesis).',
       ],
     },
@@ -2043,21 +2043,21 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
         {
           title: 'Acompañamiento a niños en recuperación',
           paragraphs: [
-            'Colaboró en un albergue para niños en recuperación de la drogadicción, situado detrás del antiguo cine de Tampico.',
-            'Durante varios meses colaboró con la psicóloga de otro albergue, ubicado en el antiguo Hospital Civil de la calle Altamira, dedicado a niños en recuperación que habían tenido conflictos con la ley.',
+            'Colaboración en un albergue para niños en recuperación de la drogadicción, situado detrás del antiguo cine de Tampico.',
+            'Colaboración durante varios meses con la psicóloga de otro albergue, ubicado en el antiguo Hospital Civil de la calle Altamira, dedicado a niños en recuperación que habían tenido conflictos con la ley.',
           ],
         },
         {
           title: 'Estudiantes en institutos y colegios',
           paragraphs: [
-            'En el ámbito de los institutos académicos y colegios, incluido el Instituto Cultural Tampico (ICT), promovió entre los estudiantes el aprendizaje de la oración al estilo de Santa Teresa de Jesús: «Estar muchas veces a solas con quien sabemos nos ama».',
+            'Promoción del aprendizaje de la oración al estilo de Santa Teresa de Jesús entre estudiantes de institutos académicos y colegios, incluido el Instituto Cultural Tampico (ICT): «Estar muchas veces a solas con quien sabemos nos ama».',
             'Esta orientación se apoyaba en la experiencia y la historia de los doctores místicos de la Iglesia, Santa Teresa de Jesús y San Juan de la Cruz, y en la oración como camino hacia la unión con Dios.',
           ],
         },
         {
           title: 'Semana Santa y misiones locales',
           paragraphs: [
-            'Participó con formadores y alumnos del ICT en iniciativas de Semana Santa, excursiones y misiones en comunidades cercanas a Tampico.',
+            'Participación con formadores y alumnos del ICT en iniciativas de Semana Santa, excursiones y misiones en comunidades cercanas a Tampico.',
           ],
         },
       ],
