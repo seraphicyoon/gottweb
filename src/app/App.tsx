@@ -1990,7 +1990,7 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
       period: 'Etapa universitaria y estudios de posgrado',
       heading: 'Psicología, francés y compromiso social',
       paragraphs: [
-        'Formación universitaria en un entorno vinculado a sacerdotes y religiosas dominicos, con estudios de francés y psicología. Participación continua en la misa diaria e impartición de catecismo a niños hispanos los fines de semana fuera del campus.',
+        'Formación universitaria en un entorno vinculado a sacerdotes y religiosas dominicos, con estudios de francés y psicología. Misa diaria y clases de catecismo a niños hispanos los fines de semana fuera del campus.',
         'Colaboración con la Cruz Roja de Nueva Orleans en apoyo a personas afectadas por ciclones: localización y rescate de víctimas, entrevistas a damnificados y evaluación de necesidades para apoyos de reconstrucción de viviendas.',
         'Estudios y actividades académicas en distintas universidades, así como un posgrado de dos años en psicopedagogía en la Universidad de Friburgo, Suiza, de acuerdo con los apuntes biográficos.',
       ],
