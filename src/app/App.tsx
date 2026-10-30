@@ -489,13 +489,13 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
             <div>
               <SectionLabel>ESPIRITUALIDAD TERESIANA</SectionLabel>
               <SectionHeading>
-                Un lugar para <span className="text-[#8B4513] italic">encontrarse con Dios y los demás</span>
+                Hacer de la vida diaria <span className="text-[#8B4513] italic">una oración</span>
               </SectionHeading>
               <p className="text-gray-500 leading-relaxed mb-6">
-                Los invito a conocernos en varias vías dinámicas que han llegado a tres continentes: África, América y Europa, entrelazados en nuestra historia, fuente histórica y expansión misionera.
+                Un espacio para descubrir y vivir la mística en la vida diaria.
               </p>
               <p className="text-gray-500 leading-relaxed mb-8">
-                Se nutre de la riqueza de los doctores de la Iglesia, Teresa de Jesús y Juan de la Cruz. Nuestro marco de acción y objetivos se desarrollan en la Iglesia y para la Iglesia Católica.
+                Para transformar las experiencias humanas en un viaje único, personal y comunitario, accesible a todos.
               </p>
               <div className="flex gap-3">
                 <PrimaryBtn onClick={() => nav("about")}>Nuestro Propósito</PrimaryBtn>
