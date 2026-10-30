@@ -2022,8 +2022,11 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
       period: 'Espiritualidad carmelitana',
       heading: 'Acompañamiento, contemplación y retiros',
       paragraphs: [
-        'Participación en un retiro de los carmelitas descalzos en Indiana, Estados Unidos. Participación en un simposio de espiritualidad en Indiana, por invitación del Padre Rafael Checa, ocd. Reanudación del contacto con el Padre Rafael Checa después del ciclón de 1985 y repetición de las Jornadas de Contemplación.',
-        'Participación en diez jornadas contemplativas con el Padre Rafael Checa, ocd, realizadas en varias ciudades de la República y dirigidas a matrimonios, religiosas, religiosos y laicos. Posteriormente, tres visitas del Padre Rafael Checa a Tampico para impartir jornadas sobre «Las Moradas» de Santa Teresa de Jesús, con duración de un fin de semana por encuentro y actividades de enseñanza y orientación espiritual.',
+        'Participación en un retiro de los carmelitas descalzos en Indiana, Estados Unidos.',
+        'Participación en un simposio de espiritualidad en Indiana, por invitación del Padre Rafael Checa, ocd.',
+        'Reanudación del contacto con el Padre Rafael Checa después del ciclón de 1985 y repetición de las Jornadas de Contemplación.',
+        'Participación en diez jornadas contemplativas con el Padre Rafael Checa, ocd, realizadas en varias ciudades de la República y dirigidas a matrimonios, religiosas, religiosos y laicos.',
+        'Posteriormente, tres visitas del Padre Rafael Checa a Tampico para impartir jornadas sobre «Las Moradas» de Santa Teresa de Jesús, con duración de un fin de semana por encuentro y actividades de enseñanza y orientación espiritual.',
       ],
     },
     {
