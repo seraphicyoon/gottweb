@@ -1,3 +1,4 @@
+import TeresaJuan from './TeresaJuan';
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM_5 from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM-5.jpeg'
 import image_teresa_2 from '@/imports/teresa-2.png'
 import image_WhatsApp_Image_2026_09_04_at_12_44_00_PM_4 from '@/imports/WhatsApp_Image_2026-09-04_at_12.44.00_PM-4.jpeg'
@@ -33,9 +34,9 @@ import {
   Video, Leaf, ScrollText
 } from "lucide-react";
 
-type Page = "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli" | "carmelo" | "diocesanActivities" | "lumen" | "workshopIntro" | "parroquial" | "carmelitana";
+type Page = "teresaJuan" | "home" | "about" | "events" | "sermons" | "gallery" | "contact" | "login" | "admin" | "classroom" | "diocese" | "studies" | "parish" | "diocesanMeetings" | "fratelli" | "carmelo" | "diocesanActivities" | "lumen" | "workshopIntro" | "parroquial" | "carmelitana";
 const PAGE_PATHS: Record<Page, string> = {
-  home: "/", about: "/nosotros", events: "/actividades",
+  teresaJuan: "/teresa-y-juan", home: "/", about: "/nosotros", events: "/actividades",
   workshopIntro: "/actividades/introduccion-formacion-laicos", carmelo: "/actividades/carmelo-descalzo", diocesanActivities: "/actividades/diocesanas", lumen: "/actividades/santa-teresa-lumen-gentium", fratelli: "/historia/estudio-fratelli-tutti", parish: "/historia/parroquia-nuestra-senora-del-rosario", diocesanMeetings: "/historia/encuentros-diocesanos", studies: "/historia/estudios-personales", diocese: "/historia/actividades-diocesis-tampico", sermons: "/ensenanzas-e-historia", gallery: "/galeria",
   parroquial: "/parroquial", carmelitana: "/carmelitano",
   contact: "/contacto", login: "/ingresar", admin: "/admin", classroom: "/alumnas",
@@ -350,6 +351,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
     { label: "Nosotros", page: "about" },
     { label: "Actividades", page: "events" },
     { label: "Historia", page: "sermons" },
+    { label: "Teresa y Juan", page: "teresaJuan" },
     { label: "Galería", page: "gallery" },
     { label: "Contacto", page: "contact" },
   ];
@@ -369,7 +371,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden xl:flex items-center gap-1">
             {links.map((l) => (
               <button
                 key={l.page}
@@ -386,7 +388,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
           </nav>
 
           {/* CTAs */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden xl:flex items-center gap-2">
             <button
               onClick={() => nav("login")}
               className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-[#8B4513] transition-colors"
@@ -400,7 +402,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="xl:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -412,7 +414,7 @@ function Nav({ page, nav, mobileOpen, setMobileOpen }: {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-black/5 bg-white px-4 pb-4 pt-2">
+        <div className="xl:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-black/5 bg-white px-4 pb-4 pt-2">
           {links.map((l) => (
             <button
               key={l.page}
@@ -1877,6 +1879,7 @@ function Footer({ nav }: { nav: (p: Page) => void }) {
                 { l: "Nosotros", p: "about" as Page },
                 { l: "Actividades", p: "events" as Page },
                 { l: "Enseñanzas e Historia", p: "sermons" as Page },
+                { l: "Teresa y Juan", p: "teresaJuan" as Page },
                 { l: "Contacto", p: "contact" as Page },
               ],
             },
@@ -2234,6 +2237,7 @@ export default function App() {
       <Nav page={page} nav={nav} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
       {page === "home" && <HomePage nav={nav} />}
       {page === "about" && <AboutPage nav={nav} />}
+      {page === "teresaJuan" && <TeresaJuan />}
       {page === "events" && <ActivitiesHubPage nav={nav} session={session} />}
       {page === "carmelo" && <CarmeloPage />}
       {page === "diocesanActivities" && <DiocesanActivitiesPage />}
