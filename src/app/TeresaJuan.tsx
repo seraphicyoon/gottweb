@@ -1,21 +1,33 @@
-import { useState } from 'react';
-import slideText from './teresa-juan-text.json';
+import type { ElementType, ReactNode } from 'react';
+import source from './teresa-juan-text.json';
 import './teresa-juan.css';
 
+// Text is extracted verbatim from each text box in the supplied PowerPoint.
+// Keep each source box once, including its punctuation, spelling and line breaks.
+function T({ s, i, as: Tag = 'p', className = '' }: { s: number; i: number; as?: ElementType; className?: string }) {
+  return <Tag className={`tj-text ${className}`} data-source={`${s}:${i}`}>{source[s][i]}</Tag>;
+}
+function Topic({ n, children, className = '' }: { n: number; children: ReactNode; className?: string }) {
+  return <section id={`tema-${n + 1}`} className={`tj-topic ${className}`} aria-label={`Tema ${n + 1}`}>{children}</section>;
+}
+function End({ s, i, note }: { s: number; i: number; note?: number }) {
+  return <footer className="tj-end">{note !== undefined && <T s={s} i={note} />}<T s={s} i={i} as="span" /></footer>;
+}
 const topics = ['Presentación', 'Contexto y colaboración', 'Santa Teresa de Jesús', 'San Juan de la Cruz', 'Lectura comparada', 'La oración se hace vida', 'Cierre y diálogo', 'Fuentes', 'Dinámica de fuentes', 'Dinámica participativa'];
 export default function TeresaJuan() {
-  const [expanded, setExpanded] = useState<number | null>(null);
   return <main className="tj-page">
-    <header className="tj-intro"><p>FORMACIÓN TERESIANA Y SANJUANISTA</p><h1>Santa Teresa de Jesús y San Juan de la Cruz</h1><span>Dos voces, una misma búsqueda interior</span></header>
-    <nav className="tj-index" aria-label="Contenido de Teresa y Juan">{topics.map((topic, i) => <a key={topic} href={`#tema-${i + 1}`}>{String(i + 1).padStart(2, '0')} · {topic}</a>)}</nav>
-    <div className="tj-slides">{topics.map((topic, i) => <section key={topic} id={`tema-${i + 1}`} className="tj-slide" aria-labelledby={`titulo-${i}`}>
-      <div className="tj-slide-label"><h2 id={`titulo-${i}`}>{String(i + 1).padStart(2, '0')} · {topic}</h2><button type="button" onClick={() => setExpanded(i)} aria-label={`Ampliar diapositiva ${i + 1}: ${topic}`}>Ampliar ↗</button></div>
-      <img src={`/teresa-juan/diapositiva-${String(i + 1).padStart(2, '0')}.webp`} width="1920" height="1080" alt={`Diapositiva ${i + 1}: ${topic}. El texto completo está disponible debajo.`} loading={i === 0 ? 'eager' : 'lazy'} />
-      <details className="tj-transcript"><summary>Leer el texto de esta diapositiva</summary><div>{slideText[i].map((text, j) => <p key={j}>{text}</p>)}</div></details>
-    </section>)}</div>
-    {expanded !== null && <div className="tj-modal" role="dialog" aria-modal="true" aria-label={`Diapositiva ${expanded + 1} ampliada`} onKeyDown={event => { if (event.key === 'Escape') setExpanded(null); }}>
-      <button type="button" autoFocus className="tj-close" onClick={() => setExpanded(null)}>Cerrar ✕</button>
-      <div className="tj-zoom-scroll"><img src={`/teresa-juan/diapositiva-${String(expanded + 1).padStart(2, '0')}.webp`} width="1920" height="1080" alt={topics[expanded]} /></div>
-    </div>}
+    <nav className="tj-index" aria-label="Contenido de Teresa y Juan">{topics.map((topic, i) => <a href={`#tema-${i + 1}`} key={topic}>{String(i + 1).padStart(2, '0')} · {topic}</a>)}</nav>
+    <div className="tj-content">
+      <Topic n={0} className="tj-cover"><div className="tj-cross" aria-hidden="true" /><T s={0} i={0} as="h1" /><T s={0} i={1} className="tj-subtitle" /><div className="tj-cover-rule" aria-hidden="true" /><T s={0} i={2} /><End s={0} i={4} note={3} /></Topic>
+      <Topic n={1}><T s={1} i={0} className="tj-kicker" /><T s={1} i={1} as="h2" /><div className="tj-context"><T s={1} i={2} as="h3" /><T s={1} i={3} /></div><div className="tj-timeline tj-three">{[4, 7, 10].map(i => <div className="tj-milestone" key={i}><T s={1} i={i} className="tj-year" /><span className="tj-node" aria-hidden="true" /><T s={1} i={i + 1} as="h3" /><T s={1} i={i + 2} /></div>)}</div><T s={1} i={13} className="tj-conclusion" /><End s={1} i={14} /></Topic>
+      <Topic n={2}><T s={2} i={0} className="tj-kicker" /><T s={2} i={1} as="h2" /><div className="tj-bio"><div className="tj-bio-copy"><T s={2} i={2} className="tj-dates" /><T s={2} i={3} as="h3" /><T s={2} i={4} className="tj-teaching" /><T s={2} i={5} as="h3" className="tj-kicker" /><T s={2} i={6} /></div><div className="tj-teresa-diagram"><div className="tj-rings"><div className="tj-ring-inner" aria-hidden="true" /><T s={2} i={8} className="tj-recollection" /><T s={2} i={7} className="tj-soul" /><T s={2} i={9} className="tj-prayer" /></div><T s={2} i={10} className="tj-conclusion" /></div></div><End s={2} i={11} /></Topic>
+      <Topic n={3} className="tj-night"><div className="tj-night-label"><T s={3} i={0} className="tj-kicker" /><T s={3} i={2} className="tj-dates" /></div><T s={3} i={1} as="h2" /><div className="tj-bio"><div className="tj-bio-copy"><T s={3} i={3} as="h3" /><T s={3} i={4} /><T s={3} i={5} as="h3" className="tj-kicker" /><T s={3} i={6} /></div><div className="tj-juan-diagram"><div className="tj-ascent"><svg viewBox="0 0 500 300" aria-hidden="true"><path d="M45 245 L250 145 L455 45" fill="none" stroke="#b85c3e" strokeWidth="3" /><circle cx="45" cy="245" r="9" fill="#b85c3e" /><circle cx="250" cy="145" r="9" fill="#c7a45a" /><circle cx="455" cy="45" r="9" fill="#b85c3e" /></svg><T s={3} i={7} className="tj-detachment" /><T s={3} i={8} className="tj-silence" /><T s={3} i={9} className="tj-union" /></div><T s={3} i={10} className="tj-conclusion" /></div></div><End s={3} i={11} /></Topic>
+      <Topic n={4}><T s={4} i={0} className="tj-kicker tj-center" /><T s={4} i={1} as="h2" /><div className="tj-comparison"><div className="tj-comparison-head"><T s={4} i={2} as="h3" /><span aria-hidden="true" /><T s={4} i={3} as="h3" /></div>{[[4,5,6],[7,8,9],[10,11,12]].map(([left, label, right]) => <div className="tj-comparison-row" key={label}><T s={4} i={left} /><T s={4} i={label} as="h3" /><T s={4} i={right} /></div>)}</div><div className="tj-formula">{[13,14,15,16,17].map(i => <T s={4} i={i} as="span" key={i} />)}</div><T s={4} i={18} className="tj-comparison-close" /><End s={4} i={19} /></Topic>
+      <Topic n={5}><T s={5} i={0} as="h2" className="tj-highlight" /><T s={5} i={1} className="tj-dot" /><div className="tj-timeline tj-four">{[2,5,8,11].map(i => <div className="tj-milestone" key={i}><T s={5} i={i} className="tj-year" /><span className="tj-node" aria-hidden="true" /><T s={5} i={i + 1} as="h3" /><T s={5} i={i + 2} /></div>)}</div><T s={5} i={14} className="tj-banner" /><End s={5} i={16} note={15} /></Topic>
+      <Topic n={6} className="tj-reflection"><div className="tj-reflection-grid"><div><T s={6} i={0} className="tj-kicker" /><T s={6} i={1} as="h2" /><div className="tj-questions">{[2,4,6].map(i => <div key={i}><T s={6} i={i} as="span" /><T s={6} i={i+1} /></div>)}</div><T s={6} i={11} className="tj-kicker" /></div><aside className="tj-invitation"><T s={6} i={8} className="tj-kicker" /><T s={6} i={9} className="tj-invitation-quote" /><T s={6} i={10} /></aside></div><End s={6} i={12} /></Topic>
+      <Topic n={7}><T s={7} i={0} as="h2" /><div className="tj-sources"><div><T s={7} i={1} as="h3" className="tj-kicker" /><T s={7} i={2} /><T s={7} i={3} /></div><div><T s={7} i={4} as="h3" className="tj-kicker" /><T s={7} i={5} /><T s={7} i={9} /></div></div><T s={7} i={6} className="tj-highlight tj-center" /><End s={7} i={8} note={7} /></Topic>
+      <Topic n={8}><div className="tj-dynamic-label"><T s={8} i={0} className="tj-kicker" /><T s={8} i={2} /></div><T s={8} i={1} as="h2" /><T s={8} i={3} className="tj-dynamic-intro" /><div className="tj-dialogue"><div><T s={8} i={20} as="h3" /><T s={8} i={4} /></div><div className="tj-dialogue-circle"><T s={8} i={6} as="h3" /><T s={8} i={7} /></div><div><T s={8} i={19} as="h3" /><T s={8} i={5} /></div></div><div className="tj-three tj-exercises">{[[8,21,9],[10,11,12],[13,14,15]].map(([number, title, copy]) => <div key={number}><T s={8} i={number} as="span" /><div><T s={8} i={title} as="h3" /><T s={8} i={copy} /></div></div>)}</div><T s={8} i={16} className="tj-banner" /><End s={8} i={18} note={17} /></Topic>
+      <Topic n={9}><T s={9} i={0} className="tj-kicker tj-center" /><T s={9} i={1} as="h2" /><div className="tj-timeline tj-four">{[3,7,11,15].map(i => <div className="tj-milestone" key={i}><T s={9} i={i} className="tj-year" /><T s={9} i={i + 1} className="tj-time" /><span className="tj-node" aria-hidden="true" /><T s={9} i={i + 2} as="h3" /><T s={9} i={i + 3} /></div>)}</div><T s={9} i={2} className="tj-duration" /><T s={9} i={19} className="tj-banner" /><End s={9} i={21} note={20} /></Topic>
+    </div>
   </main>;
 }
