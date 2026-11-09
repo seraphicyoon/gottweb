@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Acceso privado | GETS</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f8f5f0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#47372d;padding:24px}
+    main{background:#fff;width:min(100%,430px);padding:40px 32px;border:1px solid #e9e0d7;border-radius:20px;box-shadow:0 16px 48px #533e2a12;text-align:center}
+    .mark{margin:auto auto 18px;display:grid;place-items:center;width:62px;height:62px;border-radius:50%;background:#f1e7da;color:#865332;font-family:Georgia,serif;font-size:24px;font-weight:bold}
+    h1{font:normal 30px Georgia,serif;margin:0 0 10px}p{color:#75685f;line-height:1.55;margin:0 0 26px}label{display:block;text-align:left;font-size:14px;font-weight:600;margin-bottom:9px}
+    input{width:100%;padding:14px 15px;border:1px solid #cfc3b8;border-radius:10px;font:inherit;outline-color:#8b4513}
+    button{width:100%;margin-top:16px;background:#8b4513;border:0;color:white;padding:14px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+    button:disabled{opacity:.65;cursor:wait}#error{min-height:24px;margin:12px 0 0;color:#b32727;font-size:14px}
+    small{display:block;margin-top:24px;color:#9b8f85}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark">GETS</div>
+    <h1>Acceso privado</h1>
+    <p>Grupo Educativo Teresiano Sanjuanista<br>Ingresa la clave compartida para consultar el sitio.</p>
+    <form id="form">
+      <label for="password">Clave de acceso</label>
+      <input id="password" type="password" autocomplete="current-password" required autofocus placeholder="Escribe tu clave">
+      <button id="submit" type="submit">Entrar al sitio</button>
+      <div id="error" role="alert" aria-live="polite"></div>
+    </form>
+    <small>Contenido de acceso restringido</small>
+  </main>
+  <script>
+    const form = document.getElementById('form');
+    const button = document.getElementById('submit');
+    const error = document.getElementById('error');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();error.textContent='';button.disabled=true;button.textContent='Verificando…';
+      try {
+        const response = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:document.getElementById('password').value}),cache:'no-store'});
+        if(!response.ok){const data=await response.json();throw new Error(data.error||'No fue posible iniciar sesión');}
+        window.location.replace('/');
+      } catch(e) {error.textContent=e.message||'Error de conexión';}
+      finally{button.disabled=false;button.textContent='Entrar al sitio';}
+    });
+  </script>
+</body>
+</html>
