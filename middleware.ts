@@ -1,4 +1,4 @@
-import { next, redirect } from '@vercel/functions';
+import { next } from '@vercel/functions';
 
 const COOKIE = 'gets_session';
 const encoder = new TextEncoder();
@@ -40,7 +40,7 @@ export default async function middleware(request: Request) {
     }
   }
 
-  const response = redirect(new URL('/acceso.html', url), 307);
+  const response = Response.redirect(new URL('/acceso.html', url), 307);
   response.headers.set('Cache-Control', 'no-store');
   return response;
 }
