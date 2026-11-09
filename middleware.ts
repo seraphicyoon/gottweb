@@ -13,9 +13,7 @@ export default async function middleware(request: Request) {
   const url = new URL(request.url);
   const pathname = url.pathname;
   if (pathname === '/acceso.html' || pathname === '/api/gets-login') {
-    const response = next();
-    response.headers.set('Cache-Control', 'no-store');
-    return response;
+    return next();
   }
 
   const secret = process.env.GETS_ACCESS_PASSWORD;
@@ -33,16 +31,18 @@ export default async function middleware(request: Request) {
       let difference = 0;
       for (let i = 0; i < 64; i++) difference |= expected.charCodeAt(i) ^ received.charCodeAt(i);
       if (difference === 0) {
-        const response = next();
-        response.headers.set('Cache-Control', 'private, no-store');
-        return response;
+        return next();
       }
     }
   }
 
-  const response = Response.redirect(new URL('/acceso.html', url), 307);
-  response.headers.set('Cache-Control', 'no-store');
-  return response;
+  return new Response(null, {
+    status: 307,
+    headers: {
+      'Location': new URL('/acceso.html', url).toString(),
+      'Cache-Control': 'no-store',
+    },
+  });
 }
 
 export const config = { matcher: '/(.*)', runtime: 'nodejs' };
