@@ -706,12 +706,10 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
                 <p className="text-gray-600 leading-relaxed">Un sendero formativo y sinodal.</p>
               </div>
               <div className="rounded-xl bg-white p-6 border border-[#8B4513]/10">
-                <h4 className="font-bold text-[#5C4033] mb-3" style={serif}>Diálogo y escucha</h4>
                 <p className="text-gray-600 leading-relaxed">Se dialoga para comprender, se escucha para acoger.</p>
               </div>
               <div className="rounded-xl bg-white p-6 border border-[#8B4513]/10">
-                <h4 className="font-bold text-[#5C4033] mb-3" style={serif}>Caminamos juntos</h4>
-                <p className="text-gray-600 leading-relaxed">Un viaje para caminar juntos, porque «es tiempo de caminar» y en el «juntos andemos» de Teresa de Jesús.</p>
+                <p className="text-gray-600 leading-relaxed">Caminamos juntos. «Es tiempo de caminar». «Juntos andemos», de Teresa de Jesús.</p>
               </div>
               <div className="rounded-xl bg-white p-6 border border-[#8B4513]/10">
                 <h4 className="font-bold text-[#5C4033] mb-3" style={serif}>Tarea</h4>
