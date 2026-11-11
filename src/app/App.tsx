@@ -694,13 +694,12 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
       <section className="bg-white pb-16 md:pb-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <p className="text-sm font-semibold tracking-[0.22em] text-[#B7834A] mb-4">NUESTRA VIDA</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#5C4033] leading-snug" style={serif}>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#5C4033] mb-5" style={serif}>NUESTRA VIDA</h2>
+            <p className="text-xl md:text-2xl text-[#5C4033] leading-relaxed" style={serif}>
               Nuestro viaje: una historia que recordar, una historia que vivir y una historia que crear
-            </h2>
+            </p>
           </div>
           <div className="rounded-2xl border border-[#8B4513]/15 bg-[#FAF7F3] p-6 md:p-10">
-            <h3 className="text-2xl font-bold text-[#8B4513] mb-8 text-center" style={serif}>En esquema</h3>
             <div className="grid md:grid-cols-2 gap-5">
               <div className="rounded-xl bg-white p-6 border border-[#8B4513]/10">
                 <h4 className="font-bold text-[#5C4033] mb-3" style={serif}>Bajo el Espíritu</h4>
