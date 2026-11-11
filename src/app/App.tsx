@@ -680,29 +680,18 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
         </div>
       </section>
 
-      {/* Mapa y Nuestra Vida: composición visual unificada */}
+      {/* Mapa y Nuestra Vida: separación limpia sin adornos */}
       <section className="bg-white pt-6 pb-16 md:pt-10 md:pb-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-4 md:gap-7 mb-6">
-              <span className="hidden sm:block h-px w-16 md:w-36 bg-[#B7834A]" aria-hidden="true" />
-              <h3 className="rounded-full bg-[#F5EFE8] px-8 py-3 text-xl md:text-2xl font-semibold text-[#8B4513]" style={serif}>Mapa</h3>
-              <span className="hidden sm:block h-px w-16 md:w-36 bg-[#B7834A]" aria-hidden="true" />
-            </div>
+            <h3 className="text-xl md:text-2xl font-semibold text-[#8B4513] mb-5" style={serif}>Mapa</h3>
             <p className="text-lg md:text-xl leading-relaxed text-[#5C4033]" style={serif}>
               Ser fuente de servicio desde un lugar en comunión, respeto, crecimiento y formación.
             </p>
           </div>
 
-          <div className="my-12 md:my-16 border-t border-[#E9DDD1]" aria-hidden="true" />
-
-          <div className="text-center mb-10 md:mb-12">
-            <div className="flex items-center justify-center gap-4 md:gap-7">
-              <span className="hidden md:block h-px w-16 bg-[#B7834A]" aria-hidden="true" />
-              <h2 className="text-4xl md:text-5xl font-bold text-[#5C4033]" style={serif}>NUESTRA VIDA</h2>
-              <span className="hidden md:block h-px w-16 bg-[#B7834A]" aria-hidden="true" />
-            </div>
-            <div className="h-0.5 w-36 md:w-52 rounded-full bg-[#D9B995] mx-auto mt-5 mb-7" aria-hidden="true" />
+          <div className="text-center mt-16 md:mt-24 mb-10 md:mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#5C4033] mb-6" style={serif}>NUESTRA VIDA</h2>
             <p className="text-lg md:text-xl italic text-[#5C4033] leading-relaxed" style={serif}>
               Nuestro viaje: una historia que recordar, una historia que vivir y una historia que crear
             </p>
