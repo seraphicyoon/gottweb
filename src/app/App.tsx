@@ -700,22 +700,20 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
             </p>
           </div>
           <div className="rounded-2xl border border-[#8B4513]/15 bg-[#FAF7F3] p-6 md:p-10">
-            <div className="grid md:grid-cols-2 gap-5">
-              <div className="rounded-xl bg-white p-6 border border-[#8B4513]/10">
-                <h4 className="font-bold text-[#5C4033] mb-3" style={serif}>Bajo el Espíritu</h4>
-                <p className="text-gray-600 leading-relaxed">Un sendero formativo y sinodal.</p>
-              </div>
-              <div className="rounded-xl bg-white p-6 border border-[#8B4513]/10">
-                <p className="text-gray-600 leading-relaxed">Se dialoga para comprender, se escucha para acoger.</p>
-              </div>
-              <div className="rounded-xl bg-white p-6 border border-[#8B4513]/10">
-                <p className="text-gray-600 leading-relaxed">Caminamos juntos. «Es tiempo de caminar». «Juntos andemos», de Teresa de Jesús.</p>
-              </div>
-              <div className="rounded-xl bg-white p-6 border border-[#8B4513]/10">
-                <h4 className="font-bold text-[#5C4033] mb-3" style={serif}>Tarea</h4>
-                <p className="text-gray-600 leading-relaxed">Descalzarte para seguir a Jesucristo; hacer vida el humanismo evangélico teresiano-sanjuanista.</p>
-              </div>
-            </div>
+            <ul className="space-y-5 list-disc pl-7 md:pl-9 text-[#5C4033]">
+              <li className="pl-2 text-lg md:text-xl leading-relaxed">
+                <span className="font-bold" style={serif}>Bajo el Espíritu:</span> un sendero formativo y sinodal.
+              </li>
+              <li className="pl-2 text-lg md:text-xl leading-relaxed">
+                Se dialoga para comprender, se escucha para acoger.
+              </li>
+              <li className="pl-2 text-lg md:text-xl leading-relaxed">
+                Caminamos juntos. «Es tiempo de caminar». «Juntos andemos», de Teresa de Jesús.
+              </li>
+              <li className="pl-2 text-lg md:text-xl leading-relaxed">
+                <span className="font-bold" style={serif}>Tarea:</span> descalzarte para seguir a Jesucristo; hacer vida el humanismo evangélico teresiano-sanjuanista.
+              </li>
+            </ul>
           </div>
         </div>
       </section>
