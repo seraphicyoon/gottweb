@@ -694,11 +694,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
             </p>
           </div>
 
-          <div className="flex items-center justify-center gap-4 my-12 md:my-16" aria-hidden="true">
-            <span className="h-px w-20 md:w-36 bg-[#D9B995]" />
-            <span className="text-[#B7834A] text-xl">✦</span>
-            <span className="h-px w-20 md:w-36 bg-[#D9B995]" />
-          </div>
+          <div className="my-12 md:my-16 border-t border-[#E9DDD1]" aria-hidden="true" />
 
           <div className="text-center mb-10 md:mb-12">
             <div className="flex items-center justify-center gap-4 md:gap-7">
