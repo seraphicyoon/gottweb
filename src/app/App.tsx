@@ -680,6 +680,15 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
         </div>
       </section>
 
+      {/* Texto indicado entre Quiénes somos y Visión/Misión */}
+      <section className="bg-white pb-12 md:pb-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xl md:text-2xl leading-relaxed text-[#5C4033]" style={serif}>
+            Ser fuente de servicio desde un lugar en comunión, respeto, crecimiento y formación, bajo el Espíritu.
+          </p>
+        </div>
+      </section>
+
       {/* Vision & Mission */}
       <section className="py-12 md:py-20 bg-[#F5EFE8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
