@@ -685,7 +685,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h3 className="text-2xl md:text-3xl font-bold text-[#8B4513] mb-4" style={serif}>Mapa</h3>
           <p className="text-xl md:text-2xl leading-relaxed text-[#5C4033]" style={serif}>
-            Ser fuente de servicio desde un lugar en comunión, respeto, crecimiento y formación, bajo el Espíritu.
+            Ser fuente de servicio desde un lugar en comunión, respeto, crecimiento y formación.
           </p>
         </div>
       </section>
