@@ -680,22 +680,34 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
         </div>
       </section>
 
-      {/* Texto indicado entre Quiénes somos y Visión/Misión */}
-      <section className="bg-white pb-12 md:pb-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h3 className="text-2xl md:text-3xl font-bold text-[#8B4513] mb-4" style={serif}>Mapa</h3>
-          <p className="text-xl md:text-2xl leading-relaxed text-[#5C4033]" style={serif}>
-            Ser fuente de servicio desde un lugar en comunión, respeto, crecimiento y formación.
-          </p>
-        </div>
-      </section>
-
-      {/* Nuestra vida: esquema de los apuntes */}
-      <section className="bg-white pb-16 md:pb-24">
+      {/* Mapa y Nuestra Vida: composición visual unificada */}
+      <section className="bg-white pt-6 pb-16 md:pt-10 md:pb-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#5C4033] mb-5" style={serif}>NUESTRA VIDA</h2>
-            <p className="text-xl md:text-2xl text-[#5C4033] leading-relaxed" style={serif}>
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-4 md:gap-7 mb-6">
+              <span className="hidden sm:block h-px w-16 md:w-36 bg-[#B7834A]" aria-hidden="true" />
+              <h3 className="rounded-full bg-[#F5EFE8] px-8 py-3 text-xl md:text-2xl font-semibold text-[#8B4513]" style={serif}>Mapa</h3>
+              <span className="hidden sm:block h-px w-16 md:w-36 bg-[#B7834A]" aria-hidden="true" />
+            </div>
+            <p className="text-lg md:text-xl leading-relaxed text-[#5C4033]" style={serif}>
+              Ser fuente de servicio desde un lugar en comunión, respeto, crecimiento y formación.
+            </p>
+          </div>
+
+          <div className="flex items-center justify-center gap-4 my-12 md:my-16" aria-hidden="true">
+            <span className="h-px w-20 md:w-36 bg-[#D9B995]" />
+            <span className="text-[#B7834A] text-xl">✦</span>
+            <span className="h-px w-20 md:w-36 bg-[#D9B995]" />
+          </div>
+
+          <div className="text-center mb-10 md:mb-12">
+            <div className="flex items-center justify-center gap-4 md:gap-7">
+              <span className="hidden md:block h-px w-16 bg-[#B7834A]" aria-hidden="true" />
+              <h2 className="text-4xl md:text-5xl font-bold text-[#5C4033]" style={serif}>NUESTRA VIDA</h2>
+              <span className="hidden md:block h-px w-16 bg-[#B7834A]" aria-hidden="true" />
+            </div>
+            <div className="h-0.5 w-36 md:w-52 rounded-full bg-[#D9B995] mx-auto mt-5 mb-7" aria-hidden="true" />
+            <p className="text-lg md:text-xl italic text-[#5C4033] leading-relaxed" style={serif}>
               Nuestro viaje: una historia que recordar, una historia que vivir y una historia que crear
             </p>
           </div>
