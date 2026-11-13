@@ -490,15 +490,15 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
-              <SectionLabel><EditableText contentKey="heading.home.001" fallback={"ESPIRITUALIDAD TERESIANA"} /></SectionLabel>
+              <SectionLabel>ESPIRITUALIDAD TERESIANA</SectionLabel>
               <SectionHeading>
-                Hacer de la vida diaria <span className="text-[#8B4513] italic">una oración</span>
+                <EditableText contentKey="home.spirituality.title" fallback="Hacer de la vida diaria una oración" />
               </SectionHeading>
               <p className="text-gray-500 leading-relaxed mb-6">
-                Los invito a conocernos en varias vías dinámicas que han llegado a tres continentes: África, América y Europa, entrelazados en nuestra historia, fuente histórica y expansión misionera. Es también un lugar para descubrir y vivir la mística en la vida diaria.
+                <EditableText contentKey="home.spirituality.paragraph1" fallback="Los invito a conocernos en varias vías dinámicas que han llegado a tres continentes: África, América y Europa, entrelazados en nuestra historia, fuente histórica y expansión misionera. Es también un lugar para descubrir y vivir la mística en la vida diaria." />
               </p>
               <p className="text-gray-500 leading-relaxed mb-8">
-                Se nutre de la riqueza de los doctores de la Iglesia, Teresa de Jesús y Juan de la Cruz. Nuestro marco de acción y objetivos se desarrollan en la Iglesia y para la Iglesia Católica. Buscamos transformar las experiencias humanas en un viaje único, personal y comunitario, accesible a todos.
+                <EditableText contentKey="home.spirituality.paragraph2" fallback="Se nutre de la riqueza de los doctores de la Iglesia, Teresa de Jesús y Juan de la Cruz. Nuestro marco de acción y objetivos se desarrollan en la Iglesia y para la Iglesia Católica. Buscamos transformar las experiencias humanas en un viaje único, personal y comunitario, accesible a todos." />
               </p>
               <div className="flex gap-3">
                 <PrimaryBtn onClick={() => nav("about")}>Nuestro Propósito</PrimaryBtn>
@@ -518,7 +518,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
               <div className="absolute -bottom-6 -left-6 bg-[#8B4513] text-white rounded-2xl p-5 shadow-xl">
                 <div className="text-3xl font-bold" style={serif}>"</div>
                 <p className="text-sm italic opacity-90 max-w-[180px] leading-relaxed">
-                  Tratar de amistad con quien sabemos nos ama.
+                  <EditableText contentKey="home.spirituality.quote" fallback="Tratar de amistad con quien sabemos nos ama." />
                 </p>
               </div>
               <div className="absolute -top-5 -right-5 bg-[#D4AF37] rounded-2xl p-4 shadow-lg">
@@ -647,7 +647,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel><EditableText contentKey="heading.about.001" fallback={"NUESTRA IDENTIDAD"} /></SectionLabel>
+          <SectionLabel>NUESTRA IDENTIDAD</SectionLabel>
           <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>
             Conoce GETS
           </h1>
