@@ -139,7 +139,7 @@ export function EditableList({ listKey, items, compact = false }: { listKey: str
           <button type="button" onClick={() => { setEditing(false); setError(''); }} className="rounded-xl border px-6 py-3 text-[#5C4033]">Cancelar</button>
         </div>
         {error && <p role="alert" className="text-red-700">{error}</p>}
-      </div></div>}}
+      </div></div>}
     </div>}
   </div>;
 }
