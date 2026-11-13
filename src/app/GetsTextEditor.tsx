@@ -89,7 +89,7 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
   </span>;
 }
 
-export function EditableList({ listKey, items }: { listKey: string; items: string[] }) {
+export function EditableList({ listKey, items, compact = false }: { listKey: string; items: string[]; compact?: boolean }) {
   const authorized = useGetsAdmin();
   const [entries, setEntries] = useState(items);
   const [draft, setDraft] = useState(items);
@@ -115,8 +115,8 @@ export function EditableList({ listKey, items }: { listKey: string; items: strin
     setEntries(clean); setDraft(clean); setEditing(false);
   }
   return <div>
-    <ul className="space-y-5 list-disc pl-7 md:pl-9 text-[#5C4033]">
-      {entries.map((entry, index) => <li key={index} className="pl-2 text-lg md:text-xl leading-relaxed"><span>{renderFormatted(entry)}</span></li>)}
+    <ul className={compact ? "space-y-2 list-disc pl-5 text-gray-600" : "space-y-5 list-disc pl-7 md:pl-9 text-[#5C4033]"}>
+      {entries.map((entry, index) => <li key={index} className={compact ? "pl-0 text-xs md:text-sm leading-relaxed" : "pl-2 text-lg md:text-xl leading-relaxed"}><span>{renderFormatted(entry)}</span></li>)}
     </ul>
     {authorized && <div className="mt-5">
       {!editing ? <button type="button" onClick={() => { setDraft([...entries]); setEditing(true); }} className="rounded-lg border border-[#C5A37E] bg-white px-4 py-2 text-sm text-[#8B4513]">✎ Editar esquema y añadir viñetas</button> : <div className="rounded-xl bg-white border border-[#C5A37E] p-4 space-y-3">
