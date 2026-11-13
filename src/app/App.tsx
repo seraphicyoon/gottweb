@@ -662,12 +662,10 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
-              <SectionLabel><EditableText contentKey="heading.about.002" fallback={"QUIÉNES SOMOS"} /></SectionLabel>
-              <SectionHeading><EditableText contentKey="site.about.001" fallback={"Llevando la oración a la vida diaria"} /></SectionHeading>
+              <SectionLabel>QUIÉNES SOMOS</SectionLabel>
+              <SectionHeading>Llevando la oración a la vida diaria</SectionHeading>
               <p className="text-gray-500 leading-relaxed mb-4">
-                GETS (Grupo Educativo Teresiano Sanjuanista) nació con una convicción profunda: acercar las almas a Dios a través de la oración contemplativa. Somos una comunidad centrada en Cristo donde se comparte el Evangelio, se enseña la riqueza de la espiritualidad carmelitana y sanjuanista, y se acoge a cada persona con amor.
-
-                Lo que comenzó como una pequeña reunión para hacer oración, se ha convertido en una vocación de servicio. Hoy llevamos este mensaje a cualquier lugar donde nos abran las puertas —ya sean parroquias, salones o casas— a través de talleres, pláticas y acompañamiento espiritual, siempre unidos por nuestro amor a Jesús.
+                <EditableText contentKey="about.who.description" fallback={"GETS (Grupo Educativo Teresiano Sanjuanista) nació con una convicción profunda: acercar las almas a Dios a través de la oración contemplativa. Somos una comunidad centrada en Cristo donde se comparte el Evangelio, se enseña la riqueza de la espiritualidad carmelitana y sanjuanista, y se acoge a cada persona con amor.\n\nLo que comenzó como una pequeña reunión para hacer oración, se ha convertido en una vocación de servicio. Hoy llevamos este mensaje a cualquier lugar donde nos abran las puertas —ya sean parroquias, salones o casas— a través de talleres, pláticas y acompañamiento espiritual, siempre unidos por nuestro amor a Jesús."} />
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-xl">
