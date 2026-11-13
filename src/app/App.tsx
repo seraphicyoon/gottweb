@@ -467,7 +467,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4 md:mb-6"
               style={serif}
             >Un espacio para encontrarnos <span className="text-[#EACD87] italic">con Dios y en comunidad.</span></h1>
-            <p className="text-base md:text-lg text-white/80 mb-7 md:mb-10 leading-relaxed max-w-xl">GETS (Grupo Educativo Teresiano Sanjuanista) es una comunidad espiritual que promueve el encuentro íntimo con Dios a través de la oración, el estudio y la vivencia diaria de la espiritualidad de Santa Teresa de Jesús y San Juan de la Cruz.</p>
+            <p className="text-base md:text-lg text-white/80 mb-7 md:mb-10 leading-relaxed max-w-xl"><EditableText contentKey="site.home.001" fallback="GETS (Grupo Educativo Teresiano Sanjuanista) es una comunidad espiritual que promueve el encuentro íntimo con Dios a través de la oración, el estudio y la vivencia diaria de la espiritualidad de Santa Teresa de Jesús y San Juan de la Cruz." /></p>
             <div className="flex flex-wrap gap-3">
               <PrimaryBtn onClick={() => nav("contact")} size="lg">
                 Entra a la comunidad <ArrowRight size={18} />
@@ -476,7 +476,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
                 Leer más <ChevronRight size={16} />
               </OutlineBtn>
             </div>
-            <p className="mt-10 pt-6 border-t border-white/20 text-sm text-white/75 tracking-wide">Oración · Formación · Fraternidad</p>
+            <p className="mt-10 pt-6 border-t border-white/20 text-sm text-white/75 tracking-wide"><EditableText contentKey="site.home.002" fallback="Oración · Formación · Fraternidad" /></p>
           </div>
           <button onClick={() => nav("gallery")} className="hero-photo group relative hidden lg:block text-left" aria-label="Ver la galería de la comunidad">
             <img src="/santa-teresa-portada.webp" alt="Santa Teresa de Jesús ante un manuscrito histórico" className="w-full h-full object-cover object-[center_40%] transition-transform duration-500 group-hover:scale-[1.03]" />
@@ -569,7 +569,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
           <div className="flex items-end justify-between mb-10">
             <div>
               <SectionLabel>PRÓXIMOS ENCUENTROS</SectionLabel>
-              <SectionHeading>Actividades actuales</SectionHeading>
+              <SectionHeading><EditableText contentKey="site.home.003" fallback="Actividades actuales" /></SectionHeading>
             </div>
             <button
               onClick={() => nav("events")}
@@ -591,8 +591,8 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-[#5C4033] text-lg mb-2" style={serif}>La Libertad Interior en Santa Teresa de Jesús</h3>
-                <p className="text-xs text-gray-400 mb-4">Impartido por la Lic. María Luisa Rodríguez Assemat. Un espacio para descubrir que "La Verdadera Libertad nace del interior".</p>
+                <h3 className="font-bold text-[#5C4033] text-lg mb-2" style={serif}><EditableText contentKey="site.home.004" fallback="La Libertad Interior en Santa Teresa de Jesús" /></h3>
+                <p className="text-xs text-gray-400 mb-4"><EditableText contentKey="site.home.005" fallback="Impartido por la Lic. María Luisa Rodríguez Assemat. Un espacio para descubrir que \"La Verdadera Libertad nace del interior\"." /></p>
                 <div className="flex flex-col gap-1.5 text-xs text-gray-500 mb-5">
                   <span className="flex items-center gap-1.5"><Calendar size={11} className="text-[#D4AF37]" /> Todos los lunes</span>
                   <span className="flex items-center gap-1.5"><Clock size={11} className="text-[#D4AF37]" /> 10:00 A.M a 12:00 P.M | 5:00 P.M a 6:30 P.M (2 Grupos)</span>
@@ -663,7 +663,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
               <SectionLabel>QUIÉNES SOMOS</SectionLabel>
-              <SectionHeading>Llevando la oración a la vida diaria</SectionHeading>
+              <SectionHeading><EditableText contentKey="site.about.001" fallback="Llevando la oración a la vida diaria" /></SectionHeading>
               <p className="text-gray-500 leading-relaxed mb-4">
                 GETS (Grupo Educativo Teresiano Sanjuanista) nació con una convicción profunda: acercar las almas a Dios a través de la oración contemplativa. Somos una comunidad centrada en Cristo donde se comparte el Evangelio, se enseña la riqueza de la espiritualidad carmelitana y sanjuanista, y se acoge a cada persona con amor.
 
@@ -758,7 +758,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
             <h3 className="text-2xl md:text-3xl font-bold text-[#5C4033]" style={serif}>
               Lic. Ma. Luisa Rodríguez Assemat
             </h3>
-            <p className="mt-3 text-gray-600">Máster en Mística y Ciencias Humanas</p>
+            <p className="mt-3 text-gray-600"><EditableText contentKey="site.about.002" fallback="Máster en Mística y Ciencias Humanas" /></p>
           </div>
         </div>
       </section>
@@ -768,7 +768,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <SectionLabel>CÓMO PARTICIPAR</SectionLabel>
-            <SectionHeading>Nuestras Actividades</SectionHeading>
+            <SectionHeading><EditableText contentKey="site.about.003" fallback="Nuestras Actividades" /></SectionHeading>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
@@ -796,7 +796,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <SectionLabel>¿TIENES DUDAS?</SectionLabel>
-            <SectionHeading>Preguntas Frecuentes</SectionHeading>
+            <SectionHeading><EditableText contentKey="site.about.004" fallback="Preguntas Frecuentes" /></SectionHeading>
           </div>
           <div className="space-y-3">
             {FAQ_ITEMS.map((item, i) => (
@@ -848,8 +848,8 @@ function EventsPage({ nav }: { nav: (p: Page) => void }) {
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>NUESTRA AGENDA</SectionLabel>
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Talleres y Pláticas</h1>
-          <p className="text-white/60 mt-2">Descubre la fecha y sede de nuestro próximo taller o grupo de estudio.</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="site.events.001" fallback="Talleres y Pláticas" /></h1>
+          <p className="text-white/60 mt-2"><EditableText contentKey="site.events.002" fallback="Descubre la fecha y sede de nuestro próximo taller o grupo de estudio." /></p>
         </div>
       </section>
 
@@ -911,7 +911,7 @@ function EventsPage({ nav }: { nav: (p: Page) => void }) {
                 <Calendar size={24} className="text-[#8B4513]" />
               </div>
               <Badge label="Próximamente" color="gold" />
-              <h3 className="text-xl font-bold text-[#5C4033] mt-4 mb-2" style={serif}>Nuevos Talleres en Camino</h3>
+              <h3 className="text-xl font-bold text-[#5C4033] mt-4 mb-2" style={serif}><EditableText contentKey="site.events.003" fallback="Nuevos Talleres en Camino" /></h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
                 Muy pronto anunciaremos nuevas fechas, sedes y temas de formación espiritual para la comunidad.
               </p>
@@ -941,8 +941,8 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>ESPIRITUALIDAD Y TRAYECTORIA</SectionLabel>
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Enseñanzas e Historia de GETS</h1>
-          <p className="text-white/60 mt-2">Nuestros orígenes, pilares, desafíos y la historia de nuestra misión en Tampico y Madero.</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="site.sermons.001" fallback="Enseñanzas e Historia de GETS" /></h1>
+          <p className="text-white/60 mt-2"><EditableText contentKey="site.sermons.002" fallback="Nuestros orígenes, pilares, desafíos y la historia de nuestra misión en Tampico y Madero." /></p>
         </div>
       </section>
 
@@ -962,7 +962,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
 
           {/* Visión */}
           <div>
-            <h3 className="text-xl font-bold text-[#5C4033] mb-3" style={serif}>Nuestra Visión y Valores</h3>
+            <h3 className="text-xl font-bold text-[#5C4033] mb-3" style={serif}><EditableText contentKey="site.sermons.003" fallback="Nuestra Visión y Valores" /></h3>
             <p className="text-gray-500 mb-5 text-sm leading-relaxed">
               Pretendemos hacer vida nuestra visión. Nuestras comunidades y apostolado responden y tienen como fundamento los documentos del Magisterio de la Iglesia:
             </p>
@@ -971,7 +971,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             <div className="bg-[#F5EFE8] rounded-2xl p-6 md:p-7 border border-[#8B4513]/15 mb-6 shadow-sm">
               <div className="flex items-center gap-2 mb-3">
                 <ScrollText size={18} className="text-[#8B4513]" />
-                <h4 className="font-bold text-[#5C4033] text-sm uppercase tracking-wider">Fundamentos del Laicado</h4>
+                <h4 className="font-bold text-[#5C4033] text-sm uppercase tracking-wider"><EditableText contentKey="site.sermons.004" fallback="Fundamentos del Laicado" /></h4>
               </div>
               
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-[#8B4513]/20 mb-4 text-xs text-[#8B4513] font-semibold">
@@ -1033,7 +1033,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
               </ul>
             </div>
             <div className="bg-[#F5EFE8] p-6 rounded-2xl">
-              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}>Nuestras Herramientas</h4>
+              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}><EditableText contentKey="site.sermons.005" fallback="Nuestras Herramientas" /></h4>
               <ul className="text-xs text-gray-600 space-y-2">
                 <li>• <strong>La Fe:</strong> Guía irremplazable.</li>
                 <li>• <strong>La Esperanza:</strong> “La Esperanza tanto alcanza cuanto espera”.</li>
@@ -1044,11 +1044,11 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
 
           {/* Historia y Misión / Trayectoria */}
           <div className="space-y-6 pt-4 border-t border-gray-200">
-            <h3 className="text-2xl font-bold text-[#5C4033]" style={serif}>Historia y Misión: Promoción de Talleres y Retiros</h3>
+            <h3 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.sermons.006" fallback="Historia y Misión: Promoción de Talleres y Retiros" /></h3>
             
             <div className="space-y-4">
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-                <h4 className="font-bold text-[#8B4513] text-sm mb-2">1. Promoción de talleres y retiros del Carmelo Teresiano</h4>
+                <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.007" fallback="1. Promoción de talleres y retiros del Carmelo Teresiano" /></h4>
                 <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
                   <li><strong>Jornadas de Contemplación con las Moradas de Santa Teresa de Jesús:</strong> Creador y dirigente: Rev. Padre Rafael Checa ocd. Lugar: Centro Manresa, Tampico (Duración: Cuatro años).</li>
                   <li><strong>Talleres de Formación Espiritual y Humana:</strong> Conferencista: Luis Jorge González ocd. Lugar: Seminario de Tampico.</li>
@@ -1059,7 +1059,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
               </div>
 
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-                <h4 className="font-bold text-[#8B4513] text-sm mb-2">2. Espiritualidad y Formación Integral</h4>
+                <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.008" fallback="2. Espiritualidad y Formación Integral" /></h4>
                 <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
                   <li><strong>Semana de Espiritualidad Teresiano-Sanjuanista (Año aprox. 2005):</strong> Expositores y dirigentes: Maximiliano Herraiz García ocd y Luis Jorge González. Lugar: Casa de Ana María Rabaté.</li>
                   <li><strong>Conferencias sobre Santa Teresa de Jesús y San Juan de la Cruz:</strong> Ponente: Maximiliano Herraiz García ocd. Lugar: Seminario de Tampico (Duración: Tres años).</li>
@@ -1071,7 +1071,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
               </div>
 
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-                <h4 className="font-bold text-[#8B4513] text-sm mb-2">3. Congresos y Simposios</h4>
+                <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.009" fallback="3. Congresos y Simposios" /></h4>
                 <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
                   <li><strong>Simposio de Psicología y Espiritualidad en Roma (2003):</strong> Participación en Roma de María Luisa Rodríguez Assemat con el Grupo de Psicología y Espiritualidad.</li>
                   <li><strong>Congreso Internacional de Mística en Münsterschwarzach, Alemania:</strong> Participación de José Ignacio Rodríguez Assemat y María Luisa Rodríguez Assemat.</li>
@@ -1125,14 +1125,14 @@ function CommentsSection({ nav, session, contentType, contentId }: { nav: (p: Pa
   return (
     <div className="mt-12 max-w-3xl mx-auto" id={`comentarios-${contentType}-${contentId}`}>
             <SectionHeading>Comentarios</SectionHeading>
-            <p className="text-[#755E51] mb-6">Comparte tu opinión. Revisamos cada comentario antes de publicarlo.</p>
+            <p className="text-[#755E51] mb-6"><EditableText contentKey="site.sermons.010" fallback="Comparte tu opinión. Revisamos cada comentario antes de publicarlo." /></p>
             {comments.length ? <div className="space-y-3 mb-8">{comments.map(c => (
               <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
                 <div className="flex justify-between gap-3 text-sm text-[#8B4513] font-semibold"><span>{c.author_name}</span><time className="text-gray-400 font-normal" dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString('es-MX')}</time></div>
                 <p className="text-[#5C4033] mt-2 whitespace-pre-wrap break-words">{c.body}</p>
               </article>
-            ))}</div> : <p className="text-[#755E51] mb-8">Sé la primera en dejar un comentario.</p>}
-            {!supabase ? <p className="text-[#8B4513]">Los comentarios estarán disponibles al configurar Supabase.</p> : session && blocked ? <p className="rounded-xl bg-white border border-[#E7D9C8] p-4 text-[#8B4513]">Tu cuenta tiene restringida la participación en comentarios.</p> : session ? (
+            ))}</div> : <p className="text-[#755E51] mb-8"><EditableText contentKey="site.sermons.011" fallback="Sé la primera en dejar un comentario." /></p>}
+            {!supabase ? <p className="text-[#8B4513]"><EditableText contentKey="site.sermons.012" fallback="Los comentarios estarán disponibles al configurar Supabase." /></p> : session && blocked ? <p className="rounded-xl bg-white border border-[#E7D9C8] p-4 text-[#8B4513]"><EditableText contentKey="site.sermons.013" fallback="Tu cuenta tiene restringida la participación en comentarios." /></p> : session ? (
               <form onSubmit={submitComment} className="rounded-2xl bg-white border border-[#E7D9C8] p-5 space-y-3">
                 <label htmlFor={`comment-${contentType}-${contentId}`} className="block font-semibold text-[#5C4033]">Escribe tu comentario</label>
                 <textarea id={`comment-${contentType}-${contentId}`} value={body} onChange={e => setBody(e.target.value)} required maxLength={1000} rows={4} className="w-full rounded-xl border border-[#E7D9C8] p-3 focus:outline-none focus:ring-2 focus:ring-[#8B4513]" placeholder="¿Qué te gustaría compartir?" />
@@ -1207,20 +1207,20 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
         <img src={IMG("photo-1531206715517-5c0ba140b2b8", 1600, 500)} alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>MOMENTOS GETS</SectionLabel>
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Galería de la Comunidad</h1>
-          <p className="text-white/80 mt-3 max-w-xl">Nuestra vida en comunidad, contada a través de momentos compartidos.</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="site.gallery.001" fallback="Galería de la Comunidad" /></h1>
+          <p className="text-white/80 mt-3 max-w-xl"><EditableText contentKey="site.gallery.002" fallback="Nuestra vida en comunidad, contada a través de momentos compartidos." /></p>
         </div>
       </section>
       <section className="py-12 md:py-16 bg-[#F9F5EE]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <SectionLabel>RECUERDOS COMPARTIDOS</SectionLabel>
-            <SectionHeading>Nuestros encuentros</SectionHeading>
-            <p className="text-[#755E51]">Elige un año y un mes. Las fechas marcadas tienen fotos de nuestros encuentros.</p>
+            <SectionHeading><EditableText contentKey="site.gallery.003" fallback="Nuestros encuentros" /></SectionHeading>
+            <p className="text-[#755E51]"><EditableText contentKey="site.gallery.004" fallback="Elige un año y un mes. Las fechas marcadas tienen fotos de nuestros encuentros." /></p>
           </div>
           <section className="mb-10" aria-label="Álbumes sin fecha registrada">
-            <h2 className="mb-2 text-2xl font-bold text-[#5C4033]" style={serif}>Fotografías sin fecha</h2>
-            <p className="mb-5 text-[#755E51]">Recuerdos de nuestra historia cuya fecha exacta aún no está registrada.</p>
+            <h2 className="mb-2 text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.gallery.005" fallback="Fotografías sin fecha" /></h2>
+            <p className="mb-5 text-[#755E51]"><EditableText contentKey="site.gallery.006" fallback="Recuerdos de nuestra historia cuya fecha exacta aún no está registrada." /></p>
             <div className="space-y-5">
               {undatedAlbums.map(album => {
                 const expanded = openAlbum === album.id;
@@ -1287,7 +1287,7 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
                 );
               })}
             </div>
-            <p className="mt-4 text-xs text-[#755E51]">Las fechas doradas tienen álbumes. Pulsa una para ver sus fotos.</p>
+            <p className="mt-4 text-xs text-[#755E51]"><EditableText contentKey="site.gallery.007" fallback="Las fechas doradas tienen álbumes. Pulsa una para ver sus fotos." /></p>
             <div className="mt-5 flex flex-wrap gap-2 border-t border-[#E7D9C8] pt-4">
               <span className="self-center mr-1 text-xs text-[#755E51]">Meses con fotos:</span>
               {Array.from(new Set(albums.map(album => album.isoDate.slice(0, 7)))).sort().reverse().map(value => <button key={value} type="button" onClick={() => changeMonth(value)} className={`rounded-full px-3 py-1.5 text-xs ${value === calendarMonth ? 'bg-[#8B4513] text-white' : 'bg-[#F5EFE8] text-[#8B4513]'}`}>{months[Number(value.slice(5)) - 1]} {value.slice(0, 4)}</button>)}
@@ -1297,7 +1297,7 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             <h2 className="text-xl font-bold text-[#5C4033]" style={serif}>{selectedDate ? 'Encuentros de la fecha elegida' : `Álbumes de ${months[month - 1].toLowerCase()}`}</h2>
             {selectedDate && <button type="button" onClick={() => { setSelectedDate(null); setOpenAlbum(null); }} className="text-sm font-semibold text-[#8B4513]">Ver todo el mes</button>}
           </div>
-          {visibleAlbums.length === 0 && <p className="rounded-2xl border border-[#E7D9C8] bg-white p-8 text-center text-[#755E51]">Todavía no hay fotos publicadas de este mes.</p>}
+          {visibleAlbums.length === 0 && <p className="rounded-2xl border border-[#E7D9C8] bg-white p-8 text-center text-[#755E51]"><EditableText contentKey="site.gallery.008" fallback="Todavía no hay fotos publicadas de este mes." /></p>}
           <div className="space-y-5">
             {visibleAlbums.map(album => {
               const expanded = openAlbum === album.id;
@@ -1355,15 +1355,15 @@ function DiocesePage() {
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>HISTORIA · VIDA DIOCESANA</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Actividades en la diócesis de Tampico</h1>
-          <p className="mt-4 max-w-2xl text-white/80">Artículos y recuerdos de nuestra participación en la vida de la diócesis de Tampico.</p>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.diocese.001" fallback="Actividades en la diócesis de Tampico" /></h1>
+          <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.diocese.002" fallback="Artículos y recuerdos de nuestra participación en la vida de la diócesis de Tampico." /></p>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
         <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
           <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestros artículos</h2>
-          <p className="mt-3 text-[#755E51]">Aquí compartiremos las actividades, encuentros y experiencias de GETS en la diócesis de Tampico.</p>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.diocese.003" fallback="Próximamente, nuestros artículos" /></h2>
+          <p className="mt-3 text-[#755E51]"><EditableText contentKey="site.diocese.004" fallback="Aquí compartiremos las actividades, encuentros y experiencias de GETS en la diócesis de Tampico." /></p>
         </div>
       </section>
     </main>
@@ -1376,8 +1376,8 @@ function PersonalStudiesPage() {
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>HISTORIA · ESTUDIOS PERSONALES</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Estudios personales</h1>
-          <p className="mt-4 max-w-2xl text-white/80">Catálogo de estudios y reflexiones personales.</p>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.personalstudies.001" fallback="Estudios personales" /></h1>
+          <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.personalstudies.002" fallback="Catálogo de estudios y reflexiones personales." /></p>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
@@ -1385,13 +1385,13 @@ function PersonalStudiesPage() {
           <SectionLabel>CATÁLOGO DE ESTUDIOS</SectionLabel>
           <article className="mt-4 rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
             <BookOpen size={30} className="mb-5 text-[#8B4513]" aria-hidden="true" />
-            <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}>Clasificación de diversas escenas en el Evangelio de San Marcos</h2>
-            <p className="mt-4 text-[#755E51]">Lic. María Luisa Rodríguez Assemat</p>
+            <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}><EditableText contentKey="site.personalstudies.003" fallback="Clasificación de diversas escenas en el Evangelio de San Marcos" /></h2>
+            <p className="mt-4 text-[#755E51]"><EditableText contentKey="site.personalstudies.004" fallback="Lic. María Luisa Rodríguez Assemat" /></p>
           </article>
           <article className="mt-5 rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
             <BookOpen size={30} className="mb-5 text-[#8B4513]" aria-hidden="true" />
-            <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}>Presentación de la síntesis de hechos, actitudes y acciones de Jesús, acciones de los discípulos y actitudes de los apóstoles en el Evangelio de San Marcos</h2>
-            <p className="mt-4 text-[#755E51]">Lic. María Luisa Rodríguez Assemat</p>
+            <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}><EditableText contentKey="site.personalstudies.005" fallback="Presentación de la síntesis de hechos, actitudes y acciones de Jesús, acciones de los discípulos y actitudes de los apóstoles en el Evangelio de San Marcos" /></h2>
+            <p className="mt-4 text-[#755E51]"><EditableText contentKey="site.personalstudies.006" fallback="Lic. María Luisa Rodríguez Assemat" /></p>
           </article>
         </div>
       </section>
@@ -1405,14 +1405,14 @@ function FratelliPage({ nav, session }: { nav: (p: Page) => void; session: Sessi
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <SectionLabel>HISTORIA · ESTUDIO EN GRUPO</SectionLabel>
-          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}>Estudio en grupo de la encíclica social Fratelli tutti</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.fratelli.001" fallback="Estudio en grupo de la encíclica social Fratelli tutti" /></h1>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
         <article className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-5 sm:p-8">
           <SectionLabel>MATERIAL DE ESTUDIO</SectionLabel>
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Fratelli tutti · Material de estudio</h2>
-          <p className="mt-3 text-sm text-[#755E51]">Estudio y reflexión en grupo · 5 páginas</p>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.fratelli.002" fallback="Fratelli tutti · Material de estudio" /></h2>
+          <p className="mt-3 text-sm text-[#755E51]"><EditableText contentKey="site.fratelli.003" fallback="Estudio y reflexión en grupo · 5 páginas" /></p>
           <div className="mt-6 space-y-5" aria-label="Material de estudio, 5 páginas">
             {Array.from({ length: 5 }, (_, index) => (
               <figure key={index} className="overflow-hidden rounded-xl border border-[#E7D9C8] bg-[#F9F5EE]">
@@ -1434,15 +1434,15 @@ function ParishPage() {
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>HISTORIA · VIDA PARROQUIAL</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario</h1>
-          <p className="mt-4 max-w-2xl text-white/80">Un espacio para compartir nuestra vida y actividades parroquiales.</p>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.parish.001" fallback="Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario" /></h1>
+          <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.parish.002" fallback="Un espacio para compartir nuestra vida y actividades parroquiales." /></p>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
         <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
           <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestras publicaciones</h2>
-          <p className="mt-3 text-[#755E51]">Aquí compartiremos las actividades y experiencias de la Parroquia Nuestra Señora del Rosario.</p>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.parish.003" fallback="Próximamente, nuestras publicaciones" /></h2>
+          <p className="mt-3 text-[#755E51]"><EditableText contentKey="site.parish.004" fallback="Aquí compartiremos las actividades y experiencias de la Parroquia Nuestra Señora del Rosario." /></p>
         </div>
       </section>
     </main>
@@ -1455,15 +1455,15 @@ function DiocesanMeetingsPage() {
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>HISTORIA · VIDA DIOCESANA</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Nuestros encuentros diocesanos</h1>
-          <p className="mt-4 max-w-2xl text-white/80">Recuerdos y experiencias de nuestros encuentros en la diócesis.</p>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.diocesanmeetings.001" fallback="Nuestros encuentros diocesanos" /></h1>
+          <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.diocesanmeetings.002" fallback="Recuerdos y experiencias de nuestros encuentros en la diócesis." /></p>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
         <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
           <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestros encuentros</h2>
-          <p className="mt-3 text-[#755E51]">Aquí compartiremos las publicaciones de nuestros encuentros diocesanos.</p>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.diocesanmeetings.003" fallback="Próximamente, nuestros encuentros" /></h2>
+          <p className="mt-3 text-[#755E51]"><EditableText contentKey="site.diocesanmeetings.004" fallback="Aquí compartiremos las publicaciones de nuestros encuentros diocesanos." /></p>
         </div>
       </section>
     </main>
@@ -1476,15 +1476,15 @@ function CarmeloPage() {
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>ACTIVIDADES · CARMELO DESCALZO</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Actividades en el Carmelo Descalzo</h1>
-          <p className="mt-4 max-w-2xl text-white/80">Encuentros y actividades en el Carmelo Descalzo.</p>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.carmelo.001" fallback="Actividades en el Carmelo Descalzo" /></h1>
+          <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.carmelo.002" fallback="Encuentros y actividades en el Carmelo Descalzo." /></p>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
         <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
           <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestras actividades</h2>
-          <p className="mt-3 text-[#755E51]">Aquí compartiremos nuestras actividades en el Carmelo Descalzo.</p>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.carmelo.003" fallback="Próximamente, nuestras actividades" /></h2>
+          <p className="mt-3 text-[#755E51]"><EditableText contentKey="site.carmelo.004" fallback="Aquí compartiremos nuestras actividades en el Carmelo Descalzo." /></p>
         </div>
       </section>
     </main>
@@ -1497,15 +1497,15 @@ function DiocesanActivitiesPage() {
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>ACTIVIDADES · VIDA DIOCESANA</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}>Actividades diocesanas</h1>
-          <p className="mt-4 max-w-2xl text-white/80">Un espacio para compartir nuestras actividades diocesanas.</p>
+          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.diocesanactivities.001" fallback="Actividades diocesanas" /></h1>
+          <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.diocesanactivities.002" fallback="Un espacio para compartir nuestras actividades diocesanas." /></p>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
         <div className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-8 sm:p-12 text-center">
           <ScrollText size={36} className="mx-auto mb-4 text-[#8B4513]" aria-hidden="true" />
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Próximamente, nuestras actividades</h2>
-          <p className="mt-3 text-[#755E51]">Aquí compartiremos las actividades que realizamos en nuestra diócesis.</p>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.diocesanactivities.003" fallback="Próximamente, nuestras actividades" /></h2>
+          <p className="mt-3 text-[#755E51]"><EditableText contentKey="site.diocesanactivities.004" fallback="Aquí compartiremos las actividades que realizamos en nuestra diócesis." /></p>
         </div>
       </section>
     </main>
@@ -1518,14 +1518,14 @@ function LumenPage({ nav, session }: { nav: (p: Page) => void; session: Session 
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <SectionLabel>ACTIVIDADES · ESTUDIO EN GRUPO</SectionLabel>
-          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}>Estudio en grupo de Santa Teresa de Jesús y el misterio de la Iglesia: Lumen gentium del Concilio Vaticano II</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.lumen.001" fallback="Estudio en grupo de Santa Teresa de Jesús y el misterio de la Iglesia: Lumen gentium del Concilio Vaticano II" /></h1>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
         <article className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-5 sm:p-8">
           <SectionLabel>MATERIAL DE ESTUDIO</SectionLabel>
-          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}>Santa Teresa de Jesús y el «misterio» de la Iglesia</h2>
-          <p className="mt-3 text-sm text-[#755E51]">Enrique Llamas Martínez · Anales de la Real Academia de Doctores de España · 2005 · 15 páginas</p>
+          <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.lumen.002" fallback="Santa Teresa de Jesús y el «misterio» de la Iglesia" /></h2>
+          <p className="mt-3 text-sm text-[#755E51]"><EditableText contentKey="site.lumen.003" fallback="Enrique Llamas Martínez · Anales de la Real Academia de Doctores de España · 2005 · 15 páginas" /></p>
           <div className="mt-6 space-y-5" aria-label="Material de estudio, 15 páginas">
             {Array.from({ length: 15 }, (_, index) => (
               <figure key={index} className="overflow-hidden rounded-xl border border-[#E7D9C8] bg-[#F9F5EE]">
@@ -1547,23 +1547,23 @@ function WorkshopIntroPage({ nav, session }: { nav: (p: Page) => void; session: 
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <SectionLabel>ACTIVIDADES · INTRODUCCIÓN AL TALLER</SectionLabel>
-          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}>Formación y misión de los laicos</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.workshopintro.001" fallback="Formación y misión de los laicos" /></h1>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
         <article className="max-w-3xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
           <h2 className="mb-7 text-2xl font-bold text-[#5C4033]" style={serif}>Introducción</h2>
           <div className="space-y-5 text-base sm:text-lg leading-relaxed text-[#755E51]">
-            <p>Un imperativo para la V Conferencia: profundizar en el tema de los laicos y las laicas, dada la relevancia que en su momento le otorgó el Concilio Vaticano II.</p>
-            <p>Ellos son: entender un discipulado fermento del sacerdocio común al cual estamos llamados desde el bautismo; trabajar en un laicado adulto, gestor de nuevos rostros y ministerios que respondan a una auténtica construcción de humanidad.</p>
-            <p>Promover la formación del laicado para asumir la corresponsabilidad eclesial, lo cual incluye aspectos tales como asumir decididamente el protagonismo de la mujer y responsabilizarse de las dimensiones públicas de la vida humana: la política, la economía, la ecología y el ecumenismo.</p>
-            <p>El laico, hombre y mujer, tiene entonces la misión de asumir el liderazgo para afrontar la problemática humana con sus múltiples matices. Los temas existenciales como la pobreza, la violencia y otros más son signos de los tiempos que se convierten en desafíos permanentes para hacer del discipulado en el mundo un motivo de evangelización. «De ahí que su participación en lo social y en todo ámbito en pro del ser humano sean caminos para hacer concreta dicha evangelización».</p>
-            <p>La consolidación de un laicado adulto dependerá también, en gran parte, de la capacidad que se tenga de descubrir el cristianismo como una «vocación» para todos y todas: en términos de la V Conferencia, una vocación del discipulado.</p>
-            <p>Si al laicado se le ha definido en negativo y si se le ha considerado sujeto pasivo de la vida eclesial, el punto de partida para un protagonismo —fundado en lo más genuino de la experiencia cristiana— es la recuperación de la vocación cristiana al discipulado.</p>
-            <p className="font-semibold text-[#5C4033]">En la medida en que crece la participación de los laicos en la vida de la Iglesia y en la misión de esta en el mundo, se hace también más urgente la necesidad de una formación humana en general, formación doctrinal, social y apostólica.</p>
-            <p>La formación teológica debe ser más apreciada y requerida. El laico o la laica debe «dar razón de su fe» (1 P 3, 15). La teología ya no es una ciencia reservada para unos pocos.</p>
-            <p>La «alfabetización teológica» es un derecho fundamental de todo cristiano. De la misma manera como la alfabetización abre a las personas un mundo más amplio y les permite moverse con propiedad dentro de él, la teología permite madurar en la fe, purificarla, entenderla, aclararla; en otras palabras, vivirla con responsabilidad adulta, de quien pone todos los medios a su alcance para tener una palabra de sentido a los múltiples desafíos de cada momento histórico. Crece el número de personas interesadas por estos estudios y ello debe alegrarnos.</p>
-            <p>La presencia femenina en la tarea evangelizadora no es desconocida. Sin embargo, su participación en las esferas de decisión puede aportar a la misión evangelizadora de la Iglesia toda la dimensión femenina de Dios que, sin ser exclusiva de la mujer, sí ha sido tradicionalmente promovida más fuertemente por ella. Su presencia puede recrear una evangelización con un amor que engendra vida, que nunca se aparta, que siempre perdona, que acepta la diversidad, porque experimenta, desde dentro, que todos somos hijos e hijas de Dios.</p>
+            <p><EditableText contentKey="site.workshopintro.002" fallback="Un imperativo para la V Conferencia: profundizar en el tema de los laicos y las laicas, dada la relevancia que en su momento le otorgó el Concilio Vaticano II." /></p>
+            <p><EditableText contentKey="site.workshopintro.003" fallback="Ellos son: entender un discipulado fermento del sacerdocio común al cual estamos llamados desde el bautismo; trabajar en un laicado adulto, gestor de nuevos rostros y ministerios que respondan a una auténtica construcción de humanidad." /></p>
+            <p><EditableText contentKey="site.workshopintro.004" fallback="Promover la formación del laicado para asumir la corresponsabilidad eclesial, lo cual incluye aspectos tales como asumir decididamente el protagonismo de la mujer y responsabilizarse de las dimensiones públicas de la vida humana: la política, la economía, la ecología y el ecumenismo." /></p>
+            <p><EditableText contentKey="site.workshopintro.005" fallback="El laico, hombre y mujer, tiene entonces la misión de asumir el liderazgo para afrontar la problemática humana con sus múltiples matices. Los temas existenciales como la pobreza, la violencia y otros más son signos de los tiempos que se convierten en desafíos permanentes para hacer del discipulado en el mundo un motivo de evangelización. «De ahí que su participación en lo social y en todo ámbito en pro del ser humano sean caminos para hacer concreta dicha evangelización»." /></p>
+            <p><EditableText contentKey="site.workshopintro.006" fallback="La consolidación de un laicado adulto dependerá también, en gran parte, de la capacidad que se tenga de descubrir el cristianismo como una «vocación» para todos y todas: en términos de la V Conferencia, una vocación del discipulado." /></p>
+            <p><EditableText contentKey="site.workshopintro.007" fallback="Si al laicado se le ha definido en negativo y si se le ha considerado sujeto pasivo de la vida eclesial, el punto de partida para un protagonismo —fundado en lo más genuino de la experiencia cristiana— es la recuperación de la vocación cristiana al discipulado." /></p>
+            <p className="font-semibold text-[#5C4033]"><EditableText contentKey="site.workshopintro.008" fallback="En la medida en que crece la participación de los laicos en la vida de la Iglesia y en la misión de esta en el mundo, se hace también más urgente la necesidad de una formación humana en general, formación doctrinal, social y apostólica." /></p>
+            <p><EditableText contentKey="site.workshopintro.009" fallback="La formación teológica debe ser más apreciada y requerida. El laico o la laica debe «dar razón de su fe» (1 P 3, 15). La teología ya no es una ciencia reservada para unos pocos." /></p>
+            <p><EditableText contentKey="site.workshopintro.010" fallback="La «alfabetización teológica» es un derecho fundamental de todo cristiano. De la misma manera como la alfabetización abre a las personas un mundo más amplio y les permite moverse con propiedad dentro de él, la teología permite madurar en la fe, purificarla, entenderla, aclararla; en otras palabras, vivirla con responsabilidad adulta, de quien pone todos los medios a su alcance para tener una palabra de sentido a los múltiples desafíos de cada momento histórico. Crece el número de personas interesadas por estos estudios y ello debe alegrarnos." /></p>
+            <p><EditableText contentKey="site.workshopintro.011" fallback="La presencia femenina en la tarea evangelizadora no es desconocida. Sin embargo, su participación en las esferas de decisión puede aportar a la misión evangelizadora de la Iglesia toda la dimensión femenina de Dios que, sin ser exclusiva de la mujer, sí ha sido tradicionalmente promovida más fuertemente por ella. Su presencia puede recrear una evangelización con un amor que engendra vida, que nunca se aparta, que siempre perdona, que acepta la diversidad, porque experimenta, desde dentro, que todos somos hijos e hijas de Dios." /></p>
           </div>
         </article>
         <CommentsSection nav={nav} session={session} contentType="article" contentId="introduccion-formacion-mision-laicos" />
@@ -1586,7 +1586,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel>CONTÁCTANOS</SectionLabel>
           <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Ponte en Contacto</h1>
-          <p className="text-white/60 mt-2">Estamos aquí para acompañarte. Escríbenos y con gusto te respondemos.</p>
+          <p className="text-white/60 mt-2"><EditableText contentKey="site.contact.001" fallback="Estamos aquí para acompañarte. Escríbenos y con gusto te respondemos." /></p>
         </div>
       </section>
 
@@ -1595,7 +1595,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
           <div className="grid lg:grid-cols-3 gap-6 md:gap-10">
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold text-[#5C4033] mb-6" style={serif}>Información de Contacto</h3>
+                <h3 className="text-xl font-bold text-[#5C4033] mb-6" style={serif}><EditableText contentKey="site.contact.002" fallback="Información de Contacto" /></h3>
                 <div className="space-y-4">
                   {[
                     { icon: Phone, label: "Teléfono", val: "+52 1 833 323 7636" },
@@ -1635,7 +1635,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
             <div className="lg:col-span-2">
               <div className="bg-[#F5EFE8] rounded-2xl p-5 md:p-8">
                 <div>
-                    <h3 className="font-bold text-[#5C4033] mb-6" style={serif}>Formulario de Registro y Contacto</h3>
+                    <h3 className="font-bold text-[#5C4033] mb-6" style={serif}><EditableText contentKey="site.contact.003" fallback="Formulario de Registro y Contacto" /></h3>
                     <div className="grid sm:grid-cols-2 gap-4 mb-4">
                       {["Nombre", "Apellido"].map((f) => (
                         <div key={f}>
@@ -1977,7 +1977,7 @@ function ActivitiesHubPage({ nav, session }: { nav: (p: Page) => void; session: 
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <SectionLabel>GETS · NUESTRAS ACTIVIDADES</SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Actividades</h1>
-          <p className="mt-3 text-white/80">Elige una sección para consultar su contenido en esta misma página.</p>
+          <p className="mt-3 text-white/80"><EditableText contentKey="site.activitieshub.001" fallback="Elige una sección para consultar su contenido en esta misma página." /></p>
         </div>
       </section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
@@ -2124,7 +2124,7 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
                 {(stage.heading === 'Servicio a la comunidad parroquial' || stage.heading === 'Acompañamiento, contemplación y retiros' || stage.heading === 'Diócesis y Seminario de Tampico') && (
                   <div className="pt-8 pb-2">
                     <div className="mb-3 h-px bg-[#DEC8B1]" />
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#A46B36]">Trayectoria de servicio</p>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#A46B36]"><EditableText contentKey="site.personaltrajectory.001" fallback="Trayectoria de servicio" /></p>
                     <h3 className="mt-2 text-2xl font-bold text-[#8B4513] sm:text-3xl" style={serif}>
                       {stage.heading === 'Servicio a la comunidad parroquial' ? 'Servicio parroquial' : stage.heading === 'Acompañamiento, contemplación y retiros' ? 'Espiritualidad carmelitana' : 'Servicio diocesano'}
                     </h3>
@@ -2188,7 +2188,7 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <SectionLabel>GETS · NUESTRA TRAYECTORIA</SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Historia</h1>
-          <p className="mt-3 text-white/80">Explora cada apartado y comparte su enlace de forma independiente.</p>
+          <p className="mt-3 text-white/80"><EditableText contentKey="site.historyhub.001" fallback="Explora cada apartado y comparte su enlace de forma independiente." /></p>
         </div>
       </section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
@@ -2287,7 +2287,7 @@ export default function App() {
       {page === "fratelli" && <FratelliPage nav={nav} session={session} />}
       {page === "gallery" && <GalleryPage nav={nav} session={session} />}
       {page === "contact" && <ContactPage nav={nav} />}
-      {page === "classroom" && (authReady ? <Classroom key={session?.user.id || 'guest'} session={session} isAdmin={isAdmin} onLogin={() => nav('login')} onAdmin={() => nav('admin')} /> : <p className="p-12 text-center">Comprobando sesión…</p>)}
+      {page === "classroom" && (authReady ? <Classroom key={session?.user.id || 'guest'} session={session} isAdmin={isAdmin} onLogin={() => nav('login')} onAdmin={() => nav('admin')} /> : <p className="p-12 text-center"><EditableText contentKey="site.historyhub.002" fallback="Comprobando sesión…" /></p>)}
       {page === "login" && <LoginPage nav={nav} session={session} isAdmin={isAdmin} forceRecovery={recoveryRequested} onRecoveryComplete={() => setRecoveryRequested(false)} />}
       {page === "admin" && (authReady && session && isAdmin ? <AdminPage nav={nav} session={session} /> : <LoginPage nav={nav} session={session} isAdmin={isAdmin} forceRecovery={recoveryRequested} onRecoveryComplete={() => setRecoveryRequested(false)} />)}
       {page !== "login" && page !== "admin" && <Footer nav={nav} />}
