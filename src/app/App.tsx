@@ -1742,6 +1742,11 @@ function LoginPage({ nav, session, isAdmin, forceRecovery, onRecoveryComplete }:
     <div className="bg-white border border-[#E7D9C8] shadow-sm rounded-3xl p-7 sm:p-10 w-full max-w-md">
       <h1 className="text-3xl font-bold text-[#5C4033] mb-2" style={serif}>Acceso a GETS</h1>
       <p className="text-[#755E51] mb-7">Ingresa o crea tu cuenta para participar en GETS.</p>
+      <div className="mb-6 rounded-xl border border-[#D8BFA6] bg-[#FFF9F0] p-4">
+        <p className="text-sm font-semibold text-[#5C4033]">¿Eres administradora de GETS?</p>
+        <p className="text-sm text-[#755E51] mt-1 mb-3">Tu cuenta de edición utiliza el nuevo Supabase. Entra aquí para activar la edición directamente en la página.</p>
+        <a href="/editar" className="inline-block rounded-lg bg-[#8B4513] px-4 py-2.5 text-sm font-semibold text-white">Acceso de administradoras</a>
+      </div>
       {recovery ? <form onSubmit={updatePassword} className="space-y-4"><label className="block text-sm font-semibold text-[#5C4033]">Nueva contraseña<input type="password" minLength={8} required autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} className="mt-2 w-full rounded-xl border border-[#E7D9C8] px-4 py-3" /></label><button className="rounded-xl bg-[#8B4513] px-5 py-3 text-white">Guardar contraseña</button></form> : session ? <div className="space-y-4"><p className="text-[#5C4033]">Sesión iniciada: {session.user.email}</p><Attendance key={session.user.id} userId={session.user.id} />
         <button onClick={() => setRecovery(true)} className="block text-[#8B4513] underline">Crear o cambiar contraseña</button>
         <button onClick={() => nav('classroom')} className="block rounded-xl bg-[#8B4513] text-white px-5 py-3">Espacio de alumnas</button>
