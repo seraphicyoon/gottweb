@@ -1086,15 +1086,15 @@ function CommentsSection({ nav, session, contentType, contentId }: { nav: (p: Pa
   }
   return (
     <div className="mt-12 max-w-3xl mx-auto" id={`comentarios-${contentType}-${contentId}`}>
-            <SectionHeading><EditableText contentKey="heading.sermons.004" fallback={"Comentarios"} /></SectionHeading>
-            <p className="text-[#755E51] mb-6"><EditableText contentKey="site.sermons.010" fallback={"Comparte tu opinión. Revisamos cada comentario antes de publicarlo."} /></p>
+            <SectionHeading>Comentarios</SectionHeading>
+            <p className="text-[#755E51] mb-6">Comparte tu opinión. Revisamos cada comentario antes de publicarlo.</p>
             {comments.length ? <div className="space-y-3 mb-8">{comments.map(c => (
               <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
                 <div className="flex justify-between gap-3 text-sm text-[#8B4513] font-semibold"><span>{c.author_name}</span><time className="text-gray-400 font-normal" dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString('es-MX')}</time></div>
                 <p className="text-[#5C4033] mt-2 whitespace-pre-wrap break-words">{c.body}</p>
               </article>
-            ))}</div> : <p className="text-[#755E51] mb-8"><EditableText contentKey="site.sermons.011" fallback={"Sé la primera en dejar un comentario."} /></p>}
-            {!supabase ? <p className="text-[#8B4513]"><EditableText contentKey="site.sermons.012" fallback={"Los comentarios estarán disponibles al configurar Supabase."} /></p> : session && blocked ? <p className="rounded-xl bg-white border border-[#E7D9C8] p-4 text-[#8B4513]"><EditableText contentKey="site.sermons.013" fallback={"Tu cuenta tiene restringida la participación en comentarios."} /></p> : session ? (
+            ))}</div> : <p className="text-[#755E51] mb-8">Sé la primera en dejar un comentario.</p>}
+            {!supabase ? <p className="text-[#8B4513]">Los comentarios estarán disponibles al configurar Supabase.</p> : session && blocked ? <p className="rounded-xl bg-white border border-[#E7D9C8] p-4 text-[#8B4513]">Tu cuenta tiene restringida la participación en comentarios.</p> : session ? (
               <form onSubmit={submitComment} className="rounded-2xl bg-white border border-[#E7D9C8] p-5 space-y-3">
                 <label htmlFor={`comment-${contentType}-${contentId}`} className="block font-semibold text-[#5C4033]">Escribe tu comentario</label>
                 <textarea id={`comment-${contentType}-${contentId}`} value={body} onChange={e => setBody(e.target.value)} required maxLength={1000} rows={4} className="w-full rounded-xl border border-[#E7D9C8] p-3 focus:outline-none focus:ring-2 focus:ring-[#8B4513]" placeholder="¿Qué te gustaría compartir?" />
