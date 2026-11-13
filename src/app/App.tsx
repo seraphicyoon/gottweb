@@ -1616,9 +1616,9 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel><EditableText contentKey="heading.contact.001" fallback={"CONTÁCTANOS"} /></SectionLabel>
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="heading.contact.002" fallback={"Ponte en Contacto"} /></h1>
-          <p className="text-white/60 mt-2"><EditableText contentKey="site.contact.001" fallback={"Estamos aquí para acompañarte. Escríbenos y con gusto te respondemos."} /></p>
+          <SectionLabel>CONTÁCTANOS</SectionLabel>
+          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Ponte en Contacto</h1>
+          <p className="text-white/60 mt-2">Estamos aquí para acompañarte. Escríbenos y con gusto te respondemos.</p>
         </div>
       </section>
 
@@ -1627,7 +1627,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
           <div className="grid lg:grid-cols-3 gap-6 md:gap-10">
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold text-[#5C4033] mb-6" style={serif}><EditableText contentKey="site.contact.002" fallback={"Información de Contacto"} /></h3>
+                <h3 className="text-xl font-bold text-[#5C4033] mb-6" style={serif}>Información de Contacto</h3>
                 <div className="space-y-4">
                   {[
                     { icon: Phone, label: "Teléfono", val: "+52 1 833 323 7636" },
@@ -1667,7 +1667,7 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
             <div className="lg:col-span-2">
               <div className="bg-[#F5EFE8] rounded-2xl p-5 md:p-8">
                 <div>
-                    <h3 className="font-bold text-[#5C4033] mb-6" style={serif}><EditableText contentKey="site.contact.003" fallback={"Formulario de Registro y Contacto"} /></h3>
+                    <h3 className="font-bold text-[#5C4033] mb-6" style={serif}>Formulario de Registro y Contacto</h3>
                     <div className="grid sm:grid-cols-2 gap-4 mb-4">
                       {["Nombre", "Apellido"].map((f) => (
                         <div key={f}>
