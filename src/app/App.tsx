@@ -23,7 +23,7 @@ import getsWordmark from '@/imports/gets-wordmark.png'
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, type GalleryComment } from "./supabase";
-import { EditableText, GetsTextEditor } from "./GetsTextEditor";
+import { EditableText, EditableList, GetsTextEditor } from "./GetsTextEditor";
 import { Classroom, StudentManager } from './Classroom';
 import { Attendance } from './Attendance';
 import {
@@ -698,20 +698,12 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
             </p>
           </div>
           <div className="rounded-2xl border border-[#8B4513]/15 bg-[#FAF7F3] p-6 md:p-10">
-            <ul className="space-y-5 list-disc pl-7 md:pl-9 text-[#5C4033]">
-              <li className="pl-2 text-lg md:text-xl leading-relaxed">
-                <EditableText contentKey="about.life.point1" fallback="Bajo el Espíritu: un sendero formativo y sinodal." />
-              </li>
-              <li className="pl-2 text-lg md:text-xl leading-relaxed">
-                <EditableText contentKey="about.life.point2" fallback="Se dialoga para comprender, se escucha para acoger." />
-              </li>
-              <li className="pl-2 text-lg md:text-xl leading-relaxed">
-                <EditableText contentKey="about.life.point3" fallback="Caminamos juntos. «Es tiempo de caminar». «Juntos andemos», de Teresa de Jesús." />
-              </li>
-              <li className="pl-2 text-lg md:text-xl leading-relaxed">
-                <EditableText contentKey="about.life.point4" fallback="Tarea: descalzarte para seguir a Jesucristo; hacer vida el humanismo evangélico teresiano-sanjuanista." />
-              </li>
-            </ul>
+            <EditableList listKey="about.life.bullets" items={[
+              "Bajo el Espíritu: un sendero formativo y sinodal.",
+              "Se dialoga para comprender, se escucha para acoger.",
+              "Caminamos juntos. «Es tiempo de caminar». «Juntos andemos», de Teresa de Jesús.",
+              "Tarea: descalzarte para seguir a Jesucristo; hacer vida el humanismo evangélico teresiano-sanjuanista."
+            ]} />
           </div>
         </div>
       </section>
