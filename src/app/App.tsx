@@ -951,10 +951,10 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
           {/* Introducción */}
           <div className="bg-[#F5EFE8] rounded-3xl p-8 md:p-10 border border-[#8B4513]/10">
             <h2 className="text-2xl md:text-3xl font-bold text-[#5C4033] mb-4" style={serif}>
-              Historia de GETS (Grupo Educativo Teresiano Sanjuanista)
+              <EditableText contentKey="history.gets.title" fallback={"Historia de GETS (Grupo Educativo Teresiano Sanjuanista)"} />
             </h2>
             <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-              Les invito a conocernos en cinco líneas dinámicas que van entretejidas en nuestros orígenes, historia y dinamismo misionero, nacidos de la fuente contemplativo-apostólica Teresiana. Esta última nace de la Iglesia y para la Iglesia desde la familia, doctrina y misión de los doctores místicos de la Iglesia, Santa Teresa de Jesús y Juan de la Cruz, fundadores del carmelo Teresiano. Del principio al presente, el ritmo y los pasos, en el compartir las enseñanzas de dos de los grandes místicos van acompañados y cobran vida desde la Palabra de Dios que se conjuga en el carmelo en una mística centrada en la humanidad de Jesucristo y hecha vida.
+              <EditableText contentKey="history.gets.intro" fallback={"Les invito a conocernos en cinco líneas dinámicas que van entretejidas en nuestros orígenes, historia y dinamismo misionero, nacidos de la fuente contemplativo-apostólica Teresiana. Esta última nace de la Iglesia y para la Iglesia desde la familia, doctrina y misión de los doctores místicos de la Iglesia, Santa Teresa de Jesús y Juan de la Cruz, fundadores del carmelo Teresiano. Del principio al presente, el ritmo y los pasos, en el compartir las enseñanzas de dos de los grandes místicos van acompañados y cobran vida desde la Palabra de Dios que se conjuga en el carmelo en una mística centrada en la humanidad de Jesucristo y hecha vida."} />
             </p>
           </div>
 
@@ -962,7 +962,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
           <div>
             <h3 className="text-xl font-bold text-[#5C4033] mb-3" style={serif}><EditableText contentKey="site.sermons.003" fallback={"Nuestra Visión y Valores"} /></h3>
             <p className="text-gray-500 mb-5 text-sm leading-relaxed">
-              Pretendemos hacer vida nuestra visión. Nuestras comunidades y apostolado responden y tienen como fundamento los documentos del Magisterio de la Iglesia:
+              <EditableText contentKey="history.vision.intro" fallback={"Pretendemos hacer vida nuestra visión. Nuestras comunidades y apostolado responden y tienen como fundamento los documentos del Magisterio de la Iglesia:"} />
             </p>
 
             {/* Tarjeta de Fundamentos Doctrinales de la Nota */}
@@ -977,31 +977,18 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
                 <span>La Biblia: tienen como fundamento</span>
               </div>
 
-              <div className="space-y-2 text-xs md:text-sm text-gray-700">
-                <div className="flex items-start gap-2">
-                  <span className="text-[#D4AF37] font-bold">•</span>
-                  <span><strong>Decreto:</strong> <em>Apostolicam Actuositatem</em> (Decreto conciliar sobre el apostolado de los laicos).</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#D4AF37] font-bold">•</span>
-                  <span><strong>Constitución Dogmática:</strong> <em>Lumen Gentium</em> (Especialmente el <strong>Capítulo IV</strong>, Laicos).</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#D4AF37] font-bold">•</span>
-                  <span><strong>Exhortación Apostólica (Post-sinodal):</strong> <em>Christifideles Laici</em> (sobre la vocación y misión de los fieles laicos).</span>
-                </div>
-              </div>
+              <EditableList listKey="history.vision.foundations" items={["**Decreto:**Apostolicam Actuositatem (Decreto conciliar sobre el apostolado de los laicos).","**Constitución Dogmática:**Lumen Gentium (Especialmente el Capítulo IV, Laicos).","**Exhortación Apostólica (Post-sinodal):**Christifideles Laici (sobre la vocación y misión de los fieles laicos)."]} />
             </div>
 
             <div className="grid gap-3">
               <div className="bg-[#F5EFE8]/50 p-4 rounded-xl border-l-4 border-[#8B4513] text-sm text-gray-600">
-                <strong>En la escucha atenta:</strong> Verdadera, acogedora y profunda.
+                <EditableText contentKey="history.vision.principle1" fallback={"**En la escucha atenta:** Verdadera, acogedora y profunda."} />
               </div>
               <div className="bg-[#F5EFE8]/50 p-4 rounded-xl border-l-4 border-[#8B4513] text-sm text-gray-600">
-                <strong>En el diálogo:</strong> Dirigido a la comprensión sin intentar cambiar al otro a nuestra forma de pensar o de ser.
+                <EditableText contentKey="history.vision.principle2" fallback={"**En el diálogo:** Dirigido a la comprensión sin intentar cambiar al otro a nuestra forma de pensar o de ser."} />
               </div>
               <div className="bg-[#F5EFE8]/50 p-4 rounded-xl border-l-4 border-[#8B4513] text-sm text-gray-600">
-                <strong>En la oración:</strong> Nacida del encuentro con la mirada de Jesús.
+                <EditableText contentKey="history.vision.principle3" fallback={"**En la oración:** Nacida del encuentro con la mirada de Jesús."} />
               </div>
             </div>
           </div>
@@ -1010,7 +997,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
           <div className="bg-[#8B4513] text-white rounded-3xl p-8 text-center relative overflow-hidden">
             <div className="text-[#D4AF37] text-4xl font-serif mb-2">"</div>
             <p className="text-xl md:text-2xl font-medium italic mb-4" style={serif}>
-              “Es tiempo de caminar” vamos descalzos, y libres, en comunidad, “Juntos andemos Señor” Con los místicos como fuente y camino hacia la unión con Dios.
+              <EditableText contentKey="history.vision.quote" fallback={"“Es tiempo de caminar” vamos descalzos, y libres, en comunidad, “Juntos andemos Señor” Con los místicos como fuente y camino hacia la unión con Dios."} />
             </p>
             <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold">Lema y Proyección GETS</span>
           </div>
@@ -1020,23 +1007,16 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             <div className="bg-[#F5EFE8] p-6 rounded-2xl">
               <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}><EditableText contentKey="heading.sermons.002" fallback={"Nuestros Desafíos"} /></h4>
               <p className="text-xs text-gray-600 leading-relaxed">
-                Encender la chispa que arda no tanto en qué hacer en la Iglesia, como en ser mejores, auténticos “hombres nuevos” para transformar en vida y verdad el Evangelio de Jesucristo y reavivar la esperanza en un mundo incierto de cambios vertiginosos.
+                <EditableText contentKey="history.challenges.description" fallback={"Encender la chispa que arda no tanto en qué hacer en la Iglesia, como en ser mejores, auténticos “hombres nuevos” para transformar en vida y verdad el Evangelio de Jesucristo y reavivar la esperanza en un mundo incierto de cambios vertiginosos."} />
               </p>
             </div>
             <div className="bg-[#F5EFE8] p-6 rounded-2xl">
               <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}><EditableText contentKey="heading.sermons.003" fallback={"Nuestras Pautas"} /></h4>
-              <ul className="text-xs text-gray-600 space-y-2">
-                <li>• Conocimiento de sí (Primera Morada).</li>
-                <li>• Silencio e interioridad.</li>
-              </ul>
+              <EditableList listKey="history.pautas" items={["Conocimiento de sí (Primera Morada).","Silencio e interioridad."]} />
             </div>
             <div className="bg-[#F5EFE8] p-6 rounded-2xl">
               <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}><EditableText contentKey="site.sermons.005" fallback={"Nuestras Herramientas"} /></h4>
-              <ul className="text-xs text-gray-600 space-y-2">
-                <li>• <strong>La Fe:</strong> Guía irremplazable.</li>
-                <li>• <strong>La Esperanza:</strong> “La Esperanza tanto alcanza cuanto espera”.</li>
-                <li>• <strong>El Amor:</strong> Única fuerza capaz de movernos y hacernos avanzar hacia el encuentro con Dios.</li>
-              </ul>
+              <EditableList listKey="history.tools" items={["**La Fe:** Guía irremplazable.","**La Esperanza:** “La Esperanza tanto alcanza cuanto espera”.","**El Amor:** Única fuerza capaz de movernos y hacernos avanzar hacia el encuentro con Dios."]} />
             </div>
           </div>
 
@@ -1047,33 +1027,17 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             <div className="space-y-4">
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.007" fallback={"1. Promoción de talleres y retiros del Carmelo Teresiano"} /></h4>
-                <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
-                  <li><strong>Jornadas de Contemplación con las Moradas de Santa Teresa de Jesús:</strong> Creador y dirigente: Rev. Padre Rafael Checa ocd. Lugar: Centro Manresa, Tampico (Duración: Cuatro años).</li>
-                  <li><strong>Talleres de Formación Espiritual y Humana:</strong> Conferencista: Luis Jorge González ocd. Lugar: Seminario de Tampico.</li>
-                  <li><strong>Programación neurolingüística y espiritualidad (Año 2000):</strong> Coordinadores y expositores: Luis Jorge González; colaboradora: María Luisa Rodríguez Assemat.</li>
-                  <li><strong>SETS (Seguimiento, retiros y clases a grupos y personas):</strong> Lugar: Residencia particular (Duración: 20 años).</li>
-                  <li><strong>Clases de Educación Continua:</strong> Temas de espiritualidad en las obras de Teresa de Jesús; «La Biblia con ojos de mujer» y reflexiones sobre Edith Stein y Viktor Frankl.</li>
-                </ul>
+                <EditableList listKey="history.mission.group1" items={["**Jornadas de Contemplación con las Moradas de Santa Teresa de Jesús:** Creador y dirigente: Rev. Padre Rafael Checa ocd. Lugar: Centro Manresa, Tampico (Duración: Cuatro años).","**Talleres de Formación Espiritual y Humana:** Conferencista: Luis Jorge González ocd. Lugar: Seminario de Tampico.","**Programación neurolingüística y espiritualidad (Año 2000):** Coordinadores y expositores: Luis Jorge González; colaboradora: María Luisa Rodríguez Assemat.","**SETS (Seguimiento, retiros y clases a grupos y personas):** Lugar: Residencia particular (Duración: 20 años).","**Clases de Educación Continua:** Temas de espiritualidad en las obras de Teresa de Jesús; «La Biblia con ojos de mujer» y reflexiones sobre Edith Stein y Viktor Frankl."]} />
               </div>
 
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.008" fallback={"2. Espiritualidad y Formación Integral"} /></h4>
-                <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
-                  <li><strong>Semana de Espiritualidad Teresiano-Sanjuanista (Año aprox. 2005):</strong> Expositores y dirigentes: Maximiliano Herraiz García ocd y Luis Jorge González. Lugar: Casa de Ana María Rabaté.</li>
-                  <li><strong>Conferencias sobre Santa Teresa de Jesús y San Juan de la Cruz:</strong> Ponente: Maximiliano Herraiz García ocd. Lugar: Seminario de Tampico (Duración: Tres años).</li>
-                  <li><strong>Talleres de Formación espiritual aplicada a las misiones:</strong> Coordinadores: Luis Jorge González ocd y María Luisa Rodríguez Assemat oscd. Lugar: Seminarios carmelitas en Nairobi, Kenia y en Morogoro, Tanzania.</li>
-                  <li><strong>Talleres de formación en desarrollo humano y fe para agentes de Pastoral:</strong> Conferencista y coordinadora: María Luisa Rodríguez Assemat. Lugar: Ciudad Madero, Tamaulipas (Duración: Seis años).</li>
-                  <li><strong>Clases Teresiano-Sanjuanistas:</strong> María Luisa Rodríguez Assemat. Lugar: Instituto Cultural Tampico (Duración: Diez años).</li>
-                  <li><strong>Retiros en línea.</strong></li>
-                </ul>
+                <EditableList listKey="history.mission.group2" items={["**Semana de Espiritualidad Teresiano-Sanjuanista (Año aprox. 2005):** Expositores y dirigentes: Maximiliano Herraiz García ocd y Luis Jorge González. Lugar: Casa de Ana María Rabaté.","**Conferencias sobre Santa Teresa de Jesús y San Juan de la Cruz:** Ponente: Maximiliano Herraiz García ocd. Lugar: Seminario de Tampico (Duración: Tres años).","**Talleres de Formación espiritual aplicada a las misiones:** Coordinadores: Luis Jorge González ocd y María Luisa Rodríguez Assemat oscd. Lugar: Seminarios carmelitas en Nairobi, Kenia y en Morogoro, Tanzania.","**Talleres de formación en desarrollo humano y fe para agentes de Pastoral:** Conferencista y coordinadora: María Luisa Rodríguez Assemat. Lugar: Ciudad Madero, Tamaulipas (Duración: Seis años).","**Clases Teresiano-Sanjuanistas:** María Luisa Rodríguez Assemat. Lugar: Instituto Cultural Tampico (Duración: Diez años).","**Retiros en línea.**"]} />
               </div>
 
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.009" fallback={"3. Congresos y Simposios"} /></h4>
-                <ul className="text-xs text-gray-600 space-y-2 pl-4 list-disc">
-                  <li><strong>Simposio de Psicología y Espiritualidad en Roma (2003):</strong> Participación en Roma de María Luisa Rodríguez Assemat con el Grupo de Psicología y Espiritualidad.</li>
-                  <li><strong>Congreso Internacional de Mística en Münsterschwarzach, Alemania:</strong> Participación de José Ignacio Rodríguez Assemat y María Luisa Rodríguez Assemat.</li>
-                </ul>
+                <EditableList listKey="history.mission.group3" items={["**Simposio de Psicología y Espiritualidad en Roma (2003):** Participación en Roma de María Luisa Rodríguez Assemat con el Grupo de Psicología y Espiritualidad.","**Congreso Internacional de Mística en Münsterschwarzach, Alemania:** Participación de José Ignacio Rodríguez Assemat y María Luisa Rodríguez Assemat."]} />
               </div>
             </div>
 
