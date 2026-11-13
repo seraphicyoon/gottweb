@@ -490,7 +490,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
-              <SectionLabel>ESPIRITUALIDAD TERESIANA</SectionLabel>
+              <SectionLabel><EditableText contentKey="heading.home.001" fallback="ESPIRITUALIDAD TERESIANA" /></SectionLabel>
               <SectionHeading>
                 Hacer de la vida diaria <span className="text-[#8B4513] italic">una oración</span>
               </SectionHeading>
@@ -533,8 +533,8 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-10 md:py-16 bg-[#F5EFE8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <SectionLabel>NUESTROS PILARES</SectionLabel>
-            <SectionHeading>Nuestros Valores</SectionHeading>
+            <SectionLabel><EditableText contentKey="heading.home.002" fallback="NUESTROS PILARES" /></SectionLabel>
+            <SectionHeading><EditableText contentKey="heading.home.003" fallback="Nuestros Valores" /></SectionHeading>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
@@ -568,7 +568,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <SectionLabel>PRÓXIMOS ENCUENTROS</SectionLabel>
+              <SectionLabel><EditableText contentKey="heading.home.004" fallback="PRÓXIMOS ENCUENTROS" /></SectionLabel>
               <SectionHeading><EditableText contentKey="site.home.003" fallback="Actividades actuales" /></SectionHeading>
             </div>
             <button
@@ -647,7 +647,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>NUESTRA IDENTIDAD</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.about.001" fallback="NUESTRA IDENTIDAD" /></SectionLabel>
           <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>
             Conoce GETS
           </h1>
@@ -662,7 +662,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             <div>
-              <SectionLabel>QUIÉNES SOMOS</SectionLabel>
+              <SectionLabel><EditableText contentKey="heading.about.002" fallback="QUIÉNES SOMOS" /></SectionLabel>
               <SectionHeading><EditableText contentKey="site.about.001" fallback="Llevando la oración a la vida diaria" /></SectionHeading>
               <p className="text-gray-500 leading-relaxed mb-4">
                 GETS (Grupo Educativo Teresiano Sanjuanista) nació con una convicción profunda: acercar las almas a Dios a través de la oración contemplativa. Somos una comunidad centrada en Cristo donde se comparte el Evangelio, se enseña la riqueza de la espiritualidad carmelitana y sanjuanista, y se acoge a cada persona con amor.
@@ -716,7 +716,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
               <div className="w-12 h-12 rounded-xl bg-[#8B4513] flex items-center justify-center mb-5">
                 <Star size={20} className="text-white" />
               </div>
-              <h3 className="text-xl font-bold text-[#5C4033] mb-4" style={serif}>Nuestra Visión</h3>
+              <h3 className="text-xl font-bold text-[#5C4033] mb-4" style={serif}><EditableText contentKey="heading.about.003" fallback="Nuestra Visión" /></h3>
               <p className="text-gray-500 leading-relaxed">
                 Formar una comunidad que conozca a Cristo de manera profunda, viva la espiritualidad teresiana con autenticidad y transforme su entorno a través de la fe, el trato constante en la oración y el servicio.
               </p>
@@ -725,7 +725,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
               <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/20 flex items-center justify-center mb-5">
                 <Globe size={20} className="text-[#D4AF37]" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-4" style={serif}>Nuestra Misión</h3>
+              <h3 className="text-xl font-bold text-white mb-4" style={serif}><EditableText contentKey="heading.about.004" fallback="Nuestra Misión" /></h3>
               <ul className="space-y-2">
                 {[
                   "Construir una comunidad espiritual fraterna y auténtica.",
@@ -750,8 +750,8 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <SectionLabel>QUIÉN NOS GUÍA</SectionLabel>
-            <SectionHeading>Coordinación GETS</SectionHeading>
+            <SectionLabel><EditableText contentKey="heading.about.005" fallback="QUIÉN NOS GUÍA" /></SectionLabel>
+            <SectionHeading><EditableText contentKey="heading.about.006" fallback="Coordinación GETS" /></SectionHeading>
           </div>
           <div className="max-w-xl mx-auto rounded-3xl border border-[#E7D9C8] bg-[#F9F5EE] px-6 py-10 text-center shadow-[0_15px_45px_rgba(74,32,16,.06)]">
             <div className="w-10 h-0.5 bg-[#D4AF37] mx-auto mb-6" aria-hidden="true" />
@@ -767,7 +767,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-12 md:py-20 bg-[#F5EFE8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <SectionLabel>CÓMO PARTICIPAR</SectionLabel>
+            <SectionLabel><EditableText contentKey="heading.about.007" fallback="CÓMO PARTICIPAR" /></SectionLabel>
             <SectionHeading><EditableText contentKey="site.about.003" fallback="Nuestras Actividades" /></SectionHeading>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -795,7 +795,7 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <SectionLabel>¿TIENES DUDAS?</SectionLabel>
+            <SectionLabel><EditableText contentKey="heading.about.008" fallback="¿TIENES DUDAS?" /></SectionLabel>
             <SectionHeading><EditableText contentKey="site.about.004" fallback="Preguntas Frecuentes" /></SectionHeading>
           </div>
           <div className="space-y-3">
@@ -847,7 +847,7 @@ function EventsPage({ nav }: { nav: (p: Page) => void }) {
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>NUESTRA AGENDA</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.events.001" fallback="NUESTRA AGENDA" /></SectionLabel>
           <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="site.events.001" fallback="Talleres y Pláticas" /></h1>
           <p className="text-white/60 mt-2"><EditableText contentKey="site.events.002" fallback="Descubre la fecha y sede de nuestro próximo taller o grupo de estudio." /></p>
         </div>
@@ -940,7 +940,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>ESPIRITUALIDAD Y TRAYECTORIA</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.sermons.001" fallback="ESPIRITUALIDAD Y TRAYECTORIA" /></SectionLabel>
           <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="site.sermons.001" fallback="Enseñanzas e Historia de GETS" /></h1>
           <p className="text-white/60 mt-2"><EditableText contentKey="site.sermons.002" fallback="Nuestros orígenes, pilares, desafíos y la historia de nuestra misión en Tampico y Madero." /></p>
         </div>
@@ -1020,13 +1020,13 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
           {/* Desafíos, Pautas y Herramientas */}
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-[#F5EFE8] p-6 rounded-2xl">
-              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}>Nuestros Desafíos</h4>
+              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}><EditableText contentKey="heading.sermons.002" fallback="Nuestros Desafíos" /></h4>
               <p className="text-xs text-gray-600 leading-relaxed">
                 Encender la chispa que arda no tanto en qué hacer en la Iglesia, como en ser mejores, auténticos “hombres nuevos” para transformar en vida y verdad el Evangelio de Jesucristo y reavivar la esperanza en un mundo incierto de cambios vertiginosos.
               </p>
             </div>
             <div className="bg-[#F5EFE8] p-6 rounded-2xl">
-              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}>Nuestras Pautas</h4>
+              <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}><EditableText contentKey="heading.sermons.003" fallback="Nuestras Pautas" /></h4>
               <ul className="text-xs text-gray-600 space-y-2">
                 <li>• Conocimiento de sí (Primera Morada).</li>
                 <li>• Silencio e interioridad.</li>
@@ -1124,7 +1124,7 @@ function CommentsSection({ nav, session, contentType, contentId }: { nav: (p: Pa
   }
   return (
     <div className="mt-12 max-w-3xl mx-auto" id={`comentarios-${contentType}-${contentId}`}>
-            <SectionHeading>Comentarios</SectionHeading>
+            <SectionHeading><EditableText contentKey="heading.sermons.004" fallback="Comentarios" /></SectionHeading>
             <p className="text-[#755E51] mb-6"><EditableText contentKey="site.sermons.010" fallback="Comparte tu opinión. Revisamos cada comentario antes de publicarlo." /></p>
             {comments.length ? <div className="space-y-3 mb-8">{comments.map(c => (
               <article key={c.id} className="rounded-2xl bg-white border border-[#E7D9C8] p-5">
@@ -1206,7 +1206,7 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
       <section className="relative min-h-64 py-16 flex items-center bg-[#5C2D0E] overflow-hidden">
         <img src={IMG("photo-1531206715517-5c0ba140b2b8", 1600, 500)} alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>MOMENTOS GETS</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.gallery.001" fallback="MOMENTOS GETS" /></SectionLabel>
           <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="site.gallery.001" fallback="Galería de la Comunidad" /></h1>
           <p className="text-white/80 mt-3 max-w-xl"><EditableText contentKey="site.gallery.002" fallback="Nuestra vida en comunidad, contada a través de momentos compartidos." /></p>
         </div>
@@ -1214,7 +1214,7 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
       <section className="py-12 md:py-16 bg-[#F9F5EE]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <SectionLabel>RECUERDOS COMPARTIDOS</SectionLabel>
+            <SectionLabel><EditableText contentKey="heading.gallery.002" fallback="RECUERDOS COMPARTIDOS" /></SectionLabel>
             <SectionHeading><EditableText contentKey="site.gallery.003" fallback="Nuestros encuentros" /></SectionHeading>
             <p className="text-[#755E51]"><EditableText contentKey="site.gallery.004" fallback="Elige un año y un mes. Las fechas marcadas tienen fotos de nuestros encuentros." /></p>
           </div>
@@ -1354,7 +1354,7 @@ function DiocesePage() {
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>HISTORIA · VIDA DIOCESANA</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.diocese.001" fallback="HISTORIA · VIDA DIOCESANA" /></SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.diocese.001" fallback="Actividades en la diócesis de Tampico" /></h1>
           <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.diocese.002" fallback="Artículos y recuerdos de nuestra participación en la vida de la diócesis de Tampico." /></p>
         </div>
@@ -1375,14 +1375,14 @@ function PersonalStudiesPage() {
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>HISTORIA · ESTUDIOS PERSONALES</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.personalstudies.001" fallback="HISTORIA · ESTUDIOS PERSONALES" /></SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.personalstudies.001" fallback="Estudios personales" /></h1>
           <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.personalstudies.002" fallback="Catálogo de estudios y reflexiones personales." /></p>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <SectionLabel>CATÁLOGO DE ESTUDIOS</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.personalstudies.002" fallback="CATÁLOGO DE ESTUDIOS" /></SectionLabel>
           <article className="mt-4 rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
             <BookOpen size={30} className="mb-5 text-[#8B4513]" aria-hidden="true" />
             <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}><EditableText contentKey="site.personalstudies.003" fallback="Clasificación de diversas escenas en el Evangelio de San Marcos" /></h2>
@@ -1404,13 +1404,13 @@ function FratelliPage({ nav, session }: { nav: (p: Page) => void; session: Sessi
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <SectionLabel>HISTORIA · ESTUDIO EN GRUPO</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.fratelli.001" fallback="HISTORIA · ESTUDIO EN GRUPO" /></SectionLabel>
           <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.fratelli.001" fallback="Estudio en grupo de la encíclica social Fratelli tutti" /></h1>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
         <article className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-5 sm:p-8">
-          <SectionLabel>MATERIAL DE ESTUDIO</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.fratelli.002" fallback="MATERIAL DE ESTUDIO" /></SectionLabel>
           <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.fratelli.002" fallback="Fratelli tutti · Material de estudio" /></h2>
           <p className="mt-3 text-sm text-[#755E51]"><EditableText contentKey="site.fratelli.003" fallback="Estudio y reflexión en grupo · 5 páginas" /></p>
           <div className="mt-6 space-y-5" aria-label="Material de estudio, 5 páginas">
@@ -1433,7 +1433,7 @@ function ParishPage() {
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>HISTORIA · VIDA PARROQUIAL</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.parish.001" fallback="HISTORIA · VIDA PARROQUIAL" /></SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.parish.001" fallback="Decano San Pedro y San Pablo · Parroquia Nuestra Señora del Rosario" /></h1>
           <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.parish.002" fallback="Un espacio para compartir nuestra vida y actividades parroquiales." /></p>
         </div>
@@ -1454,7 +1454,7 @@ function DiocesanMeetingsPage() {
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>HISTORIA · VIDA DIOCESANA</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.diocesanmeetings.001" fallback="HISTORIA · VIDA DIOCESANA" /></SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.diocesanmeetings.001" fallback="Nuestros encuentros diocesanos" /></h1>
           <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.diocesanmeetings.002" fallback="Recuerdos y experiencias de nuestros encuentros en la diócesis." /></p>
         </div>
@@ -1475,7 +1475,7 @@ function CarmeloPage() {
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>ACTIVIDADES · CARMELO DESCALZO</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.carmelo.001" fallback="ACTIVIDADES · CARMELO DESCALZO" /></SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.carmelo.001" fallback="Actividades en el Carmelo Descalzo" /></h1>
           <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.carmelo.002" fallback="Encuentros y actividades en el Carmelo Descalzo." /></p>
         </div>
@@ -1496,7 +1496,7 @@ function DiocesanActivitiesPage() {
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>ACTIVIDADES · VIDA DIOCESANA</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.diocesanactivities.001" fallback="ACTIVIDADES · VIDA DIOCESANA" /></SectionLabel>
           <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.diocesanactivities.001" fallback="Actividades diocesanas" /></h1>
           <p className="mt-4 max-w-2xl text-white/80"><EditableText contentKey="site.diocesanactivities.002" fallback="Un espacio para compartir nuestras actividades diocesanas." /></p>
         </div>
@@ -1517,13 +1517,13 @@ function LumenPage({ nav, session }: { nav: (p: Page) => void; session: Session 
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <SectionLabel>ACTIVIDADES · ESTUDIO EN GRUPO</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.lumen.001" fallback="ACTIVIDADES · ESTUDIO EN GRUPO" /></SectionLabel>
           <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.lumen.001" fallback="Estudio en grupo de Santa Teresa de Jesús y el misterio de la Iglesia: Lumen gentium del Concilio Vaticano II" /></h1>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
         <article className="max-w-5xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-5 sm:p-8">
-          <SectionLabel>MATERIAL DE ESTUDIO</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.lumen.002" fallback="MATERIAL DE ESTUDIO" /></SectionLabel>
           <h2 className="text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.lumen.002" fallback="Santa Teresa de Jesús y el «misterio» de la Iglesia" /></h2>
           <p className="mt-3 text-sm text-[#755E51]"><EditableText contentKey="site.lumen.003" fallback="Enrique Llamas Martínez · Anales de la Real Academia de Doctores de España · 2005 · 15 páginas" /></p>
           <div className="mt-6 space-y-5" aria-label="Material de estudio, 15 páginas">
@@ -1546,13 +1546,13 @@ function WorkshopIntroPage({ nav, session }: { nav: (p: Page) => void; session: 
     <main>
       <section className="bg-[#5C2D0E] py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <SectionLabel>ACTIVIDADES · INTRODUCCIÓN AL TALLER</SectionLabel>
+          <SectionLabel><EditableText contentKey="heading.workshopintro.001" fallback="ACTIVIDADES · INTRODUCCIÓN AL TALLER" /></SectionLabel>
           <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight" style={serif}><EditableText contentKey="site.workshopintro.001" fallback="Formación y misión de los laicos" /></h1>
         </div>
       </section>
       <section className="bg-[#F9F5EE] px-4 py-12 sm:px-6">
         <article className="max-w-3xl mx-auto rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
-          <h2 className="mb-7 text-2xl font-bold text-[#5C4033]" style={serif}>Introducción</h2>
+          <h2 className="mb-7 text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="heading.workshopintro.002" fallback="Introducción" /></h2>
           <div className="space-y-5 text-base sm:text-lg leading-relaxed text-[#755E51]">
             <p><EditableText contentKey="site.workshopintro.002" fallback="Un imperativo para la V Conferencia: profundizar en el tema de los laicos y las laicas, dada la relevancia que en su momento le otorgó el Concilio Vaticano II." /></p>
             <p><EditableText contentKey="site.workshopintro.003" fallback="Ellos son: entender un discipulado fermento del sacerdocio común al cual estamos llamados desde el bautismo; trabajar en un laicado adulto, gestor de nuevos rostros y ministerios que respondan a una auténtica construcción de humanidad." /></p>
@@ -1584,8 +1584,8 @@ function ContactPage({ nav }: { nav: (p: Page) => void }) {
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel>CONTÁCTANOS</SectionLabel>
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Ponte en Contacto</h1>
+          <SectionLabel><EditableText contentKey="heading.contact.001" fallback="CONTÁCTANOS" /></SectionLabel>
+          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="heading.contact.002" fallback="Ponte en Contacto" /></h1>
           <p className="text-white/60 mt-2"><EditableText contentKey="site.contact.001" fallback="Estamos aquí para acompañarte. Escríbenos y con gusto te respondemos." /></p>
         </div>
       </section>
@@ -1975,8 +1975,8 @@ function ActivitiesHubPage({ nav, session }: { nav: (p: Page) => void; session: 
     <main className="bg-[#F9F5EE] min-h-screen">
       <section className="bg-[#5C2D0E] py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <SectionLabel>GETS · NUESTRAS ACTIVIDADES</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Actividades</h1>
+          <SectionLabel><EditableText contentKey="heading.activitieshub.001" fallback="GETS · NUESTRAS ACTIVIDADES" /></SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="heading.activitieshub.002" fallback="Actividades" /></h1>
           <p className="mt-3 text-white/80"><EditableText contentKey="site.activitieshub.001" fallback="Elige una sección para consultar su contenido en esta misma página." /></p>
         </div>
       </section>
@@ -2186,8 +2186,8 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
     <main className="bg-[#F9F5EE] min-h-screen">
       <section className="bg-[#5C2D0E] py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <SectionLabel>GETS · NUESTRA TRAYECTORIA</SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Historia</h1>
+          <SectionLabel><EditableText contentKey="heading.historyhub.001" fallback="GETS · NUESTRA TRAYECTORIA" /></SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="heading.historyhub.002" fallback="Historia" /></h1>
           <p className="mt-3 text-white/80"><EditableText contentKey="site.historyhub.001" fallback="Explora cada apartado y comparte su enlace de forma independiente." /></p>
         </div>
       </section>
