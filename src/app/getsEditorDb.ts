@@ -1,10 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from './supabase';
 
-export const getsEditorDb = createClient(
-  'https://tfvlqypfxihectoypgqw.supabase.co',
-  'sb_publishable_iWVPYuhwR0LNtBKRctVEGA_9JvrNyAQ',
-  { auth: { storageKey: 'gets-editor-auth' } }
-);
+export const getsEditorDb = supabase!;
 
 export const EDITABLE_CONTENT = [
   { key: 'about.map.title', label: 'Nosotros · Título Mapa', defaultText: 'Mapa' },
