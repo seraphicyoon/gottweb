@@ -1332,7 +1332,54 @@ function DiocesePage() {
   );
 }
 
+type PersonalStudy = { id: string; title: string; author: string };
+const INITIAL_PERSONAL_STUDIES: PersonalStudy[] = [
+  { id: 'original-1', title: 'Clasificación de diversas escenas en el Evangelio de San Marcos', author: 'Lic. María Luisa Rodríguez Assemat' },
+  { id: 'original-2', title: 'Presentación de la síntesis de hechos, actitudes y acciones de Jesús, acciones de los discípulos y actitudes de los apóstoles en el Evangelio de San Marcos', author: 'Lic. María Luisa Rodríguez Assemat' },
+];
 function PersonalStudiesPage() {
+  const [studies, setStudies] = useState<PersonalStudy[]>(INITIAL_PERSONAL_STUDIES);
+  const [draft, setDraft] = useState<PersonalStudy[]>(INITIAL_PERSONAL_STUDIES);
+  const [editing, setEditing] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    let active = true;
+    const refresh = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!active) return;
+      if (!user) { setIsAdmin(false); return; }
+      const { data } = await supabase.from('gets_admins').select('user_id').eq('user_id', user.id).maybeSingle();
+      if (active) setIsAdmin(!!data);
+    };
+    void refresh();
+    const { data: authListener } = supabase.auth.onAuthStateChange(() => { void refresh(); });
+    supabase.from('gets_content').select('body').eq('key', 'personalstudies.catalog.items').maybeSingle()
+      .then(({ data }) => {
+        if (!active || !data?.body) return;
+        try {
+          const parsed: unknown = JSON.parse(data.body);
+          if (Array.isArray(parsed) && parsed.every(x => x && typeof x.id === 'string' && typeof x.title === 'string' && typeof x.author === 'string')) {
+            setStudies(parsed as PersonalStudy[]);
+            setDraft(parsed as PersonalStudy[]);
+          }
+        } catch { /* retain original catalog */ }
+      });
+    return () => { active = false; authListener.subscription.unsubscribe(); };
+  }, []);
+  async function saveStudies() {
+    setSaving(true); setError('');
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { setError('Inicia sesión para guardar.'); setSaving(false); return; }
+    const { error: saveError } = await supabase.from('gets_content').upsert({
+      key: 'personalstudies.catalog.items', body: JSON.stringify(draft),
+      updated_at: new Date().toISOString(), updated_by: user.id,
+    }, { onConflict: 'key' });
+    setSaving(false);
+    if (saveError) { setError('No se pudo guardar. Inténtalo de nuevo.'); return; }
+    setStudies(draft); setEditing(false);
+  }
   return (
     <main>
       <section className="bg-[#5C2D0E] py-16">
@@ -1345,18 +1392,41 @@ function PersonalStudiesPage() {
       <section className="bg-[#F9F5EE] px-4 py-16 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <SectionLabel><EditableText contentKey="heading.personalstudies.002" fallback={"CATÁLOGO DE ESTUDIOS"} /></SectionLabel>
-          <article className="mt-4 rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
-            <BookOpen size={30} className="mb-5 text-[#8B4513]" aria-hidden="true" />
-            <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}><EditableText contentKey="site.personalstudies.003" fallback={"Clasificación de diversas escenas en el Evangelio de San Marcos"} /></h2>
-            <p className="mt-4 text-[#755E51]"><EditableText contentKey="site.personalstudies.004" fallback={"Lic. María Luisa Rodríguez Assemat"} /></p>
-          </article>
-          <article className="mt-5 rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10">
-            <BookOpen size={30} className="mb-5 text-[#8B4513]" aria-hidden="true" />
-            <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}><EditableText contentKey="site.personalstudies.005" fallback={"Presentación de la síntesis de hechos, actitudes y acciones de Jesús, acciones de los discípulos y actitudes de los apóstoles en el Evangelio de San Marcos"} /></h2>
-            <p className="mt-4 text-[#755E51]"><EditableText contentKey="site.personalstudies.006" fallback={"Lic. María Luisa Rodríguez Assemat"} /></p>
-          </article>
+          {isAdmin && <button type="button" onClick={() => { setDraft(studies.map(x => ({ ...x }))); setError(''); setEditing(true); }} className="my-5 rounded-xl bg-[#8B4513] px-5 py-3 font-semibold text-white">✎ Administrar estudios · Añadir o eliminar</button>}
+          {studies.map((study, index) => (
+            <article key={study.id} className={`${index ? 'mt-5' : 'mt-4'} rounded-2xl border border-[#E7D9C8] bg-white p-6 sm:p-10`}>
+              <BookOpen size={30} className="mb-5 text-[#8B4513]" aria-hidden="true" />
+              <h2 className="text-2xl sm:text-3xl font-bold leading-tight text-[#5C4033]" style={serif}>
+                {study.id === 'original-1' ? <EditableText contentKey="site.personalstudies.003" fallback={study.title} /> :
+                  study.id === 'original-2' ? <EditableText contentKey="site.personalstudies.005" fallback={study.title} /> : study.title}
+              </h2>
+              <p className="mt-4 text-[#755E51]">{study.id === 'original-1' ? <EditableText contentKey="site.personalstudies.004" fallback={study.author} /> : study.id === 'original-2' ? <EditableText contentKey="site.personalstudies.006" fallback={study.author} /> : study.author}</p>
+            </article>
+          ))}
+          {studies.length === 0 && <p className="mt-6 text-[#755E51]">Todavía no hay estudios publicados.</p>}
         </div>
       </section>
+      {editing && isAdmin && <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4" role="dialog" aria-modal="true" aria-label="Administrar estudios">
+        <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl md:p-8">
+          <h2 className="mb-2 text-2xl font-bold text-[#5C4033]">Administrar estudios</h2>
+          <p className="mb-5 text-[#755E51]">Puedes añadir estudios, modificar sus títulos o eliminarlos. Guarda al terminar.</p>
+          <div className="space-y-4">
+            {draft.map((study, index) => <div key={study.id} className="rounded-xl border border-[#E7D9C8] p-4">
+              <div className="mb-3 flex items-center justify-between gap-3"><strong>Estudio {index + 1}</strong><button type="button" onClick={() => setDraft(v => v.filter(x => x.id !== study.id))} className="rounded-lg border border-red-200 px-3 py-2 text-sm font-semibold text-red-700">Eliminar estudio</button></div>
+              <label className="mb-2 block text-sm font-semibold">Título</label>
+              <textarea rows={3} value={study.title} onChange={e => setDraft(v => v.map(x => x.id === study.id ? { ...x, title: e.target.value } : x))} className="mb-3 w-full rounded-lg border border-[#E7D9C8] p-3 text-base" />
+              <label className="mb-2 block text-sm font-semibold">Autor o descripción</label>
+              <input value={study.author} onChange={e => setDraft(v => v.map(x => x.id === study.id ? { ...x, author: e.target.value } : x))} className="w-full rounded-lg border border-[#E7D9C8] p-3 text-base" />
+            </div>)}
+          </div>
+          <button type="button" onClick={() => setDraft(v => [...v, { id: crypto.randomUUID(), title: '', author: 'Lic. María Luisa Rodríguez Assemat' }])} className="mt-5 w-full rounded-xl border-2 border-dashed border-[#C5A37E] p-4 font-semibold text-[#8B4513]">+ Añadir nuevo estudio</button>
+          {error && <p role="alert" className="mt-3 text-red-700">{error}</p>}
+          <div className="mt-5 flex flex-wrap gap-3">
+            <button type="button" disabled={saving || draft.some(x => !x.title.trim())} onClick={() => void saveStudies()} className="rounded-xl bg-[#8B4513] px-6 py-3 font-semibold text-white disabled:opacity-50">{saving ? 'Guardando…' : 'Guardar cambios'}</button>
+            <button type="button" onClick={() => setEditing(false)} className="rounded-xl border px-6 py-3">Cancelar</button>
+          </div>
+        </div>
+      </div>}
     </main>
   );
 }
