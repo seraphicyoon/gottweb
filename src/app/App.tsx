@@ -977,7 +977,7 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
                 <span>La Biblia: tienen como fundamento</span>
               </div>
 
-              <EditableList listKey="history.vision.foundations" items={["**Decreto:**Apostolicam Actuositatem (Decreto conciliar sobre el apostolado de los laicos).","**Constitución Dogmática:**Lumen Gentium (Especialmente el Capítulo IV, Laicos).","**Exhortación Apostólica (Post-sinodal):**Christifideles Laici (sobre la vocación y misión de los fieles laicos)."]} />
+              <EditableList compact listKey="history.vision.foundations" items={["**Decreto:**Apostolicam Actuositatem (Decreto conciliar sobre el apostolado de los laicos).","**Constitución Dogmática:**Lumen Gentium (Especialmente el Capítulo IV, Laicos).","**Exhortación Apostólica (Post-sinodal):**Christifideles Laici (sobre la vocación y misión de los fieles laicos)."]} />
             </div>
 
             <div className="grid gap-3">
@@ -1012,11 +1012,11 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             </div>
             <div className="bg-[#F5EFE8] p-6 rounded-2xl">
               <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}><EditableText contentKey="heading.sermons.003" fallback={"Nuestras Pautas"} /></h4>
-              <EditableList listKey="history.pautas" items={["Conocimiento de sí (Primera Morada).","Silencio e interioridad."]} />
+              <EditableList compact listKey="history.pautas" items={["Conocimiento de sí (Primera Morada).","Silencio e interioridad."]} />
             </div>
             <div className="bg-[#F5EFE8] p-6 rounded-2xl">
               <h4 className="font-bold text-[#5C4033] mb-3 text-base" style={serif}><EditableText contentKey="site.sermons.005" fallback={"Nuestras Herramientas"} /></h4>
-              <EditableList listKey="history.tools" items={["**La Fe:** Guía irremplazable.","**La Esperanza:** “La Esperanza tanto alcanza cuanto espera”.","**El Amor:** Única fuerza capaz de movernos y hacernos avanzar hacia el encuentro con Dios."]} />
+              <EditableList compact listKey="history.tools" items={["**La Fe:** Guía irremplazable.","**La Esperanza:** “La Esperanza tanto alcanza cuanto espera”.","**El Amor:** Única fuerza capaz de movernos y hacernos avanzar hacia el encuentro con Dios."]} />
             </div>
           </div>
 
@@ -1027,17 +1027,17 @@ function SermonsPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
             <div className="space-y-4">
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.007" fallback={"1. Promoción de talleres y retiros del Carmelo Teresiano"} /></h4>
-                <EditableList listKey="history.mission.group1" items={["**Jornadas de Contemplación con las Moradas de Santa Teresa de Jesús:** Creador y dirigente: Rev. Padre Rafael Checa ocd. Lugar: Centro Manresa, Tampico (Duración: Cuatro años).","**Talleres de Formación Espiritual y Humana:** Conferencista: Luis Jorge González ocd. Lugar: Seminario de Tampico.","**Programación neurolingüística y espiritualidad (Año 2000):** Coordinadores y expositores: Luis Jorge González; colaboradora: María Luisa Rodríguez Assemat.","**SETS (Seguimiento, retiros y clases a grupos y personas):** Lugar: Residencia particular (Duración: 20 años).","**Clases de Educación Continua:** Temas de espiritualidad en las obras de Teresa de Jesús; «La Biblia con ojos de mujer» y reflexiones sobre Edith Stein y Viktor Frankl."]} />
+                <EditableList compact listKey="history.mission.group1" items={["**Jornadas de Contemplación con las Moradas de Santa Teresa de Jesús:** Creador y dirigente: Rev. Padre Rafael Checa ocd. Lugar: Centro Manresa, Tampico (Duración: Cuatro años).","**Talleres de Formación Espiritual y Humana:** Conferencista: Luis Jorge González ocd. Lugar: Seminario de Tampico.","**Programación neurolingüística y espiritualidad (Año 2000):** Coordinadores y expositores: Luis Jorge González; colaboradora: María Luisa Rodríguez Assemat.","**SETS (Seguimiento, retiros y clases a grupos y personas):** Lugar: Residencia particular (Duración: 20 años).","**Clases de Educación Continua:** Temas de espiritualidad en las obras de Teresa de Jesús; «La Biblia con ojos de mujer» y reflexiones sobre Edith Stein y Viktor Frankl."]} />
               </div>
 
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.008" fallback={"2. Espiritualidad y Formación Integral"} /></h4>
-                <EditableList listKey="history.mission.group2" items={["**Semana de Espiritualidad Teresiano-Sanjuanista (Año aprox. 2005):** Expositores y dirigentes: Maximiliano Herraiz García ocd y Luis Jorge González. Lugar: Casa de Ana María Rabaté.","**Conferencias sobre Santa Teresa de Jesús y San Juan de la Cruz:** Ponente: Maximiliano Herraiz García ocd. Lugar: Seminario de Tampico (Duración: Tres años).","**Talleres de Formación espiritual aplicada a las misiones:** Coordinadores: Luis Jorge González ocd y María Luisa Rodríguez Assemat oscd. Lugar: Seminarios carmelitas en Nairobi, Kenia y en Morogoro, Tanzania.","**Talleres de formación en desarrollo humano y fe para agentes de Pastoral:** Conferencista y coordinadora: María Luisa Rodríguez Assemat. Lugar: Ciudad Madero, Tamaulipas (Duración: Seis años).","**Clases Teresiano-Sanjuanistas:** María Luisa Rodríguez Assemat. Lugar: Instituto Cultural Tampico (Duración: Diez años).","**Retiros en línea.**"]} />
+                <EditableList compact listKey="history.mission.group2" items={["**Semana de Espiritualidad Teresiano-Sanjuanista (Año aprox. 2005):** Expositores y dirigentes: Maximiliano Herraiz García ocd y Luis Jorge González. Lugar: Casa de Ana María Rabaté.","**Conferencias sobre Santa Teresa de Jesús y San Juan de la Cruz:** Ponente: Maximiliano Herraiz García ocd. Lugar: Seminario de Tampico (Duración: Tres años).","**Talleres de Formación espiritual aplicada a las misiones:** Coordinadores: Luis Jorge González ocd y María Luisa Rodríguez Assemat oscd. Lugar: Seminarios carmelitas en Nairobi, Kenia y en Morogoro, Tanzania.","**Talleres de formación en desarrollo humano y fe para agentes de Pastoral:** Conferencista y coordinadora: María Luisa Rodríguez Assemat. Lugar: Ciudad Madero, Tamaulipas (Duración: Seis años).","**Clases Teresiano-Sanjuanistas:** María Luisa Rodríguez Assemat. Lugar: Instituto Cultural Tampico (Duración: Diez años).","**Retiros en línea.**"]} />
               </div>
 
               <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
                 <h4 className="font-bold text-[#8B4513] text-sm mb-2"><EditableText contentKey="site.sermons.009" fallback={"3. Congresos y Simposios"} /></h4>
-                <EditableList listKey="history.mission.group3" items={["**Simposio de Psicología y Espiritualidad en Roma (2003):** Participación en Roma de María Luisa Rodríguez Assemat con el Grupo de Psicología y Espiritualidad.","**Congreso Internacional de Mística en Münsterschwarzach, Alemania:** Participación de José Ignacio Rodríguez Assemat y María Luisa Rodríguez Assemat."]} />
+                <EditableList compact listKey="history.mission.group3" items={["**Simposio de Psicología y Espiritualidad en Roma (2003):** Participación en Roma de María Luisa Rodríguez Assemat con el Grupo de Psicología y Espiritualidad.","**Congreso Internacional de Mística en Münsterschwarzach, Alemania:** Participación de José Ignacio Rodríguez Assemat y María Luisa Rodríguez Assemat."]} />
               </div>
             </div>
 
