@@ -1,19 +1,14 @@
 import { useEffect, useState } from 'react';
 import { getsEditorDb, EDITABLE_CONTENT } from './getsEditorDb';
 
-export function EditableText({ contentKey, fallback }: { contentKey: string; fallback: string }) {
-  const [value, setValue] = useState(fallback);
-  const [draft, setDraft] = useState(fallback);
-  const [editing, setEditing] = useState(false);
+const SIZE_OPTIONS = [14, 16, 18, 20, 24, 28, 32, 36, 42];
+function renderFormatted(value: string) {
+  const parts = value.split(/(\\*\\*[^*]+\\*\\*)/g);
+  return parts.map((part, i) => part.startsWith('**') && part.endsWith('**')
+    ? <strong key={i}>{part.slice(2, -2)}</strong> : <span key={i}>{part}</span>);
+}
+function useGetsAdmin() {
   const [authorized, setAuthorized] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
-  useEffect(() => {
-    let active = true;
-    getsEditorDb.from('gets_content').select('body').eq('key', contentKey).maybeSingle()
-      .then(({ data }) => { if (active && data?.body != null) { setValue(data.body); setDraft(data.body); } });
-    return () => { active = false; };
-  }, [contentKey]);
   useEffect(() => {
     let active = true;
     const check = async () => {
@@ -26,26 +21,65 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
     const { data } = getsEditorDb.auth.onAuthStateChange(() => { void check(); });
     return () => { active = false; data.subscription.unsubscribe(); };
   }, []);
+  return authorized;
+}
+export function EditableText({ contentKey, fallback }: { contentKey: string; fallback: string }) {
+  const authorized = useGetsAdmin();
+  const [value, setValue] = useState(fallback);
+  const [draft, setDraft] = useState(fallback);
+  const [fontSize, setFontSize] = useState<number | null>(null);
+  const [draftSize, setDraftSize] = useState<number>(20);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    let active = true;
+    getsEditorDb.from('gets_content').select('body').eq('key', contentKey).maybeSingle()
+      .then(({ data }) => {
+        if (!active || data?.body == null) return;
+        try {
+          const parsed = JSON.parse(data.body);
+          if (parsed && typeof parsed.text === 'string') {
+            setValue(parsed.text); setDraft(parsed.text);
+            if (SIZE_OPTIONS.includes(parsed.size)) setFontSize(parsed.size);
+            return;
+          }
+        } catch { /* legacy plain text */ }
+        setValue(data.body); setDraft(data.body);
+      });
+    return () => { active = false; };
+  }, [contentKey]);
   async function save() {
     setSaving(true); setError('');
     const { data: { user } } = await getsEditorDb.auth.getUser();
-    if (!user) { setError('Vuelve a iniciar sesión.'); setSaving(false); return; }
+    if (!user) { setError('Inicia sesión de nuevo.'); setSaving(false); return; }
+    const body = JSON.stringify({ text: draft, size: draftSize });
     const { error: saveError } = await getsEditorDb.from('gets_content').upsert({
-      key: contentKey, body: draft, updated_at: new Date().toISOString(), updated_by: user.id,
+      key: contentKey, body, updated_at: new Date().toISOString(), updated_by: user.id,
     }, { onConflict: 'key' });
     setSaving(false);
     if (saveError) { setError('No se pudo guardar.'); return; }
-    setValue(draft); setEditing(false);
+    setValue(draft); setFontSize(draftSize); setEditing(false);
   }
-  if (!authorized) return <>{value}</>;
-  return <span className="relative inline-block max-w-full group/edit align-baseline">
+  return <span className="relative inline max-w-full align-baseline">
     {!editing ? <>
-      <span>{value}</span>{' '}
-      <button type="button" aria-label="Editar este texto" title="Editar este texto"
-        onClick={() => { setDraft(value); setEditing(true); }}
-        className="inline-flex align-middle rounded-md border border-[#8B4513]/30 bg-[#FFF8ED] px-1.5 py-0.5 text-xs font-sans not-italic font-semibold text-[#8B4513] opacity-70 hover:opacity-100 focus:opacity-100">✎ Editar</button>
-    </> : <span className="block my-2 rounded-xl border border-[#C5A37E] bg-white p-3 text-left shadow-lg not-italic font-sans text-base font-normal text-[#5C4033] min-w-[min(80vw,320px)]">
-      <textarea aria-label="Editar texto" value={draft} onChange={e => setDraft(e.target.value)} rows={Math.max(3, Math.min(10, draft.split('\n').length + Math.ceil(draft.length / 65)))} className="block w-full min-w-[min(70vw,300px)] rounded-md border border-[#E7D9C8] p-2 text-base text-[#5C4033]" />
+      <span style={fontSize ? { fontSize: fontSize + 'px', whiteSpace: 'pre-line' } : { whiteSpace: 'pre-line' }}>{renderFormatted(value)}</span>
+      {authorized && <button type="button" aria-label="Editar texto" onClick={() => { setDraft(value); setDraftSize(fontSize ?? 20); setEditing(true); }}
+        className="ml-2 inline-flex align-middle rounded-md border border-[#8B4513]/30 bg-[#FFF8ED] px-1.5 py-0.5 text-xs font-sans not-italic font-semibold text-[#8B4513] hover:bg-[#F5E9DA]">✎ Editar</button>}
+    </> : <span className="block my-2 rounded-xl border border-[#C5A37E] bg-white p-3 text-left shadow-lg not-italic font-sans text-base font-normal text-[#5C4033]">
+      <div className="flex flex-wrap gap-2 mb-2">
+        <button type="button" title="Poner selección en negritas" onClick={() => {
+          const el = document.getElementById('edit-' + contentKey) as HTMLTextAreaElement | null;
+          if (!el) return;
+          const a = el.selectionStart, b = el.selectionEnd;
+          setDraft(draft.slice(0, a) + '**' + draft.slice(a, b) + '**' + draft.slice(b));
+        }} className="rounded border px-3 py-1 font-bold">B Negrita</button>
+        <label className="text-sm">Tamaño <select aria-label="Tamaño de letra" className="rounded border px-2 py-1" value={draftSize} onChange={e => setDraftSize(Number(e.target.value))}>
+          {SIZE_OPTIONS.map(size => <option key={size} value={size}>{size} px</option>)}
+        </select></label>
+      </div>
+      <textarea id={'edit-' + contentKey} aria-label="Editar texto" value={draft} onChange={e => setDraft(e.target.value)} rows={Math.max(3, Math.min(10, draft.split('\n').length + Math.ceil(draft.length / 65)))} className="block w-full min-w-[min(70vw,300px)] rounded-md border border-[#E7D9C8] p-2 text-base text-[#5C4033]" />
+      <p className="text-xs text-[#755E51] my-2">Selecciona palabras y pulsa Negrita. El tamaño se aplica a este bloque.</p>
       <span className="flex flex-wrap gap-2 mt-2">
         <button type="button" disabled={saving} onClick={() => void save()} className="rounded-md bg-[#8B4513] px-3 py-2 text-sm text-white disabled:opacity-50">{saving ? 'Guardando…' : 'Guardar'}</button>
         <button type="button" onClick={() => { setEditing(false); setError(''); }} className="rounded-md border border-[#E7D9C8] px-3 py-2 text-sm text-[#5C4033]">Cancelar</button>
@@ -53,6 +87,54 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
       {error && <span role="alert" className="block mt-2 text-sm text-red-700">{error}</span>}
     </span>}
   </span>;
+}
+
+export function EditableList({ listKey, items }: { listKey: string; items: string[] }) {
+  const authorized = useGetsAdmin();
+  const [entries, setEntries] = useState(items);
+  const [draft, setDraft] = useState(items);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    let active = true;
+    getsEditorDb.from('gets_content').select('body').eq('key', listKey).maybeSingle().then(({ data }) => {
+      if (!active || !data?.body) return;
+      try { const parsed = JSON.parse(data.body); if (Array.isArray(parsed) && parsed.every(x => typeof x === 'string')) { setEntries(parsed); setDraft(parsed); } } catch { /* keep defaults */ }
+    });
+    return () => { active = false; };
+  }, [listKey]);
+  async function save() {
+    setSaving(true); setError('');
+    const { data: { user } } = await getsEditorDb.auth.getUser();
+    if (!user) { setSaving(false); setError('Inicia sesión de nuevo.'); return; }
+    const clean = draft.filter(x => x.trim());
+    const { error: saveError } = await getsEditorDb.from('gets_content').upsert({ key: listKey, body: JSON.stringify(clean), updated_by: user.id, updated_at: new Date().toISOString() }, { onConflict: 'key' });
+    setSaving(false);
+    if (saveError) { setError('No se pudieron guardar las viñetas.'); return; }
+    setEntries(clean); setDraft(clean); setEditing(false);
+  }
+  return <div>
+    <ul className="space-y-5 list-disc pl-7 md:pl-9 text-[#5C4033]">
+      {entries.map((entry, index) => <li key={index} className="pl-2 text-lg md:text-xl leading-relaxed"><span>{renderFormatted(entry)}</span></li>)}
+    </ul>
+    {authorized && <div className="mt-5">
+      {!editing ? <button type="button" onClick={() => { setDraft([...entries]); setEditing(true); }} className="rounded-lg border border-[#C5A37E] bg-white px-4 py-2 text-sm text-[#8B4513]">✎ Editar esquema y añadir viñetas</button> : <div className="rounded-xl bg-white border border-[#C5A37E] p-4 space-y-3">
+        <p className="font-semibold text-[#5C4033]">Editar esquema</p>
+        {draft.map((item, index) => <div key={index} className="flex gap-2 items-start">
+          <textarea aria-label={'Viñeta ' + (index + 1)} rows={2} className="flex-1 min-w-0 rounded-lg border border-[#E7D9C8] p-2 text-base" value={item} onChange={e => setDraft(v => v.map((x, i) => i === index ? e.target.value : x))} />
+          <button type="button" aria-label={'Eliminar viñeta ' + (index + 1)} className="rounded-lg border px-2 py-2 text-sm" onClick={() => setDraft(v => v.filter((_, i) => i !== index))}>Eliminar</button>
+        </div>)}
+        <p className="text-xs text-[#755E51]">Para negritas en una viñeta, rodea las palabras con **dos asteriscos**.</p>
+        <button type="button" onClick={() => setDraft(v => [...v, ''])} className="rounded-lg border border-[#C5A37E] px-3 py-2 text-sm text-[#8B4513]">+ Añadir viñeta</button>
+        <div className="flex gap-2">
+          <button type="button" disabled={saving} onClick={() => void save()} className="rounded-lg bg-[#8B4513] px-4 py-2 text-white">{saving ? 'Guardando…' : 'Guardar esquema'}</button>
+          <button type="button" onClick={() => setEditing(false)} className="rounded-lg border px-4 py-2">Cancelar</button>
+        </div>
+        {error && <p role="alert" className="text-red-700">{error}</p>}
+      </div>}
+    </div>}
+  </div>;
 }
 
 export function GetsTextEditor() {
