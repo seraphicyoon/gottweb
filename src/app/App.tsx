@@ -2096,16 +2096,16 @@ function PersonalTrajectoryPage({ nav, filter = "all" }: { nav: (p: Page) => voi
                 <div className="mb-4 flex items-start gap-4">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5EFE8] text-sm font-bold text-[#8B4513]">{String(index + 1).padStart(2, '0')}</span>
                   <div>
-                    <p className="mb-1 text-xs font-bold uppercase tracking-[0.13em] text-[#A46B36]">{stage.period}</p>
-                    <h3 className={`font-bold text-[#5C4033] ${index === 4 ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'}`} style={serif}>{stage.heading}</h3>
+                    <p className="mb-1 text-xs font-bold uppercase tracking-[0.13em] text-[#A46B36]"><EditableText contentKey={`trajectory.${stage.heading}.period`} fallback={stage.period} /></p>
+                    <h3 className={`font-bold text-[#5C4033] ${index === 4 ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'}`} style={serif}><EditableText contentKey={`trajectory.${stage.heading}.heading`} fallback={stage.heading} /></h3>
                   </div>
                 </div>
                 <div className="space-y-4 pl-0 text-[15px] leading-7 text-[#66584F] sm:pl-14">
-                  {stage.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex} className={stage.heading === 'Vida familiar' ? 'font-medium text-[#9A4B23]' : undefined}>{paragraph}</p>)}
-                  {'sections' in stage && stage.sections?.map((section) => (
+                  {stage.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex} className={stage.heading === 'Vida familiar' ? 'font-medium text-[#9A4B23]' : undefined}><EditableText contentKey={`trajectory.${stage.heading}.paragraph.${paragraphIndex}`} fallback={paragraph} /></p>)}
+                  {'sections' in stage && stage.sections?.map((section, sectionIndex) => (
                     <section key={section.title} className="pt-2">
-                      <h4 className="mb-3 border-l-[3px] border-[#C69B52] pl-3 text-lg font-semibold text-[#8B4513]">{section.title}</h4>
-                      <div className="space-y-3">{section.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
+                      <h4 className="mb-3 border-l-[3px] border-[#C69B52] pl-3 text-lg font-semibold text-[#8B4513]"><EditableText contentKey={`trajectory.${stage.heading}.section.${sectionIndex}.title`} fallback={section.title} /></h4>
+                      <div className="space-y-3">{section.paragraphs.map((paragraph, index) => <p key={index}><EditableText contentKey={`trajectory.${stage.heading}.section.${sectionIndex}.paragraph.${index}`} fallback={paragraph} /></p>)}</div>
                     </section>
                   ))}
                 </div>
