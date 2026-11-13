@@ -28,7 +28,7 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
   const [value, setValue] = useState(fallback);
   const [draft, setDraft] = useState(fallback);
   const [fontSize, setFontSize] = useState<number | null>(null);
-  const [draftSize, setDraftSize] = useState<number>(20);
+  const [draftSize, setDraftSize] = useState<number | null>(null);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -64,7 +64,7 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
   return <span className="relative inline max-w-full align-baseline">
     {!editing ? <>
       <span style={fontSize ? { fontSize: fontSize + 'px', whiteSpace: 'pre-line' } : { whiteSpace: 'pre-line' }}>{renderFormatted(value)}</span>
-      {authorized && <button type="button" aria-label="Editar texto" onClick={() => { setDraft(value); setDraftSize(fontSize ?? 20); setEditing(true); }}
+      {authorized && <button type="button" aria-label="Editar texto" onClick={() => { setDraft(value); setDraftSize(fontSize); setEditing(true); }}
         className="ml-2 inline-flex align-middle rounded-md border border-[#8B4513]/30 bg-[#FFF8ED] px-1.5 py-0.5 text-xs font-sans not-italic font-semibold text-[#8B4513] hover:bg-[#F5E9DA]">✎ Editar</button>}
     </> : <span className="block my-2 rounded-xl border border-[#C5A37E] bg-white p-3 text-left shadow-lg not-italic font-sans text-base font-normal text-[#5C4033]">
       <div className="flex flex-wrap gap-2 mb-2">
@@ -74,7 +74,7 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
           const a = el.selectionStart, b = el.selectionEnd;
           setDraft(draft.slice(0, a) + '**' + draft.slice(a, b) + '**' + draft.slice(b));
         }} className="rounded border px-3 py-1 font-bold">B Negrita</button>
-        <label className="text-sm">Tamaño <select aria-label="Tamaño de letra" className="rounded border px-2 py-1" value={draftSize} onChange={e => setDraftSize(Number(e.target.value))}>
+        <label className="text-sm">Tamaño <select aria-label="Tamaño de letra" className="rounded border px-2 py-1" value={draftSize ?? ""} onChange={e => setDraftSize(e.target.value ? Number(e.target.value) : null)}><option value="">Original</option>
           {SIZE_OPTIONS.map(size => <option key={size} value={size}>{size} px</option>)}
         </select></label>
       </div>
