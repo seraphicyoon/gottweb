@@ -95,7 +95,10 @@ export function GetsTextEditor() {
       : await getsEditorDb.auth.signInWithPassword({ email: email.trim(), password });
     setBusy(false);
     if (result.error) { setMessage(result.error.message); return; }
-    if (mode === 'signup') setMessage('Revisa tu correo para confirmar la cuenta. Después podrás iniciar sesión.');
+    if (mode === 'signup') {
+      if (result.data.session) window.location.assign('/nosotros');
+      else setMessage('Cuenta creada. Si ya está activa, inicia sesión; de lo contrario, revisa su estado en Supabase.');
+    } else window.location.assign('/nosotros');
   }
 
   async function save(key: string) {
@@ -110,7 +113,7 @@ export function GetsTextEditor() {
   return <main className="min-h-[75vh] bg-[#F9F5EE] px-4 py-12">
     <div className="max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold text-[#5C4033] mb-3">Editor de textos GETS</h1>
-      <p className="text-[#755E51] mb-8">Edita los escritos sin cambiar el diseño de la página.</p>
+      <p className="text-[#755E51] mb-8">Inicia sesión aquí para activar la edición directamente sobre la página.</p>
       {!session ? <form onSubmit={authenticate} className="bg-white border border-[#E7D9C8] rounded-2xl p-6 space-y-4">
         <h2 className="font-semibold text-[#5C4033]">{mode === 'login' ? 'Iniciar sesión' : 'Crear cuenta de administración'}</h2>
         <input className="w-full border rounded-lg p-3" type="email" autoComplete="email" required placeholder="Correo electrónico" value={email} onChange={e => setEmail(e.target.value)} />
@@ -118,7 +121,7 @@ export function GetsTextEditor() {
         <button className="rounded-lg bg-[#8B4513] px-5 py-3 text-white disabled:opacity-50" disabled={busy} type="submit">{mode === 'login' ? 'Entrar' : 'Registrarme'}</button>
         <button type="button" className="block text-[#8B4513] underline" onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}>{mode === 'login' ? 'Crear mi cuenta' : 'Ya tengo una cuenta'}</button>
       </form> : !allowed ? <div className="bg-white rounded-xl p-6"><p>Esta cuenta no tiene permisos de administración.</p><button className="underline text-[#8B4513] mt-4" onClick={() => getsEditorDb.auth.signOut()}>Cerrar sesión</button></div> : <>
-        <div className="flex justify-between items-center mb-6 text-sm text-[#755E51]"><span>{session.user.email}</span><button className="underline text-[#8B4513]" onClick={() => getsEditorDb.auth.signOut()}>Cerrar sesión</button></div>
+        <a href="/nosotros" className="inline-block mb-5 rounded-lg bg-[#8B4513] px-4 py-2 text-white">Ir a la página y editar directamente</a><div className="flex justify-between items-center mb-6 text-sm text-[#755E51]"><span>{session.user.email}</span><button className="underline text-[#8B4513]" onClick={() => getsEditorDb.auth.signOut()}>Cerrar sesión</button></div>
         <div className="space-y-5">{EDITABLE_CONTENT.map(item => <section key={item.key} className="bg-white border border-[#E7D9C8] rounded-xl p-5">
           <label className="block font-semibold text-[#5C4033] mb-3" htmlFor={item.key}>{item.label}</label>
           <textarea id={item.key} rows={3} className="w-full border border-[#E7D9C8] rounded-lg p-3 text-[#5C4033]" value={values[item.key] ?? item.defaultText} onChange={e => setValues(v => ({ ...v, [item.key]: e.target.value }))} />
