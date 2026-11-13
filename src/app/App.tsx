@@ -23,6 +23,7 @@ import getsWordmark from '@/imports/gets-wordmark.png'
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, type GalleryComment } from "./supabase";
+import { EditableText, GetsTextEditor } from "./GetsTextEditor";
 import { Classroom, StudentManager } from './Classroom';
 import { Attendance } from './Attendance';
 import {
@@ -684,31 +685,31 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
       <section className="bg-white pt-6 pb-16 md:pt-10 md:pb-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h3 className="text-xl md:text-2xl font-semibold text-[#8B4513] mb-5" style={serif}>Mapa</h3>
+            <h3 className="text-xl md:text-2xl font-semibold text-[#8B4513] mb-5" style={serif}><EditableText contentKey="about.map.title" fallback="Mapa" /></h3>
             <p className="text-lg md:text-xl leading-relaxed text-[#5C4033]" style={serif}>
-              Ser fuente de servicio desde un lugar en comunión, respeto, crecimiento y formación.
+              <EditableText contentKey="about.map.description" fallback="Ser fuente de servicio desde un lugar en comunión, respeto, crecimiento y formación." />
             </p>
           </div>
 
           <div className="text-center mt-16 md:mt-24 mb-10 md:mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#5C4033] mb-6" style={serif}>NUESTRA VIDA</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#5C4033] mb-6" style={serif}><EditableText contentKey="about.life.title" fallback="NUESTRA VIDA" /></h2>
             <p className="text-lg md:text-xl italic text-[#5C4033] leading-relaxed" style={serif}>
-              Nuestro viaje: una historia que recordar, una historia que vivir y una historia que crear
+              <EditableText contentKey="about.life.subtitle" fallback="Nuestro viaje: una historia que recordar, una historia que vivir y una historia que crear" />
             </p>
           </div>
           <div className="rounded-2xl border border-[#8B4513]/15 bg-[#FAF7F3] p-6 md:p-10">
             <ul className="space-y-5 list-disc pl-7 md:pl-9 text-[#5C4033]">
               <li className="pl-2 text-lg md:text-xl leading-relaxed">
-                <span className="font-bold" style={serif}>Bajo el Espíritu:</span> un sendero formativo y sinodal.
+                <EditableText contentKey="about.life.point1" fallback="Bajo el Espíritu: un sendero formativo y sinodal." />
               </li>
               <li className="pl-2 text-lg md:text-xl leading-relaxed">
-                Se dialoga para comprender, se escucha para acoger.
+                <EditableText contentKey="about.life.point2" fallback="Se dialoga para comprender, se escucha para acoger." />
               </li>
               <li className="pl-2 text-lg md:text-xl leading-relaxed">
-                Caminamos juntos. «Es tiempo de caminar». «Juntos andemos», de Teresa de Jesús.
+                <EditableText contentKey="about.life.point3" fallback="Caminamos juntos. «Es tiempo de caminar». «Juntos andemos», de Teresa de Jesús." />
               </li>
               <li className="pl-2 text-lg md:text-xl leading-relaxed">
-                <span className="font-bold" style={serif}>Tarea:</span> descalzarte para seguir a Jesucristo; hacer vida el humanismo evangélico teresiano-sanjuanista.
+                <EditableText contentKey="about.life.point4" fallback="Tarea: descalzarte para seguir a Jesucristo; hacer vida el humanismo evangélico teresiano-sanjuanista." />
               </li>
             </ul>
           </div>
@@ -2224,6 +2225,7 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
 // ===================== APP =====================
 
 export default function App() {
+  if (window.location.pathname.replace(/\/+$/, "") === "/editar") return <GetsTextEditor />;
   const [page, setPage] = useState<Page>(() => pageFromPath(window.location.pathname));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
