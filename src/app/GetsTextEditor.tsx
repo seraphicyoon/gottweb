@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getsEditorDb, EDITABLE_CONTENT } from './getsEditorDb';
 
 const SIZE_OPTIONS = [14, 16, 18, 20, 24, 28, 32, 36, 42];
@@ -27,6 +27,7 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
   const authorized = useGetsAdmin();
   const [value, setValue] = useState(fallback);
   const [draft, setDraft] = useState(fallback);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [fontSize, setFontSize] = useState<number | null>(null);
   const [draftSize, setDraftSize] = useState<number | null>(null);
   const [editing, setEditing] = useState(false);
@@ -66,10 +67,10 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
       <span style={fontSize ? { fontSize: fontSize + 'px', whiteSpace: 'pre-line' } : { whiteSpace: 'pre-line' }}>{renderFormatted(value)}</span>
       {authorized && <button type="button" aria-label="Editar texto" onClick={() => { setDraft(value); setDraftSize(fontSize); setEditing(true); }}
         className="ml-2 inline-flex align-middle rounded-md border border-[#8B4513]/30 bg-[#FFF8ED] px-1.5 py-0.5 text-xs font-sans not-italic font-semibold text-[#8B4513] hover:bg-[#F5E9DA]">✎ Editar</button>}
-    </> : <span className="block my-2 rounded-xl border border-[#C5A37E] bg-white p-3 text-left shadow-lg not-italic font-sans text-base font-normal text-[#5C4033]">
+    </> : <span className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4 text-left not-italic font-sans text-base font-normal text-[#5C4033]" role="dialog" aria-modal="true" aria-label="Editar texto"><span className="block w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 md:p-8 shadow-2xl">
       <div className="flex flex-wrap gap-2 mb-2">
         <button type="button" title="Poner selección en negritas" onClick={() => {
-          const el = document.getElementById('edit-' + contentKey) as HTMLTextAreaElement | null;
+          const el = textAreaRef.current;
           if (!el) return;
           const a = el.selectionStart, b = el.selectionEnd;
           setDraft(draft.slice(0, a) + '**' + draft.slice(a, b) + '**' + draft.slice(b));
@@ -78,14 +79,14 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
           {SIZE_OPTIONS.map(size => <option key={size} value={size}>{size} px</option>)}
         </select></label>
       </div>
-      <textarea id={'edit-' + contentKey} aria-label="Editar texto" value={draft} onChange={e => setDraft(e.target.value)} rows={Math.max(3, Math.min(10, draft.split('\n').length + Math.ceil(draft.length / 65)))} className="block w-full min-w-[min(70vw,300px)] rounded-md border border-[#E7D9C8] p-2 text-base text-[#5C4033]" />
+      <textarea ref={textAreaRef} aria-label="Editar texto" value={draft} onChange={e => setDraft(e.target.value)} rows={Math.max(3, Math.min(10, draft.split('\n').length + Math.ceil(draft.length / 65)))} className="block w-full min-h-40 rounded-xl border border-[#E7D9C8] p-4 text-lg leading-relaxed text-[#5C4033]" />
       <p className="text-xs text-[#755E51] my-2">Selecciona palabras y pulsa Negrita. El tamaño se aplica a este bloque.</p>
       <span className="flex flex-wrap gap-2 mt-2">
         <button type="button" disabled={saving} onClick={() => void save()} className="rounded-md bg-[#8B4513] px-3 py-2 text-sm text-white disabled:opacity-50">{saving ? 'Guardando…' : 'Guardar'}</button>
         <button type="button" onClick={() => { setEditing(false); setError(''); }} className="rounded-md border border-[#E7D9C8] px-3 py-2 text-sm text-[#5C4033]">Cancelar</button>
       </span>
       {error && <span role="alert" className="block mt-2 text-sm text-red-700">{error}</span>}
-    </span>}
+    </span></span>}
   </span>;
 }
 
@@ -93,6 +94,7 @@ export function EditableList({ listKey, items, compact = false }: { listKey: str
   const authorized = useGetsAdmin();
   const [entries, setEntries] = useState(items);
   const [draft, setDraft] = useState(items);
+  const listTextareas = useRef<(HTMLTextAreaElement | null)[]>([]);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -119,20 +121,25 @@ export function EditableList({ listKey, items, compact = false }: { listKey: str
       {entries.map((entry, index) => <li key={index} className={compact ? "pl-0 text-xs md:text-sm leading-relaxed" : "pl-2 text-lg md:text-xl leading-relaxed"}><span>{renderFormatted(entry)}</span></li>)}
     </ul>
     {authorized && <div className="mt-5">
-      {!editing ? <button type="button" onClick={() => { setDraft([...entries]); setEditing(true); }} className="rounded-lg border border-[#C5A37E] bg-white px-4 py-2 text-sm text-[#8B4513]">✎ Editar esquema y añadir viñetas</button> : <div className="rounded-xl bg-white border border-[#C5A37E] p-4 space-y-3">
-        <p className="font-semibold text-[#5C4033]">Editar esquema</p>
-        {draft.map((item, index) => <div key={index} className="flex gap-2 items-start">
-          <textarea aria-label={'Viñeta ' + (index + 1)} rows={2} className="flex-1 min-w-0 rounded-lg border border-[#E7D9C8] p-2 text-base" value={item} onChange={e => setDraft(v => v.map((x, i) => i === index ? e.target.value : x))} />
-          <button type="button" aria-label={'Eliminar viñeta ' + (index + 1)} className="rounded-lg border px-2 py-2 text-sm" onClick={() => setDraft(v => v.filter((_, i) => i !== index))}>Eliminar</button>
+      {!editing ? <button type="button" onClick={() => { setDraft([...entries]); setEditing(true); }} className="rounded-lg border border-[#C5A37E] bg-white px-4 py-2 text-sm text-[#8B4513]">✎ Editar esquema y añadir viñetas</button> : <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4" role="dialog" aria-modal="true" aria-label="Editar lista"><div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 md:p-8 shadow-2xl space-y-5">
+        <h2 className="text-2xl font-semibold text-[#5C4033]">Editar lista</h2>
+        <p className="text-sm text-[#755E51]">Modifica cada punto como si fuera un documento. También puedes agregar más.</p>
+        {draft.map((item, index) => <div key={index} className="rounded-xl border border-[#E7D9C8] p-4 space-y-3">
+          <div className="flex items-center justify-between gap-3"><strong className="text-[#5C4033]">Punto {index + 1}</strong><button type="button" className="text-sm text-red-700 underline" onClick={() => setDraft(v => v.filter((_, i) => i !== index))}>Eliminar punto</button></div>
+          <textarea ref={el => { listTextareas.current[index] = el; }} aria-label={'Texto del punto ' + (index + 1)} rows={3} className="block w-full min-h-24 rounded-lg border border-[#E7D9C8] p-3 text-base leading-relaxed" value={item} onChange={e => setDraft(v => v.map((x, i) => i === index ? e.target.value : x))} />
+          <button type="button" className="rounded-lg border border-[#C5A37E] px-3 py-2 font-bold text-[#5C4033]" onClick={() => {
+            const el = listTextareas.current[index]; if (!el) return;
+            const a = el.selectionStart, b = el.selectionEnd; if (a === b) { el.focus(); return; }
+            setDraft(v => v.map((x, i) => i === index ? x.slice(0,a) + '**' + x.slice(a,b) + '**' + x.slice(b) : x));
+          }}>B Negrita al texto seleccionado</button>
         </div>)}
-        <p className="text-xs text-[#755E51]">Para negritas en una viñeta, rodea las palabras con **dos asteriscos**.</p>
-        <button type="button" onClick={() => setDraft(v => [...v, ''])} className="rounded-lg border border-[#C5A37E] px-3 py-2 text-sm text-[#8B4513]">+ Añadir viñeta</button>
-        <div className="flex gap-2">
-          <button type="button" disabled={saving} onClick={() => void save()} className="rounded-lg bg-[#8B4513] px-4 py-2 text-white">{saving ? 'Guardando…' : 'Guardar esquema'}</button>
-          <button type="button" onClick={() => setEditing(false)} className="rounded-lg border px-4 py-2">Cancelar</button>
+        <button type="button" onClick={() => setDraft(v => [...v, ''])} className="w-full rounded-xl border-2 border-dashed border-[#C5A37E] p-4 text-[#8B4513] font-semibold">+ Añadir otro punto</button>
+        <div className="flex flex-wrap gap-3 border-t pt-4">
+          <button type="button" disabled={saving} onClick={() => void save()} className="rounded-xl bg-[#8B4513] px-6 py-3 text-white font-semibold">{saving ? 'Guardando…' : 'Guardar cambios'}</button>
+          <button type="button" onClick={() => { setEditing(false); setError(''); }} className="rounded-xl border px-6 py-3 text-[#5C4033]">Cancelar</button>
         </div>
         {error && <p role="alert" className="text-red-700">{error}</p>}
-      </div>}
+      </div></div>}}
     </div>}
   </div>;
 }
