@@ -3,7 +3,7 @@ import { getsEditorDb, EDITABLE_CONTENT } from './getsEditorDb';
 
 const SIZE_OPTIONS = [14, 16, 18, 20, 24, 28, 32, 36, 42];
 function renderFormatted(value: string) {
-  const parts = value.split(/(\\*\\*[^*]+\\*\\*)/g);
+  const parts = value.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => part.startsWith('**') && part.endsWith('**')
     ? <strong key={i}>{part.slice(2, -2)}</strong> : <span key={i}>{part}</span>);
 }
