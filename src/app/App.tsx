@@ -533,8 +533,8 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-10 md:py-16 bg-[#F5EFE8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <SectionLabel><EditableText contentKey="heading.home.002" fallback={"NUESTROS PILARES"} /></SectionLabel>
-            <SectionHeading><EditableText contentKey="heading.home.003" fallback={"Nuestros Valores"} /></SectionHeading>
+            <SectionLabel>NUESTROS PILARES</SectionLabel>
+            <SectionHeading>Nuestros Valores</SectionHeading>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
@@ -568,8 +568,8 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <SectionLabel><EditableText contentKey="heading.home.004" fallback={"PRÓXIMOS ENCUENTROS"} /></SectionLabel>
-              <SectionHeading><EditableText contentKey="site.home.003" fallback={"Actividades actuales"} /></SectionHeading>
+              <SectionLabel>PRÓXIMOS ENCUENTROS</SectionLabel>
+              <SectionHeading>Actividades actuales</SectionHeading>
             </div>
             <button
               onClick={() => nav("events")}
@@ -591,8 +591,8 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-[#5C4033] text-lg mb-2" style={serif}><EditableText contentKey="site.home.004" fallback={"La Libertad Interior en Santa Teresa de Jesús"} /></h3>
-                <p className="text-xs text-gray-400 mb-4"><EditableText contentKey="site.home.005" fallback={"Impartido por la Lic. María Luisa Rodríguez Assemat. Un espacio para descubrir que \"La Verdadera Libertad nace del interior\"."} /></p>
+                <h3 className="font-bold text-[#5C4033] text-lg mb-2" style={serif}>La Libertad Interior en Santa Teresa de Jesús</h3>
+                <p className="text-xs text-gray-400 mb-4">Impartido por la Lic. María Luisa Rodríguez Assemat. Un espacio para descubrir que "La Verdadera Libertad nace del interior".</p>
                 <div className="flex flex-col gap-1.5 text-xs text-gray-500 mb-5">
                   <span className="flex items-center gap-1.5"><Calendar size={11} className="text-[#D4AF37]" /> Todos los lunes</span>
                   <span className="flex items-center gap-1.5"><Clock size={11} className="text-[#D4AF37]" /> 10:00 A.M a 12:00 P.M | 5:00 P.M a 6:30 P.M (2 Grupos)</span>
@@ -748,15 +748,15 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <SectionLabel><EditableText contentKey="heading.about.005" fallback={"QUIÉN NOS GUÍA"} /></SectionLabel>
-            <SectionHeading><EditableText contentKey="heading.about.006" fallback={"Coordinación GETS"} /></SectionHeading>
+            <SectionLabel>QUIÉN NOS GUÍA</SectionLabel>
+            <SectionHeading>Coordinación GETS</SectionHeading>
           </div>
           <div className="max-w-xl mx-auto rounded-3xl border border-[#E7D9C8] bg-[#F9F5EE] px-6 py-10 text-center shadow-[0_15px_45px_rgba(74,32,16,.06)]">
             <div className="w-10 h-0.5 bg-[#D4AF37] mx-auto mb-6" aria-hidden="true" />
             <h3 className="text-2xl md:text-3xl font-bold text-[#5C4033]" style={serif}>
               Lic. Ma. Luisa Rodríguez Assemat
             </h3>
-            <p className="mt-3 text-gray-600"><EditableText contentKey="site.about.002" fallback={"Máster en Mística y Ciencias Humanas"} /></p>
+            <p className="mt-3 text-gray-600">Máster en Mística y Ciencias Humanas</p>
           </div>
         </div>
       </section>
@@ -793,8 +793,8 @@ function AboutPage({ nav }: { nav: (p: Page) => void }) {
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <SectionLabel><EditableText contentKey="heading.about.008" fallback={"¿TIENES DUDAS?"} /></SectionLabel>
-            <SectionHeading><EditableText contentKey="site.about.004" fallback={"Preguntas Frecuentes"} /></SectionHeading>
+            <SectionLabel>¿TIENES DUDAS?</SectionLabel>
+            <SectionHeading>Preguntas Frecuentes</SectionHeading>
           </div>
           <div className="space-y-3">
             {FAQ_ITEMS.map((item, i) => (
@@ -845,9 +845,9 @@ function EventsPage({ nav }: { nav: (p: Page) => void }) {
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel><EditableText contentKey="heading.events.001" fallback={"NUESTRA AGENDA"} /></SectionLabel>
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="site.events.001" fallback={"Talleres y Pláticas"} /></h1>
-          <p className="text-white/60 mt-2"><EditableText contentKey="site.events.002" fallback={"Descubre la fecha y sede de nuestro próximo taller o grupo de estudio."} /></p>
+          <SectionLabel>NUESTRA AGENDA</SectionLabel>
+          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Talleres y Pláticas</h1>
+          <p className="text-white/60 mt-2">Descubre la fecha y sede de nuestro próximo taller o grupo de estudio.</p>
         </div>
       </section>
 
@@ -1973,9 +1973,9 @@ function ActivitiesHubPage({ nav, session }: { nav: (p: Page) => void; session: 
     <main className="bg-[#F9F5EE] min-h-screen">
       <section className="bg-[#5C2D0E] py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <SectionLabel><EditableText contentKey="heading.activitieshub.001" fallback={"GETS · NUESTRAS ACTIVIDADES"} /></SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="heading.activitieshub.002" fallback={"Actividades"} /></h1>
-          <p className="mt-3 text-white/80"><EditableText contentKey="site.activitieshub.001" fallback={"Elige una sección para consultar su contenido en esta misma página."} /></p>
+          <SectionLabel>GETS · NUESTRAS ACTIVIDADES</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Actividades</h1>
+          <p className="mt-3 text-white/80">Elige una sección para consultar su contenido en esta misma página.</p>
         </div>
       </section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
@@ -2184,9 +2184,9 @@ function HistoryHubPage({ nav, session }: { nav: (p: Page) => void; session: Ses
     <main className="bg-[#F9F5EE] min-h-screen">
       <section className="bg-[#5C2D0E] py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <SectionLabel><EditableText contentKey="heading.historyhub.001" fallback={"GETS · NUESTRA TRAYECTORIA"} /></SectionLabel>
-          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="heading.historyhub.002" fallback={"Historia"} /></h1>
-          <p className="mt-3 text-white/80"><EditableText contentKey="site.historyhub.001" fallback={"Explora cada apartado y comparte su enlace de forma independiente."} /></p>
+          <SectionLabel>GETS · NUESTRA TRAYECTORIA</SectionLabel>
+          <h1 className="text-3xl md:text-5xl font-bold text-white" style={serif}>Historia</h1>
+          <p className="mt-3 text-white/80">Explora cada apartado y comparte su enlace de forma independiente.</p>
         </div>
       </section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
