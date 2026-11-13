@@ -1168,17 +1168,17 @@ function GalleryPage({ nav, session }: { nav: (p: Page) => void; session: Sessio
       <section className="relative min-h-64 py-16 flex items-center bg-[#5C2D0E] overflow-hidden">
         <img src={IMG("photo-1531206715517-5c0ba140b2b8", 1600, 500)} alt="" className="absolute inset-0 w-full h-full object-cover opacity-15" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel><EditableText contentKey="heading.gallery.001" fallback={"MOMENTOS GETS"} /></SectionLabel>
-          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}><EditableText contentKey="site.gallery.001" fallback={"Galería de la Comunidad"} /></h1>
-          <p className="text-white/80 mt-3 max-w-xl"><EditableText contentKey="site.gallery.002" fallback={"Nuestra vida en comunidad, contada a través de momentos compartidos."} /></p>
+          <SectionLabel>MOMENTOS GETS</SectionLabel>
+          <h1 className="text-4xl md:text-5xl font-bold text-white" style={serif}>Galería de la Comunidad</h1>
+          <p className="text-white/80 mt-3 max-w-xl">Nuestra vida en comunidad, contada a través de momentos compartidos.</p>
         </div>
       </section>
       <section className="py-12 md:py-16 bg-[#F9F5EE]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <SectionLabel><EditableText contentKey="heading.gallery.002" fallback={"RECUERDOS COMPARTIDOS"} /></SectionLabel>
-            <SectionHeading><EditableText contentKey="site.gallery.003" fallback={"Nuestros encuentros"} /></SectionHeading>
-            <p className="text-[#755E51]"><EditableText contentKey="site.gallery.004" fallback={"Elige un año y un mes. Las fechas marcadas tienen fotos de nuestros encuentros."} /></p>
+            <SectionLabel>RECUERDOS COMPARTIDOS</SectionLabel>
+            <SectionHeading>Nuestros encuentros</SectionHeading>
+            <p className="text-[#755E51]">Elige un año y un mes. Las fechas marcadas tienen fotos de nuestros encuentros.</p>
           </div>
           <section className="mb-10" aria-label="Álbumes sin fecha registrada">
             <h2 className="mb-2 text-2xl font-bold text-[#5C4033]" style={serif}><EditableText contentKey="site.gallery.005" fallback={"Fotografías sin fecha"} /></h2>
