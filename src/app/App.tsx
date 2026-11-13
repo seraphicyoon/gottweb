@@ -23,7 +23,7 @@ import getsWordmark from '@/imports/gets-wordmark.png'
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, type GalleryComment } from "./supabase";
-import { EditableText, EditableList, GetsTextEditor } from "./GetsTextEditor";
+import { EditableText, EditableList, GetsTextEditor, EditableReflection } from "./GetsTextEditor";
 import { Classroom, StudentManager } from './Classroom';
 import { Attendance } from './Attendance';
 import {
@@ -611,19 +611,7 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
         <div className="pointer-events-none absolute -bottom-36 -left-32 h-80 w-80 rounded-full border border-[#D6B783]/40" aria-hidden="true" />
         <div className="relative mx-auto max-w-5xl px-6 sm:px-10">
           <div className="mx-auto max-w-3xl rounded-[2rem] border border-[#E5D7C6] bg-white/80 px-7 py-12 text-center shadow-[0_20px_65px_-45px_rgba(92,45,14,0.4)] sm:px-14 md:py-16">
-            <div className="mx-auto mb-7 flex items-center justify-center gap-4">
-              <span className="h-px w-12 bg-[#C69B52]" />
-              <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#986125]"><EditableText contentKey="home.reflection.label" fallback="Reflexión teresiana" /></span>
-              <span className="h-px w-12 bg-[#C69B52]" />
-            </div>
-            <div className="mb-1 text-6xl leading-none text-[#C69B52]" style={serif} aria-hidden="true">“</div>
-            <blockquote className="mx-auto max-w-2xl text-[1.7rem] leading-[1.4] text-[#583C2E] sm:text-4xl md:text-[2.7rem]" style={serif}>
-              <EditableText contentKey="home.reflection.intro" fallback="La libertad se parece al vuelo: requiere " /><em className="font-medium text-[#944B1D]"><EditableText contentKey="home.reflection.emphasis" fallback="confianza, desapego, mirada alta y ligereza de alma." /></em>
-            </blockquote>
-            <div className="mx-auto mt-9 h-px w-20 bg-[#C69B52]" aria-hidden="true" />
-            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#8A674D] sm:text-sm">
-              <EditableText contentKey="home.reflection.source" fallback="Oraciones teresianas · Espiritualidad teresiana" />
-            </p>
+            <EditableReflection />
           </div>
         </div>
       </section>
