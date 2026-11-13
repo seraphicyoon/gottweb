@@ -221,3 +221,70 @@ export function GetsTextEditor() {
     </div>
   </main>;
 }
+
+const REFLECTION_FIELDS = [
+  { key: 'home.reflection.label', label: 'Encabezado', fallback: 'Reflexión teresiana' },
+  { key: 'home.reflection.intro', label: 'Primera parte de la frase', fallback: 'La libertad se parece al vuelo: requiere ' },
+  { key: 'home.reflection.emphasis', label: 'Parte en cursiva y color café', fallback: 'confianza, desapego, mirada alta y ligereza de alma.' },
+  { key: 'home.reflection.source', label: 'Texto inferior', fallback: 'Oraciones teresianas · Espiritualidad teresiana' },
+] as const;
+export function EditableReflection() {
+  const authorized = useGetsAdmin();
+  const [values, setValues] = useState<string[]>(REFLECTION_FIELDS.map(x => x.fallback));
+  const [draft, setDraft] = useState<string[]>(REFLECTION_FIELDS.map(x => x.fallback));
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    let active = true;
+    void Promise.all(REFLECTION_FIELDS.map(async (field) => {
+      const { data } = await getsEditorDb.from('gets_content').select('body').eq('key', field.key).maybeSingle();
+      if (!data?.body) return field.fallback;
+      try { const obj = JSON.parse(data.body); if (typeof obj?.text === 'string') return obj.text; } catch { /* legacy plain text */ }
+      return data.body;
+    })).then(result => { if (active) { setValues(result); setDraft(result); } });
+    return () => { active = false; };
+  }, []);
+  async function save() {
+    setSaving(true); setError('');
+    const { data: { user } } = await getsEditorDb.auth.getUser();
+    if (!user) { setError('Vuelve a iniciar sesión.'); setSaving(false); return; }
+    const rows = REFLECTION_FIELDS.map((field, index) => ({
+      key: field.key, body: JSON.stringify({ text: draft[index], size: null }),
+      updated_at: new Date().toISOString(), updated_by: user.id,
+    }));
+    const { error: err } = await getsEditorDb.from('gets_content').upsert(rows, { onConflict: 'key' });
+    setSaving(false);
+    if (err) { setError('No se pudieron guardar los cambios.'); return; }
+    setValues([...draft]); setEditing(false);
+  }
+  return <>
+    <div className="mx-auto mb-7 flex items-center justify-center gap-4">
+      <span className="h-px w-12 bg-[#C69B52]" />
+      <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#986125]">{values[0]}</span>
+      <span className="h-px w-12 bg-[#C69B52]" />
+    </div>
+    <div className="mb-1 text-6xl leading-none text-[#C69B52]" style={{ fontFamily: 'Georgia, serif' }} aria-hidden="true">“</div>
+    <blockquote className="mx-auto max-w-2xl text-[1.7rem] leading-[1.4] text-[#583C2E] sm:text-4xl md:text-[2.7rem]" style={{ fontFamily: 'Georgia, serif' }}>
+      {values[1]}<em className="font-medium text-[#944B1D]">{values[2]}</em>
+    </blockquote>
+    <div className="mx-auto mt-9 h-px w-20 bg-[#C69B52]" aria-hidden="true" />
+    <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#8A674D] sm:text-sm">{values[3]}</p>
+    {authorized && <button type="button" onClick={() => { setDraft([...values]); setEditing(true); }} className="mt-5 rounded-lg border border-[#C5A37E] bg-[#FFF8ED] px-5 py-2 font-semibold text-[#8B4513]">✎ Editar reflexión completa</button>}
+    {authorized && editing && <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4 text-left font-sans" role="dialog" aria-modal="true" aria-label="Editar reflexión completa">
+      <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl md:p-8">
+        <h2 className="mb-2 text-2xl font-bold text-[#5C4033]">Editar reflexión completa</h2>
+        <p className="mb-5 text-sm text-[#755E51]">Cambia lo que necesites. La parte en cursiva conservará su estilo automáticamente.</p>
+        {REFLECTION_FIELDS.map((field, index) => <label key={field.key} className="mb-4 block text-base font-semibold text-[#5C4033]">
+          {field.label}
+          <textarea rows={index === 1 || index === 2 ? 3 : 2} className="mt-2 block w-full rounded-xl border border-[#E7D9C8] p-3 text-lg font-normal leading-relaxed" value={draft[index]} onChange={e => setDraft(v => v.map((x, i) => i === index ? e.target.value : x))} />
+        </label>)}
+        {error && <p role="alert" className="mb-3 text-red-700">{error}</p>}
+        <div className="flex flex-wrap gap-3">
+          <button type="button" disabled={saving} onClick={() => void save()} className="rounded-xl bg-[#8B4513] px-6 py-3 font-semibold text-white">{saving ? 'Guardando…' : 'Guardar cambios'}</button>
+          <button type="button" onClick={() => setEditing(false)} className="rounded-xl border px-6 py-3 text-[#5C4033]">Cancelar</button>
+        </div>
+      </div>
+    </div>}
+  </>;
+}
