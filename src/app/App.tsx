@@ -613,16 +613,16 @@ function HomePage({ nav }: { nav: (p: Page) => void }) {
           <div className="mx-auto max-w-3xl rounded-[2rem] border border-[#E5D7C6] bg-white/80 px-7 py-12 text-center shadow-[0_20px_65px_-45px_rgba(92,45,14,0.4)] sm:px-14 md:py-16">
             <div className="mx-auto mb-7 flex items-center justify-center gap-4">
               <span className="h-px w-12 bg-[#C69B52]" />
-              <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#986125]">Reflexión teresiana</span>
+              <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#986125]"><EditableText contentKey="home.reflection.label" fallback="Reflexión teresiana" /></span>
               <span className="h-px w-12 bg-[#C69B52]" />
             </div>
             <div className="mb-1 text-6xl leading-none text-[#C69B52]" style={serif} aria-hidden="true">“</div>
             <blockquote className="mx-auto max-w-2xl text-[1.7rem] leading-[1.4] text-[#583C2E] sm:text-4xl md:text-[2.7rem]" style={serif}>
-              La libertad se parece al vuelo: requiere <em className="font-medium text-[#944B1D]">confianza, desapego, mirada alta y ligereza de alma.</em>
+              <EditableText contentKey="home.reflection.intro" fallback="La libertad se parece al vuelo: requiere " /><em className="font-medium text-[#944B1D]"><EditableText contentKey="home.reflection.emphasis" fallback="confianza, desapego, mirada alta y ligereza de alma." /></em>
             </blockquote>
             <div className="mx-auto mt-9 h-px w-20 bg-[#C69B52]" aria-hidden="true" />
             <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-[#8A674D] sm:text-sm">
-              Oraciones teresianas · Espiritualidad teresiana
+              <EditableText contentKey="home.reflection.source" fallback="Oraciones teresianas · Espiritualidad teresiana" />
             </p>
           </div>
         </div>
