@@ -2,6 +2,35 @@ import { useEffect, useRef, useState } from 'react';
 import { getsEditorDb, EDITABLE_CONTENT } from './getsEditorDb';
 
 const SIZE_OPTIONS = [14, 16, 18, 20, 24, 28, 32, 36, 42];
+const TEXT_COLORS = [
+  { name: 'Café', hex: '#5C4033' },
+  { name: 'Café oscuro', hex: '#3E2723' },
+  { name: 'Dorado', hex: '#B8860B' },
+  { name: 'Negro', hex: '#222222' },
+  { name: 'Gris', hex: '#64748B' },
+  { name: 'Azul', hex: '#1D4ED8' },
+  { name: 'Verde', hex: '#166534' },
+  { name: 'Rojo', hex: '#B91C1C' },
+  { name: 'Blanco', hex: '#FFFFFF' },
+];
+function validColor(color: unknown): color is string {
+  return typeof color === 'string' && /^#[0-9a-fA-F]{6}$/.test(color);
+}
+function ColorChooser({ value, onChange }: { value: string | null; onChange: (value: string | null) => void }) {
+  return <div className="my-3 rounded-xl border border-[#E7D9C8] p-3">
+    <p className="mb-2 text-sm font-semibold">Color del texto</p>
+    <div className="flex flex-wrap items-center gap-2">
+      <button type="button" onClick={() => onChange(null)} className="rounded-lg border px-3 py-2 text-sm">Original</button>
+      {TEXT_COLORS.map(color => <button key={color.hex} type="button" title={color.name} aria-label={color.name}
+        aria-pressed={value === color.hex} onClick={() => onChange(color.hex)}
+        className={`h-9 w-9 rounded-full border-2 ${value === color.hex ? 'ring-2 ring-offset-2 ring-[#8B4513]' : ''}`}
+        style={{ backgroundColor: color.hex }} />)}
+      <label className="flex items-center gap-2 text-sm">Otro color <input type="color" aria-label="Elegir otro color" value={value ?? '#5C4033'} onChange={e => onChange(e.target.value)} className="h-9 w-12 cursor-pointer" /></label>
+    </div>
+    <p className="mt-2 text-xs text-[#755E51]">Original conserva el color del diseño.</p>
+  </div>;
+}
+
 function renderFormatted(value: string) {
   const parts = value.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => part.startsWith('**') && part.endsWith('**')
@@ -29,6 +58,8 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
   const [draft, setDraft] = useState(fallback);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [fontSize, setFontSize] = useState<number | null>(null);
+  const [fontColor, setFontColor] = useState<string | null>(null);
+  const [draftColor, setDraftColor] = useState<string | null>(null);
   const [draftSize, setDraftSize] = useState<number | null>(null);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -43,6 +74,7 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
           if (parsed && typeof parsed.text === 'string') {
             setValue(parsed.text); setDraft(parsed.text);
             if (SIZE_OPTIONS.includes(parsed.size)) setFontSize(parsed.size);
+            if (validColor(parsed.color)) setFontColor(parsed.color);
             return;
           }
         } catch { /* legacy plain text */ }
@@ -54,18 +86,18 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
     setSaving(true); setError('');
     const { data: { user } } = await getsEditorDb.auth.getUser();
     if (!user) { setError('Inicia sesión de nuevo.'); setSaving(false); return; }
-    const body = JSON.stringify({ text: draft, size: draftSize });
+    const body = JSON.stringify({ text: draft, size: draftSize, color: draftColor });
     const { error: saveError } = await getsEditorDb.from('gets_content').upsert({
       key: contentKey, body, updated_at: new Date().toISOString(), updated_by: user.id,
     }, { onConflict: 'key' });
     setSaving(false);
     if (saveError) { setError('No se pudo guardar.'); return; }
-    setValue(draft); setFontSize(draftSize); setEditing(false);
+    setValue(draft); setFontSize(draftSize); setFontColor(draftColor); setEditing(false);
   }
   return <span className="relative inline max-w-full align-baseline">
     {!editing ? <>
-      <span style={fontSize ? { fontSize: fontSize + 'px', whiteSpace: 'pre-line' } : { whiteSpace: 'pre-line' }}>{renderFormatted(value)}</span>
-      {authorized && <button type="button" aria-label="Editar texto" onClick={() => { setDraft(value); setDraftSize(fontSize); setEditing(true); }}
+      <span style={{ ...(fontSize ? { fontSize: fontSize + 'px' } : {}), ...(fontColor ? { color: fontColor } : {}), whiteSpace: 'pre-line' }}>{renderFormatted(value)}</span>
+      {authorized && <button type="button" aria-label="Editar texto" onClick={() => { setDraft(value); setDraftSize(fontSize); setDraftColor(fontColor); setEditing(true); }}
         className="ml-2 inline-flex align-middle rounded-md border border-[#8B4513]/30 bg-[#FFF8ED] px-1.5 py-0.5 text-xs font-sans not-italic font-semibold text-[#8B4513] hover:bg-[#F5E9DA]">✎ Editar</button>}
     </> : <span className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4 text-left not-italic font-sans text-base font-normal text-[#5C4033]" role="dialog" aria-modal="true" aria-label="Editar texto"><span className="block w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-5 md:p-8 shadow-2xl">
       <div className="flex flex-wrap gap-2 mb-2">
@@ -79,6 +111,7 @@ export function EditableText({ contentKey, fallback }: { contentKey: string; fal
           {SIZE_OPTIONS.map(size => <option key={size} value={size}>{size} px</option>)}
         </select></label>
       </div>
+      <ColorChooser value={draftColor} onChange={setDraftColor} />
       <textarea ref={textAreaRef} aria-label="Editar texto" value={draft} onChange={e => setDraft(e.target.value)} rows={Math.max(3, Math.min(10, draft.split('\n').length + Math.ceil(draft.length / 65)))} className="block w-full min-h-40 rounded-xl border border-[#E7D9C8] p-4 text-lg leading-relaxed text-[#5C4033]" />
       <p className="text-xs text-[#755E51] my-2">Selecciona palabras y pulsa Negrita. El tamaño se aplica a este bloque.</p>
       <span className="flex flex-wrap gap-2 mt-2">
